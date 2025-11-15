@@ -1,0 +1,662 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "E:\\MabeetApi\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A8CB9AAF-F7B3-4830-ABDD-9BB645FC93C6}|MabeetApi\\MabeetApi.csproj|e:\\mabeetapi\\mabeetapi\\services\\bookingservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A8CB9AAF-F7B3-4830-ABDD-9BB645FC93C6}|MabeetApi\\MabeetApi.csproj|solutionrelative:mabeetapi\\services\\bookingservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A8CB9AAF-F7B3-4830-ABDD-9BB645FC93C6}|MabeetApi\\MabeetApi.csproj|e:\\mabeetapi\\mabeetapi\\dtos\\updatebookingstatusdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A8CB9AAF-F7B3-4830-ABDD-9BB645FC93C6}|MabeetApi\\MabeetApi.csproj|solutionrelative:mabeetapi\\dtos\\updatebookingstatusdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A8CB9AAF-F7B3-4830-ABDD-9BB645FC93C6}|MabeetApi\\MabeetApi.csproj|e:\\mabeetapi\\mabeetapi\\dtos\\createbookingdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A8CB9AAF-F7B3-4830-ABDD-9BB645FC93C6}|MabeetApi\\MabeetApi.csproj|solutionrelative:mabeetapi\\dtos\\createbookingdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A8CB9AAF-F7B3-4830-ABDD-9BB645FC93C6}|MabeetApi\\MabeetApi.csproj|e:\\mabeetapi\\mabeetapi\\dtos\\bookingresponsedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A8CB9AAF-F7B3-4830-ABDD-9BB645FC93C6}|MabeetApi\\MabeetApi.csproj|solutionrelative:mabeetapi\\dtos\\bookingresponsedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A8CB9AAF-F7B3-4830-ABDD-9BB645FC93C6}|MabeetApi\\MabeetApi.csproj|e:\\mabeetapi\\mabeetapi\\dtos\\availabilitycheckdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A8CB9AAF-F7B3-4830-ABDD-9BB645FC93C6}|MabeetApi\\MabeetApi.csproj|solutionrelative:mabeetapi\\dtos\\availabilitycheckdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A8CB9AAF-F7B3-4830-ABDD-9BB645FC93C6}|MabeetApi\\MabeetApi.csproj|e:\\mabeetapi\\mabeetapi\\dtos\\accommodationavailabilitydto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A8CB9AAF-F7B3-4830-ABDD-9BB645FC93C6}|MabeetApi\\MabeetApi.csproj|solutionrelative:mabeetapi\\dtos\\accommodationavailabilitydto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A8CB9AAF-F7B3-4830-ABDD-9BB645FC93C6}|MabeetApi\\MabeetApi.csproj|e:\\mabeetapi\\mabeetapi\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A8CB9AAF-F7B3-4830-ABDD-9BB645FC93C6}|MabeetApi\\MabeetApi.csproj|solutionrelative:mabeetapi\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A8CB9AAF-F7B3-4830-ABDD-9BB645FC93C6}|MabeetApi\\MabeetApi.csproj|e:\\mabeetapi\\mabeetapi\\controllers\\bookingscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A8CB9AAF-F7B3-4830-ABDD-9BB645FC93C6}|MabeetApi\\MabeetApi.csproj|solutionrelative:mabeetapi\\controllers\\bookingscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A8CB9AAF-F7B3-4830-ABDD-9BB645FC93C6}|MabeetApi\\MabeetApi.csproj|e:\\mabeetapi\\mabeetapi\\controllers\\availabilitycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A8CB9AAF-F7B3-4830-ABDD-9BB645FC93C6}|MabeetApi\\MabeetApi.csproj|solutionrelative:mabeetapi\\controllers\\availabilitycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A8CB9AAF-F7B3-4830-ABDD-9BB645FC93C6}|MabeetApi\\MabeetApi.csproj|e:\\mabeetapi\\mabeetapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A8CB9AAF-F7B3-4830-ABDD-9BB645FC93C6}|MabeetApi\\MabeetApi.csproj|solutionrelative:mabeetapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A8CB9AAF-F7B3-4830-ABDD-9BB645FC93C6}|MabeetApi\\MabeetApi.csproj|e:\\mabeetapi\\mabeetapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{A8CB9AAF-F7B3-4830-ABDD-9BB645FC93C6}|MabeetApi\\MabeetApi.csproj|solutionrelative:mabeetapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A8CB9AAF-F7B3-4830-ABDD-9BB645FC93C6}|MabeetApi\\MabeetApi.csproj|e:\\mabeetapi\\mabeetapi\\mabeetapi.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}",
+      "RelativeMoniker": "D:0:0:{A8CB9AAF-F7B3-4830-ABDD-9BB645FC93C6}|MabeetApi\\MabeetApi.csproj|solutionrelative:mabeetapi\\mabeetapi.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A8CB9AAF-F7B3-4830-ABDD-9BB645FC93C6}|MabeetApi\\MabeetApi.csproj|e:\\mabeetapi\\mabeetapi\\seeding\\dataseeder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A8CB9AAF-F7B3-4830-ABDD-9BB645FC93C6}|MabeetApi\\MabeetApi.csproj|solutionrelative:mabeetapi\\seeding\\dataseeder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A8CB9AAF-F7B3-4830-ABDD-9BB645FC93C6}|MabeetApi\\MabeetApi.csproj|e:\\mabeetapi\\mabeetapi\\migrations\\20251102091421_createtables.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A8CB9AAF-F7B3-4830-ABDD-9BB645FC93C6}|MabeetApi\\MabeetApi.csproj|solutionrelative:mabeetapi\\migrations\\20251102091421_createtables.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A8CB9AAF-F7B3-4830-ABDD-9BB645FC93C6}|MabeetApi\\MabeetApi.csproj|e:\\mabeetapi\\mabeetapi\\migrations\\appdbcontextmodelsnapshot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A8CB9AAF-F7B3-4830-ABDD-9BB645FC93C6}|MabeetApi\\MabeetApi.csproj|solutionrelative:mabeetapi\\migrations\\appdbcontextmodelsnapshot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A8CB9AAF-F7B3-4830-ABDD-9BB645FC93C6}|MabeetApi\\MabeetApi.csproj|e:\\mabeetapi\\mabeetapi\\services\\ibookingservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A8CB9AAF-F7B3-4830-ABDD-9BB645FC93C6}|MabeetApi\\MabeetApi.csproj|solutionrelative:mabeetapi\\services\\ibookingservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A8CB9AAF-F7B3-4830-ABDD-9BB645FC93C6}|MabeetApi\\MabeetApi.csproj|e:\\mabeetapi\\mabeetapi\\entities\\booking.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A8CB9AAF-F7B3-4830-ABDD-9BB645FC93C6}|MabeetApi\\MabeetApi.csproj|solutionrelative:mabeetapi\\entities\\booking.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A8CB9AAF-F7B3-4830-ABDD-9BB645FC93C6}|MabeetApi\\MabeetApi.csproj|e:\\mabeetapi\\mabeetapi\\entities\\localloding.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A8CB9AAF-F7B3-4830-ABDD-9BB645FC93C6}|MabeetApi\\MabeetApi.csproj|solutionrelative:mabeetapi\\entities\\localloding.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A8CB9AAF-F7B3-4830-ABDD-9BB645FC93C6}|MabeetApi\\MabeetApi.csproj|e:\\mabeetapi\\mabeetapi\\entities\\studentroom.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A8CB9AAF-F7B3-4830-ABDD-9BB645FC93C6}|MabeetApi\\MabeetApi.csproj|solutionrelative:mabeetapi\\entities\\studentroom.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A8CB9AAF-F7B3-4830-ABDD-9BB645FC93C6}|MabeetApi\\MabeetApi.csproj|e:\\mabeetapi\\mabeetapi\\entities\\studenthouse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A8CB9AAF-F7B3-4830-ABDD-9BB645FC93C6}|MabeetApi\\MabeetApi.csproj|solutionrelative:mabeetapi\\entities\\studenthouse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A8CB9AAF-F7B3-4830-ABDD-9BB645FC93C6}|MabeetApi\\MabeetApi.csproj|e:\\mabeetapi\\mabeetapi\\entities\\review.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A8CB9AAF-F7B3-4830-ABDD-9BB645FC93C6}|MabeetApi\\MabeetApi.csproj|solutionrelative:mabeetapi\\entities\\review.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A8CB9AAF-F7B3-4830-ABDD-9BB645FC93C6}|MabeetApi\\MabeetApi.csproj|e:\\mabeetapi\\mabeetapi\\entities\\payment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A8CB9AAF-F7B3-4830-ABDD-9BB645FC93C6}|MabeetApi\\MabeetApi.csproj|solutionrelative:mabeetapi\\entities\\payment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A8CB9AAF-F7B3-4830-ABDD-9BB645FC93C6}|MabeetApi\\MabeetApi.csproj|e:\\mabeetapi\\mabeetapi\\entities\\location.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A8CB9AAF-F7B3-4830-ABDD-9BB645FC93C6}|MabeetApi\\MabeetApi.csproj|solutionrelative:mabeetapi\\entities\\location.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A8CB9AAF-F7B3-4830-ABDD-9BB645FC93C6}|MabeetApi\\MabeetApi.csproj|e:\\mabeetapi\\mabeetapi\\entities\\image.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A8CB9AAF-F7B3-4830-ABDD-9BB645FC93C6}|MabeetApi\\MabeetApi.csproj|solutionrelative:mabeetapi\\entities\\image.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A8CB9AAF-F7B3-4830-ABDD-9BB645FC93C6}|MabeetApi\\MabeetApi.csproj|e:\\mabeetapi\\mabeetapi\\entities\\hotelroom.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A8CB9AAF-F7B3-4830-ABDD-9BB645FC93C6}|MabeetApi\\MabeetApi.csproj|solutionrelative:mabeetapi\\entities\\hotelroom.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A8CB9AAF-F7B3-4830-ABDD-9BB645FC93C6}|MabeetApi\\MabeetApi.csproj|e:\\mabeetapi\\mabeetapi\\entities\\hotel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A8CB9AAF-F7B3-4830-ABDD-9BB645FC93C6}|MabeetApi\\MabeetApi.csproj|solutionrelative:mabeetapi\\entities\\hotel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A8CB9AAF-F7B3-4830-ABDD-9BB645FC93C6}|MabeetApi\\MabeetApi.csproj|e:\\mabeetapi\\mabeetapi\\entities\\governorate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A8CB9AAF-F7B3-4830-ABDD-9BB645FC93C6}|MabeetApi\\MabeetApi.csproj|solutionrelative:mabeetapi\\entities\\governorate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A8CB9AAF-F7B3-4830-ABDD-9BB645FC93C6}|MabeetApi\\MabeetApi.csproj|e:\\mabeetapi\\mabeetapi\\entities\\favorite.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A8CB9AAF-F7B3-4830-ABDD-9BB645FC93C6}|MabeetApi\\MabeetApi.csproj|solutionrelative:mabeetapi\\entities\\favorite.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A8CB9AAF-F7B3-4830-ABDD-9BB645FC93C6}|MabeetApi\\MabeetApi.csproj|e:\\mabeetapi\\mabeetapi\\entities\\city.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A8CB9AAF-F7B3-4830-ABDD-9BB645FC93C6}|MabeetApi\\MabeetApi.csproj|solutionrelative:mabeetapi\\entities\\city.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A8CB9AAF-F7B3-4830-ABDD-9BB645FC93C6}|MabeetApi\\MabeetApi.csproj|e:\\mabeetapi\\mabeetapi\\entities\\bed.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A8CB9AAF-F7B3-4830-ABDD-9BB645FC93C6}|MabeetApi\\MabeetApi.csproj|solutionrelative:mabeetapi\\entities\\bed.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A8CB9AAF-F7B3-4830-ABDD-9BB645FC93C6}|MabeetApi\\MabeetApi.csproj|e:\\mabeetapi\\mabeetapi\\entities\\appuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A8CB9AAF-F7B3-4830-ABDD-9BB645FC93C6}|MabeetApi\\MabeetApi.csproj|solutionrelative:mabeetapi\\entities\\appuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A8CB9AAF-F7B3-4830-ABDD-9BB645FC93C6}|MabeetApi\\MabeetApi.csproj|e:\\mabeetapi\\mabeetapi\\entities\\amenity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A8CB9AAF-F7B3-4830-ABDD-9BB645FC93C6}|MabeetApi\\MabeetApi.csproj|solutionrelative:mabeetapi\\entities\\amenity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A8CB9AAF-F7B3-4830-ABDD-9BB645FC93C6}|MabeetApi\\MabeetApi.csproj|e:\\mabeetapi\\mabeetapi\\entities\\accommodation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A8CB9AAF-F7B3-4830-ABDD-9BB645FC93C6}|MabeetApi\\MabeetApi.csproj|solutionrelative:mabeetapi\\entities\\accommodation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A8CB9AAF-F7B3-4830-ABDD-9BB645FC93C6}|MabeetApi\\MabeetApi.csproj|e:\\mabeetapi\\mabeetapi\\controllers\\weatherforecastcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A8CB9AAF-F7B3-4830-ABDD-9BB645FC93C6}|MabeetApi\\MabeetApi.csproj|solutionrelative:mabeetapi\\controllers\\weatherforecastcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A8CB9AAF-F7B3-4830-ABDD-9BB645FC93C6}|MabeetApi\\MabeetApi.csproj|e:\\mabeetapi\\mabeetapi\\weatherforecast.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A8CB9AAF-F7B3-4830-ABDD-9BB645FC93C6}|MabeetApi\\MabeetApi.csproj|solutionrelative:mabeetapi\\weatherforecast.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A8CB9AAF-F7B3-4830-ABDD-9BB645FC93C6}|MabeetApi\\MabeetApi.csproj|e:\\mabeetapi\\mabeetapi\\mabeetapi.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{A8CB9AAF-F7B3-4830-ABDD-9BB645FC93C6}|MabeetApi\\MabeetApi.csproj|solutionrelative:mabeetapi\\mabeetapi.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A8CB9AAF-F7B3-4830-ABDD-9BB645FC93C6}|MabeetApi\\MabeetApi.csproj|e:\\mabeetapi\\mabeetapi\\migrations\\20251109083910_fixdecimal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A8CB9AAF-F7B3-4830-ABDD-9BB645FC93C6}|MabeetApi\\MabeetApi.csproj|solutionrelative:mabeetapi\\migrations\\20251109083910_fixdecimal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A8CB9AAF-F7B3-4830-ABDD-9BB645FC93C6}|MabeetApi\\MabeetApi.csproj|e:\\mabeetapi\\mabeetapi\\migrations\\20251109074619_fixaccbooking.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A8CB9AAF-F7B3-4830-ABDD-9BB645FC93C6}|MabeetApi\\MabeetApi.csproj|solutionrelative:mabeetapi\\migrations\\20251109074619_fixaccbooking.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A8CB9AAF-F7B3-4830-ABDD-9BB645FC93C6}|MabeetApi\\MabeetApi.csproj|e:\\mabeetapi\\mabeetapi\\migrations\\20251110090921_fixmigrate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A8CB9AAF-F7B3-4830-ABDD-9BB645FC93C6}|MabeetApi\\MabeetApi.csproj|solutionrelative:mabeetapi\\migrations\\20251110090921_fixmigrate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 5,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "AccommodationAvailabilityDto.cs",
+              "DocumentMoniker": "E:\\MabeetApi\\MabeetApi\\DTOs\\AccommodationAvailabilityDto.cs",
+              "RelativeDocumentMoniker": "MabeetApi\\DTOs\\AccommodationAvailabilityDto.cs",
+              "ToolTip": "E:\\MabeetApi\\MabeetApi\\DTOs\\AccommodationAvailabilityDto.cs",
+              "RelativeToolTip": "MabeetApi\\DTOs\\AccommodationAvailabilityDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-05T14:03:28.196Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "AvailabilityCheckDto.cs",
+              "DocumentMoniker": "E:\\MabeetApi\\MabeetApi\\DTOs\\AvailabilityCheckDto.cs",
+              "RelativeDocumentMoniker": "MabeetApi\\DTOs\\AvailabilityCheckDto.cs",
+              "ToolTip": "E:\\MabeetApi\\MabeetApi\\DTOs\\AvailabilityCheckDto.cs",
+              "RelativeToolTip": "MabeetApi\\DTOs\\AvailabilityCheckDto.cs",
+              "ViewState": "AgIAAA0AAAAAAAAAAAA5wAwAAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-04T15:47:51.716Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "BookingResponseDto.cs",
+              "DocumentMoniker": "E:\\MabeetApi\\MabeetApi\\DTOs\\BookingResponseDto.cs",
+              "RelativeDocumentMoniker": "MabeetApi\\DTOs\\BookingResponseDto.cs",
+              "ToolTip": "E:\\MabeetApi\\MabeetApi\\DTOs\\BookingResponseDto.cs",
+              "RelativeToolTip": "MabeetApi\\DTOs\\BookingResponseDto.cs",
+              "ViewState": "AgIAAAcAAAAAAAAAAAA5wA0AAAAXAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-04T15:47:21.764Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "CreateBookingDto.cs",
+              "DocumentMoniker": "E:\\MabeetApi\\MabeetApi\\DTOs\\CreateBookingDto.cs",
+              "RelativeDocumentMoniker": "MabeetApi\\DTOs\\CreateBookingDto.cs",
+              "ToolTip": "E:\\MabeetApi\\MabeetApi\\DTOs\\CreateBookingDto.cs",
+              "RelativeToolTip": "MabeetApi\\DTOs\\CreateBookingDto.cs",
+              "ViewState": "AgIAAAcAAAAAAAAAAAA2wAcAAAAPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-04T15:47:03.267Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "UpdateBookingStatusDto.cs",
+              "DocumentMoniker": "E:\\MabeetApi\\MabeetApi\\DTOs\\UpdateBookingStatusDto.cs",
+              "RelativeDocumentMoniker": "MabeetApi\\DTOs\\UpdateBookingStatusDto.cs",
+              "ToolTip": "E:\\MabeetApi\\MabeetApi\\DTOs\\UpdateBookingStatusDto.cs",
+              "RelativeToolTip": "MabeetApi\\DTOs\\UpdateBookingStatusDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAABKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-04T15:47:36.261Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "BookingService.cs",
+              "DocumentMoniker": "E:\\MabeetApi\\MabeetApi\\Services\\BookingService.cs",
+              "RelativeDocumentMoniker": "MabeetApi\\Services\\BookingService.cs",
+              "ToolTip": "E:\\MabeetApi\\MabeetApi\\Services\\BookingService.cs",
+              "RelativeToolTip": "MabeetApi\\Services\\BookingService.cs",
+              "ViewState": "AgIAADUAAAAAAAAAAAAAwMMBAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-04T15:54:36.336Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "AppDbContext.cs",
+              "DocumentMoniker": "E:\\MabeetApi\\MabeetApi\\Data\\AppDbContext.cs",
+              "RelativeDocumentMoniker": "MabeetApi\\Data\\AppDbContext.cs",
+              "ToolTip": "E:\\MabeetApi\\MabeetApi\\Data\\AppDbContext.cs",
+              "RelativeToolTip": "MabeetApi\\Data\\AppDbContext.cs",
+              "ViewState": "AgIAAOYAAAAAAAAAAAAowO4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-02T08:52:29.124Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "BookingsController.cs",
+              "DocumentMoniker": "E:\\MabeetApi\\MabeetApi\\Controllers\\BookingsController.cs",
+              "RelativeDocumentMoniker": "MabeetApi\\Controllers\\BookingsController.cs",
+              "ToolTip": "E:\\MabeetApi\\MabeetApi\\Controllers\\BookingsController.cs",
+              "RelativeToolTip": "MabeetApi\\Controllers\\BookingsController.cs",
+              "ViewState": "AgIAAF8AAAAAAAAAAAAswC8AAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-04T16:00:07.758Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "AvailabilityController.cs",
+              "DocumentMoniker": "E:\\MabeetApi\\MabeetApi\\Controllers\\AvailabilityController.cs",
+              "RelativeDocumentMoniker": "MabeetApi\\Controllers\\AvailabilityController.cs",
+              "ToolTip": "E:\\MabeetApi\\MabeetApi\\Controllers\\AvailabilityController.cs",
+              "RelativeToolTip": "MabeetApi\\Controllers\\AvailabilityController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADkAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-04T16:00:38.486Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Program.cs",
+              "DocumentMoniker": "E:\\MabeetApi\\MabeetApi\\Program.cs",
+              "RelativeDocumentMoniker": "MabeetApi\\Program.cs",
+              "ToolTip": "E:\\MabeetApi\\MabeetApi\\Program.cs",
+              "RelativeToolTip": "MabeetApi\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-03T11:40:05.707Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "20251102091421_createTables.cs",
+              "DocumentMoniker": "E:\\MabeetApi\\MabeetApi\\Migrations\\20251102091421_createTables.cs",
+              "RelativeDocumentMoniker": "MabeetApi\\Migrations\\20251102091421_createTables.cs",
+              "ToolTip": "E:\\MabeetApi\\MabeetApi\\Migrations\\20251102091421_createTables.cs",
+              "RelativeToolTip": "MabeetApi\\Migrations\\20251102091421_createTables.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACMDAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-02T09:14:22.297Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "E:\\MabeetApi\\MabeetApi\\appsettings.json",
+              "RelativeDocumentMoniker": "MabeetApi\\appsettings.json",
+              "ToolTip": "E:\\MabeetApi\\MabeetApi\\appsettings.json",
+              "RelativeToolTip": "MabeetApi\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAA7AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-11-04T15:54:43.012Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "DataSeeder.cs",
+              "DocumentMoniker": "E:\\MabeetApi\\MabeetApi\\Seeding\\DataSeeder.cs",
+              "RelativeDocumentMoniker": "MabeetApi\\Seeding\\DataSeeder.cs",
+              "ToolTip": "E:\\MabeetApi\\MabeetApi\\Seeding\\DataSeeder.cs",
+              "RelativeToolTip": "MabeetApi\\Seeding\\DataSeeder.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAG0BAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-09T07:42:48.695Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "AppDbContextModelSnapshot.cs",
+              "DocumentMoniker": "E:\\MabeetApi\\MabeetApi\\Migrations\\AppDbContextModelSnapshot.cs",
+              "RelativeDocumentMoniker": "MabeetApi\\Migrations\\AppDbContextModelSnapshot.cs",
+              "ToolTip": "E:\\MabeetApi\\MabeetApi\\Migrations\\AppDbContextModelSnapshot.cs",
+              "RelativeToolTip": "MabeetApi\\Migrations\\AppDbContextModelSnapshot.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-11T09:43:16.636Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "MabeetApi.http",
+              "DocumentMoniker": "E:\\MabeetApi\\MabeetApi\\MabeetApi.http",
+              "RelativeDocumentMoniker": "MabeetApi\\MabeetApi.http",
+              "ToolTip": "E:\\MabeetApi\\MabeetApi\\MabeetApi.http",
+              "RelativeToolTip": "MabeetApi\\MabeetApi.http",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003502|",
+              "WhenOpened": "2025-11-11T09:44:01.468Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "StudentRoom.cs",
+              "DocumentMoniker": "E:\\MabeetApi\\MabeetApi\\Entities\\StudentRoom.cs",
+              "RelativeDocumentMoniker": "MabeetApi\\Entities\\StudentRoom.cs",
+              "ToolTip": "E:\\MabeetApi\\MabeetApi\\Entities\\StudentRoom.cs",
+              "RelativeToolTip": "MabeetApi\\Entities\\StudentRoom.cs",
+              "ViewState": "AgIAABMAAAAAAAAAAAAUwBcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-02T08:51:43.812Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "StudentHouse.cs",
+              "DocumentMoniker": "E:\\MabeetApi\\MabeetApi\\Entities\\StudentHouse.cs",
+              "RelativeDocumentMoniker": "MabeetApi\\Entities\\StudentHouse.cs",
+              "ToolTip": "E:\\MabeetApi\\MabeetApi\\Entities\\StudentHouse.cs",
+              "RelativeToolTip": "MabeetApi\\Entities\\StudentHouse.cs",
+              "ViewState": "AgIAAAQAAAAAAAAAAAA/wBIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-02T08:51:07.637Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "IBookingService.cs",
+              "DocumentMoniker": "E:\\MabeetApi\\MabeetApi\\Services\\IBookingService.cs",
+              "RelativeDocumentMoniker": "MabeetApi\\Services\\IBookingService.cs",
+              "ToolTip": "E:\\MabeetApi\\MabeetApi\\Services\\IBookingService.cs",
+              "RelativeToolTip": "MabeetApi\\Services\\IBookingService.cs",
+              "ViewState": "AgIAAAoAAAAAAAAAAAA5wA8AAABMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-04T15:54:25.055Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "Review.cs",
+              "DocumentMoniker": "E:\\MabeetApi\\MabeetApi\\Entities\\Review.cs",
+              "RelativeDocumentMoniker": "MabeetApi\\Entities\\Review.cs",
+              "ToolTip": "E:\\MabeetApi\\MabeetApi\\Entities\\Review.cs",
+              "RelativeToolTip": "MabeetApi\\Entities\\Review.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAxwBoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-02T08:50:33.148Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "LocalLoding.cs",
+              "DocumentMoniker": "E:\\MabeetApi\\MabeetApi\\Entities\\LocalLoding.cs",
+              "RelativeDocumentMoniker": "MabeetApi\\Entities\\LocalLoding.cs",
+              "ToolTip": "E:\\MabeetApi\\MabeetApi\\Entities\\LocalLoding.cs",
+              "RelativeToolTip": "MabeetApi\\Entities\\LocalLoding.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAQAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-02T08:48:07.864Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 38,
+              "Title": "20251110090921_fixMigrate.cs",
+              "DocumentMoniker": "E:\\MabeetApi\\MabeetApi\\Migrations\\20251110090921_fixMigrate.cs",
+              "RelativeDocumentMoniker": "MabeetApi\\Migrations\\20251110090921_fixMigrate.cs",
+              "ToolTip": "E:\\MabeetApi\\MabeetApi\\Migrations\\20251110090921_fixMigrate.cs",
+              "RelativeToolTip": "MabeetApi\\Migrations\\20251110090921_fixMigrate.cs",
+              "ViewState": "AgIAAA0AAAAAAAAAAAAQwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-10T09:09:21.806Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "Payment.cs",
+              "DocumentMoniker": "E:\\MabeetApi\\MabeetApi\\Entities\\Payment.cs",
+              "RelativeDocumentMoniker": "MabeetApi\\Entities\\Payment.cs",
+              "ToolTip": "E:\\MabeetApi\\MabeetApi\\Entities\\Payment.cs",
+              "RelativeToolTip": "MabeetApi\\Entities\\Payment.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAAwBkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-02T08:50:02.797Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "Booking.cs",
+              "DocumentMoniker": "E:\\MabeetApi\\MabeetApi\\Entities\\Booking.cs",
+              "RelativeDocumentMoniker": "MabeetApi\\Entities\\Booking.cs",
+              "ToolTip": "E:\\MabeetApi\\MabeetApi\\Entities\\Booking.cs",
+              "RelativeToolTip": "MabeetApi\\Entities\\Booking.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAAowCoAAAAwAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-02T08:43:36.075Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "Location.cs",
+              "DocumentMoniker": "E:\\MabeetApi\\MabeetApi\\Entities\\Location.cs",
+              "RelativeDocumentMoniker": "MabeetApi\\Entities\\Location.cs",
+              "ToolTip": "E:\\MabeetApi\\MabeetApi\\Entities\\Location.cs",
+              "RelativeToolTip": "MabeetApi\\Entities\\Location.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAwwBkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-02T08:49:29.042Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "Image.cs",
+              "DocumentMoniker": "E:\\MabeetApi\\MabeetApi\\Entities\\Image.cs",
+              "RelativeDocumentMoniker": "MabeetApi\\Entities\\Image.cs",
+              "ToolTip": "E:\\MabeetApi\\MabeetApi\\Entities\\Image.cs",
+              "RelativeToolTip": "MabeetApi\\Entities\\Image.cs",
+              "ViewState": "AgIAAA4AAAAAAAAAAAAAwBwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-02T08:47:28.977Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "HotelRoom.cs",
+              "DocumentMoniker": "E:\\MabeetApi\\MabeetApi\\Entities\\HotelRoom.cs",
+              "RelativeDocumentMoniker": "MabeetApi\\Entities\\HotelRoom.cs",
+              "ToolTip": "E:\\MabeetApi\\MabeetApi\\Entities\\HotelRoom.cs",
+              "RelativeToolTip": "MabeetApi\\Entities\\HotelRoom.cs",
+              "ViewState": "AgIAABgAAAAAAAAAAAAwwCYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-02T08:46:48.312Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "Hotel.cs",
+              "DocumentMoniker": "E:\\MabeetApi\\MabeetApi\\Entities\\Hotel.cs",
+              "RelativeDocumentMoniker": "MabeetApi\\Entities\\Hotel.cs",
+              "ToolTip": "E:\\MabeetApi\\MabeetApi\\Entities\\Hotel.cs",
+              "RelativeToolTip": "MabeetApi\\Entities\\Hotel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-02T08:46:12.242Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "Governorate.cs",
+              "DocumentMoniker": "E:\\MabeetApi\\MabeetApi\\Entities\\Governorate.cs",
+              "RelativeDocumentMoniker": "MabeetApi\\Entities\\Governorate.cs",
+              "ToolTip": "E:\\MabeetApi\\MabeetApi\\Entities\\Governorate.cs",
+              "RelativeToolTip": "MabeetApi\\Entities\\Governorate.cs",
+              "ViewState": "AgIAAAIAAAAAAAAAAAAwwBAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-02T08:45:39.321Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "Favorite.cs",
+              "DocumentMoniker": "E:\\MabeetApi\\MabeetApi\\Entities\\Favorite.cs",
+              "RelativeDocumentMoniker": "MabeetApi\\Entities\\Favorite.cs",
+              "ToolTip": "E:\\MabeetApi\\MabeetApi\\Entities\\Favorite.cs",
+              "RelativeToolTip": "MabeetApi\\Entities\\Favorite.cs",
+              "ViewState": "AgIAAAQAAAAAAAAAAAA/wBIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-02T08:44:53.861Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 28,
+              "Title": "City.cs",
+              "DocumentMoniker": "E:\\MabeetApi\\MabeetApi\\Entities\\City.cs",
+              "RelativeDocumentMoniker": "MabeetApi\\Entities\\City.cs",
+              "ToolTip": "E:\\MabeetApi\\MabeetApi\\Entities\\City.cs",
+              "RelativeToolTip": "MabeetApi\\Entities\\City.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAwwBcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-02T08:44:12.847Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 29,
+              "Title": "Bed.cs",
+              "DocumentMoniker": "E:\\MabeetApi\\MabeetApi\\Entities\\Bed.cs",
+              "RelativeDocumentMoniker": "MabeetApi\\Entities\\Bed.cs",
+              "ToolTip": "E:\\MabeetApi\\MabeetApi\\Entities\\Bed.cs",
+              "RelativeToolTip": "MabeetApi\\Entities\\Bed.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAwwBoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-02T08:42:42.624Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 30,
+              "Title": "AppUser.cs",
+              "DocumentMoniker": "E:\\MabeetApi\\MabeetApi\\Entities\\AppUser.cs",
+              "RelativeDocumentMoniker": "MabeetApi\\Entities\\AppUser.cs",
+              "ToolTip": "E:\\MabeetApi\\MabeetApi\\Entities\\AppUser.cs",
+              "RelativeToolTip": "MabeetApi\\Entities\\AppUser.cs",
+              "ViewState": "AgIAABwAAAAAAAAAAAAAwCoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-02T08:41:31.325Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 31,
+              "Title": "Amenity.cs",
+              "DocumentMoniker": "E:\\MabeetApi\\MabeetApi\\Entities\\Amenity.cs",
+              "RelativeDocumentMoniker": "MabeetApi\\Entities\\Amenity.cs",
+              "ToolTip": "E:\\MabeetApi\\MabeetApi\\Entities\\Amenity.cs",
+              "RelativeToolTip": "MabeetApi\\Entities\\Amenity.cs",
+              "ViewState": "AgIAAAIAAAAAAAAAAAAwwBAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-02T08:40:21.874Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 32,
+              "Title": "Accommodation.cs",
+              "DocumentMoniker": "E:\\MabeetApi\\MabeetApi\\Entities\\Accommodation.cs",
+              "RelativeDocumentMoniker": "MabeetApi\\Entities\\Accommodation.cs",
+              "ToolTip": "E:\\MabeetApi\\MabeetApi\\Entities\\Accommodation.cs",
+              "RelativeToolTip": "MabeetApi\\Entities\\Accommodation.cs",
+              "ViewState": "AgIAACAAAAAAAAAAAAAAAC0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-02T08:37:58.587Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 33,
+              "Title": "WeatherForecastController.cs",
+              "DocumentMoniker": "E:\\MabeetApi\\MabeetApi\\Controllers\\WeatherForecastController.cs",
+              "RelativeDocumentMoniker": "MabeetApi\\Controllers\\WeatherForecastController.cs",
+              "ToolTip": "E:\\MabeetApi\\MabeetApi\\Controllers\\WeatherForecastController.cs",
+              "RelativeToolTip": "MabeetApi\\Controllers\\WeatherForecastController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-04T17:08:09.209Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 34,
+              "Title": "WeatherForecast.cs",
+              "DocumentMoniker": "E:\\MabeetApi\\MabeetApi\\WeatherForecast.cs",
+              "RelativeDocumentMoniker": "MabeetApi\\WeatherForecast.cs",
+              "ToolTip": "E:\\MabeetApi\\MabeetApi\\WeatherForecast.cs",
+              "RelativeToolTip": "MabeetApi\\WeatherForecast.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAXAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-10T08:56:12.56Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 36,
+              "Title": "20251109083910_fixDecimal.cs",
+              "DocumentMoniker": "E:\\MabeetApi\\MabeetApi\\Migrations\\20251109083910_fixDecimal.cs",
+              "RelativeDocumentMoniker": "MabeetApi\\Migrations\\20251109083910_fixDecimal.cs",
+              "ToolTip": "E:\\MabeetApi\\MabeetApi\\Migrations\\20251109083910_fixDecimal.cs",
+              "RelativeToolTip": "MabeetApi\\Migrations\\20251109083910_fixDecimal.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-09T08:39:11.07Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 37,
+              "Title": "20251109074619_fixAccBooking.cs",
+              "DocumentMoniker": "E:\\MabeetApi\\MabeetApi\\Migrations\\20251109074619_fixAccBooking.cs",
+              "RelativeDocumentMoniker": "MabeetApi\\Migrations\\20251109074619_fixAccBooking.cs",
+              "ToolTip": "E:\\MabeetApi\\MabeetApi\\Migrations\\20251109074619_fixAccBooking.cs",
+              "RelativeToolTip": "MabeetApi\\Migrations\\20251109074619_fixAccBooking.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-09T07:46:20.172Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 35,
+              "Title": "MabeetApi.csproj",
+              "DocumentMoniker": "E:\\MabeetApi\\MabeetApi\\MabeetApi.csproj",
+              "RelativeDocumentMoniker": "MabeetApi\\MabeetApi.csproj",
+              "ToolTip": "E:\\MabeetApi\\MabeetApi\\MabeetApi.csproj",
+              "RelativeToolTip": "MabeetApi\\MabeetApi.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-11-02T08:37:03.693Z"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

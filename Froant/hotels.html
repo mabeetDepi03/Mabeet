@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الفنادق - Mabeet</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+     <link rel="stylesheet" href="./css/styles.css">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+  
+</head>
+<body>
+    <div id="navbar-placeholder"></div>
+    <div class="page-header">
+        <div class="container">
+            <h1>الفنادق</h1>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb justify-content-center">
+                    <li class="breadcrumb-item"><a href="index.html">الرئيسية</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">الفنادق</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+    <section class="section pt-0">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="filter-sidebar" data-aos="fade-left">
+                        <div class="filter-group">
+                            <h5 class="filter-group-title">المدينة</h5>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="cityCairo">
+                                <label class="form-check-label" for="cityCairo">القاهرة</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="cityAlex">
+                                <label class="form-check-label" for="cityAlex">الإسكندرية</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="cityLuxor">
+                                <label class="form-check-label" for="cityLuxor">الأقصر</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="citySharm">
+                                <label class="form-check-label" for="citySharm">شرم الشيخ</label>
+                            </div>
+                        </div>
+                        <div class="filter-group">
+                            <h5 class="filter-group-title">التصنيف</h5>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="rating5">
+                                <label class="form-check-label" for="rating5">5 نجوم</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="rating4">
+                                <label class="form-check-label" for="rating4">4 نجوم</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="rating3">
+                                <label class="form-check-label" for="rating3">3 نجوم</label>
+                            </div>
+                        </div>
+                        <div class="filter-group">
+                            <h5 class="filter-group-title">المرافق</h5>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="pool">
+                                <label class="form-check-label" for="pool">مسبح</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="spa">
+                                <label class="form-check-label" for="spa">سبا</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="wifi">
+                                <label class="form-check-label" for="wifi">واي فاي مجاني</label>
+                            </div>
+                        </div>
+                        <div class="d-grid">
+                            <button class="btn btn-auth">تصفية</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-9">
+                    <div class="row g-4" data-aos="fade-up">
+                        <div class="col-lg-4 col-md-6">
+                            <div class="property-card">
+                                <div class="property-img">
+                                    <img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=800" alt="فندق القاهرة" class="img-fluid">
+                                    <div class="property-badge">5 نجوم</div>
+                                </div>
+                                <div class="property-content">
+                                    <h3 class="property-title">فندق النيل الفاخر</h3>
+                                    <div class="property-location">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        <span>القاهرة، كورنيش النيل</span>
+                                    </div>
+                                    <div class="property-features">
+                                        <div class="feature">
+                                            <i class="fas fa-bed"></i>
+                                            <span>200 غرفة</span>
+                                        </div>
+                                        <div class="feature">
+                                            <i class="fas fa-swimming-pool"></i>
+                                            <span>مسبح</span>
+                                        </div>
+                                        <div class="feature">
+                                            <i class="fas fa-spa"></i>
+                                            <span>سبا</span>
+                                        </div>
+                                    </div>
+                                    <div class="property-price">2500 <span>ج.م / ليلة</span></div>
+                                    <a href="property-details.html" class="btn btn-book">احجز الآن</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6">
+                            <div class="property-card">
+                                <div class="property-img">
+                                    <img src="https://images.unsplash.com/photo-1540541338287-41700207dee6?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=800" alt="فندق شرم الشيخ" class="img-fluid">
+                                    <div class="property-badge">4 نجوم</div>
+                                </div>
+                                <div class="property-content">
+                                    <h3 class="property-title">منتجع البحر الأحمر</h3>
+                                    <div class="property-location">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        <span>شرم الشيخ، خليج نعمة</span>
+                                    </div>
+                                    <div class="property-features">
+                                        <div class="feature">
+                                            <i class="fas fa-bed"></i>
+                                            <span>150 غرفة</span>
+                                        </div>
+                                        <div class="feature">
+                                            <i class="fas fa-swimming-pool"></i>
+                                            <span>مسبح</span>
+                                        </div>
+                                        <div class="feature">
+                                            <i class="fas fa-glass-martini"></i>
+                                            <span>بار</span>
+                                        </div>
+                                    </div>
+                                    <div class="property-price">1800 <span>ج.م / ليلة</span></div>
+                                    <a href="property-details.html" class="btn btn-book">احجز الآن</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6">
+                            <div class="property-card">
+                                <div class="property-img">
+                                    <img src="https://media.gettyimages.com/id/2110310187/photo/luxury-tropical-pool-villa-at-dusk.jpg?s=612x612&w=0&k=20&c=r8UTpMnbLWD_DOKHAcu6dw-MJEcGg0CTqt0ICa84D84=" alt="فندق الأقصر" class="img-fluid">
+                                    <div class="property-badge">5 نجوم</div>
+                                </div>
+                                <div class="property-content">
+                                    <h3 class="property-title">فندق الأقصر التاريخي</h3>
+                                    <div class="property-location">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        <span>الأقصر، شارع الكورنيش</span>
+                                    </div>
+                                    <div class="property-features">
+                                        <div class="feature">
+                                            <i class="fas fa-bed"></i>
+                                            <span>100 غرفة</span>
+                                        </div>
+                                        <div class="feature">
+                                            <i class="fas fa-swimming-pool"></i>
+                                            <span>مسبح</span>
+                                        </div>
+                                        <div class="feature">
+                                            <i class="fas fa-utensils"></i>
+                                            <span>مطعم</span>
+                                        </div>
+                                    </div>
+                                    <div class="property-price">1950 <span>ج.م / ليلة</span></div>
+                                    <a href="property-details.html" class="btn btn-book">احجز الآن</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6">
+                            <div class="property-card">
+                                <div class="property-img">
+                                    <img src="https://media.gettyimages.com/id/903417402/photo/luxury-construction-hotel-with-swimming-pool-at-sunset.jpg?s=612x612&w=0&k=20&c=NyPC_c-wE3W_CImA4t57FpyGy6f428CYROd80jxVC4A=" alt="فندق الإسكندرية" class="img-fluid">
+                                    <div class="property-badge">3 نجوم</div>
+                                </div>
+                                <div class="property-content">
+                                    <h3 class="property-title">فندق المنتزه</h3>
+                                    <div class="property-location">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        <span>الإسكندرية، المنتزه</span>
+                                    </div>
+                                    <div class="property-features">
+                                        <div class="feature">
+                                            <i class="fas fa-bed"></i>
+                                            <span>80 غرفة</span>
+                                        </div>
+                                        <div class="feature">
+                                            <i class="fas fa-wifi"></i>
+                                            <span>واي فاي مجاني</span>
+                                        </div>
+                                        <div class="feature">
+                                            <i class="fas fa-parking"></i>
+                                            <span>موقف سيارات</span>
+                                        </div>
+                                    </div>
+                                    <div class="property-price">1100 <span>ج.م / ليلة</span></div>
+                                    <a href="property-details.html" class="btn btn-book">احجز الآن</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6">
+                            <div class="property-card">
+                                <div class="property-img">
+                                    <img src="https://media.gettyimages.com/id/168301497/photo/luxurious-hawaiian-5-star-resort.jpg?s=612x612&w=0&k=20&c=-xiwadofhhsgARGhxNPB6L8MbnQ1HRVhbyOKdQZyRtc=" alt="فندق الغردقة" class="img-fluid">
+                                    <div class="property-badge">4 نجوم</div>
+                                </div>
+                                <div class="property-content">
+                                    <h3 class="property-title">منتجع الغردقة الشاطئي</h3>
+                                    <div class="property-location">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        <span>الغردقة، البحر الأحمر</span>
+                                    </div>
+                                    <div class="property-features">
+                                        <div class="feature">
+                                            <i class="fas fa-bed"></i>
+                                            <span>180 غرفة</span>
+                                        </div>
+                                        <div class="feature">
+                                            <i class="fas fa-swimming-pool"></i>
+                                            <span>مسبح</span>
+                                        </div>
+                                        <div class="feature">
+                                            <i class="fas fa-utensils"></i>
+                                            <span>مطعم</span>
+                                        </div>
+                                    </div>
+                                    <div class="property-price">2200 <span>ج.م / ليلة</span></div>
+                                    <a href="property-details.html" class="btn btn-book">احجز الآن</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6">
+                            <div class="property-card">
+                                <div class="property-img">
+                                    <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=800" alt="فندق أسوان" class="img-fluid">
+                                    <div class="property-badge">4 نجوم</div>
+                                </div>
+                                <div class="property-content">
+                                    <h3 class="property-title">فندق أسوان البانورامي</h3>
+                                    <div class="property-location">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        <span>أسوان، النيل</span>
+                                    </div>
+                                    <div class="property-features">
+                                        <div class="feature">
+                                            <i class="fas fa-bed"></i>
+                                            <span>90 غرفة</span>
+                                        </div>
+                                        <div class="feature">
+                                            <i class="fas fa-swimming-pool"></i>
+                                            <span>مسبح</span>
+                                        </div>
+                                        <div class="feature">
+                                            <i class="fas fa-wifi"></i>
+                                            <span>واي فاي مجاني</span>
+                                        </div>
+                                    </div>
+                                    <div class="property-price">1750 <span>ج.م / ليلة</span></div>
+                                    <a href="property-details.html" class="btn btn-book">احجز الآن</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination mt-5">
+                            <li class="page-item"><a class="page-link" href="#">السابق</a></li>
+                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link" href="#">التالي</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+<div id="footer-placeholder"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <script src="./js/auth.js"></script>
+    <script src="./js/components.js"></script>
+    <script src="./js/shared.js"></script>
+
+<script>
+  
+    AOS.init();
+</script>
+</body>
+</html>

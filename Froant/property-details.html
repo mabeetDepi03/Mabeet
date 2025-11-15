@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تفاصيل العقار - Mabeet</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+     <link rel="stylesheet" href="./css/styles.css">
+</head>
+<body>
+    
+    <div id="navbar-placeholder"></div>
+
+    <div class="page-header">
+        <div class="container">
+            <h1>تفاصيل العقار</h1>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb justify-content-center">
+                    <li class="breadcrumb-item"><a href="index.html">الرئيسية</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">تفاصيل العقار</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <section class="section">
+        <div class="container">
+            <div class="row g-5">
+                <div class="col-lg-8">
+                    <div class="property-gallery">
+                        <img src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/706975826.jpg?hp=1&k=3ab27903c6b9db9a434556891216b695316ef4e3d56075f2c2ffef350dd1c4d2&o=" class="img-fluid rounded-lg mb-4" alt="Property Image">
+                        <div class="row g-3">
+                            <div class="col-4">
+                                <img src="https://w0.peakpx.com/wallpaper/205/649/HD-wallpaper-hotel-room-interior-design-luxury-hotel-apartments-modern-interior-design-classic-style-luxury-chandelier.jpg" class="img-fluid rounded-lg" alt="Property Image">
+                            </div>
+                            <div class="col-4">
+                                <img src="https://w0.peakpx.com/wallpaper/390/533/HD-wallpaper-luxurious-interior-bedroom-classic-design-luxury-hotel-room.jpg" class="img-fluid rounded-lg" alt="Property Image">
+                            </div>
+                            <div class="col-4">
+                                <img src="https://glamorous-design.org/wp-content/uploads/2024/11/piclumen-1732274949122.png" class="img-fluid rounded-lg" alt="Property Image">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="property-details mt-5">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h2>فندق فايف ستارز</h2>
+                            <button class="btn btn-favorite-add"><i class="fas fa-heart"></i></button>
+                        </div>
+                        <div class="property-location"><i class="fas fa-map-marker-alt"></i> القاهرة، مصر</div>
+                        <div class="property-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i> <span>(4.5)</span>
+                        </div>
+                        
+                        <h4 class="mt-4">الوصف</h4>
+                        <p>يقع فندق فايف ستارز في قلب القاهرة، ويتميز بتصميمه الفاخر والحديث. يوفر الفندق غرفًا واسعة ومجهزة بالكامل، مع إطلالات بانورامية خلابة على المدينة.</p>
+                        
+                        <h4 class="mt-4">المرافق</h4>
+                        <ul class="property-amenities row">
+                            <li class="col-sm-6"><i class="fas fa-wifi"></i> واي فاي مجاني</li>
+                            <li class="col-sm-6"><i class="fas fa-swimming-pool"></i> حمام سباحة</li>
+                            <li class="col-sm-6"><i class="fas fa-utensils"></i> مطعم </li>
+                            <li class="col-sm-6"><i class="fas fa-parking"></i> موقف سيارات مجاني</li>
+                            <li class="col-sm-6"><i class="fas fa-concierge-bell"></i> خدمة غرف 24 ساعة</li>
+                            <li class="col-sm-6"><i class="fas fa-dumbbell"></i> صالة ألعاب رياضية</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4">
+                    <div class="booking-form-card">
+                        <div class="booking-price">1750 <span>ج.م / ليلة</span></div>
+                        <form>
+                            <div class="mb-3">
+                                <label for="checkIn" class="form-label">تاريخ الدخول</label>
+                                <input type="text" class="form-control" id="checkIn" placeholder="تحديد التاريخ" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="checkOut" class="form-label">تاريخ المغادرة</label>
+                                <input type="text" class="form-control" id="checkOut" placeholder="تحديد التاريخ" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="guests" class="form-label">عدد النزلاء</label>
+                                <input type="number" class="form-control" id="guests" value="1" min="1" required>
+                            </div>
+                              <div class="mb-3">
+                                <label for="guests" class="form-label">عدد الغرف</label>
+                                <input type="number" class="form-control" id="guests" value="1" min="1" required>
+                            </div>
+                            <div class="d-grid mt-4">
+                                <a href="pay.html" class="btn btn-primary btn-lg">احجز الآن</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div id="footer-placeholder"></div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+      <script src="./js/auth.js"></script>
+    <script src="./js/components.js"></script>
+    <script src="./js/shared.js"></script>
+     <script>
+        AOS.init();
+        flatpickr("#checkIn", {
+            dateFormat: "d-m-Y",
+            minDate: "today"
+        });
+        flatpickr("#checkOut", {
+            dateFormat: "d-m-Y",
+            minDate: "today"
+        });
+        
+        document.querySelector('.btn-favorite-add').addEventListener('click', function() {
+            Swal.fire({
+                icon: 'success',
+                title: 'تم الإضافة إلى المفضلة',
+                text: 'تم إضافة هذا العقار إلى قائمة مفضلتك بنجاح!',
+                showConfirmButton: false,
+                timer: 2000
+            });
+        });
+    </script>
+</body>
+</html>

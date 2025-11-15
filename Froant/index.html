@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mabeet - منصة حجوزات السكن الأولى في مصر</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+     <link rel="stylesheet" href="./css/styles.css">
+    <style>/* تنسيقات خاصة بالخريطة */
+.map-container {
+    position: relative;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    height: 500px;
+    margin: 30px 0;
+    border: 1px solid #e9ecef;
+}
+
+.map-container iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    filter: grayscale(20%) contrast(110%);
+    transition: all 0.3s ease;
+}
+
+.map-container:hover iframe {
+    filter: grayscale(0%) contrast(100%);
+    transform: scale(1.01);
+}
+
+.map-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(13, 110, 253, 0.1) 0%, rgba(10, 88, 202, 0.05) 100%);
+    pointer-events: none;
+    z-index: 1;
+    border-radius: 15px;
+}
+
+.map-overlay {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    right: 20px;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 15px 20px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    z-index: 2;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    backdrop-filter: blur(10px);
+}
+
+.map-overlay h5 {
+    margin: 0;
+    color: #333;
+    font-weight: 700;
+}
+
+.map-legend {
+    display: flex;
+    gap: 20px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.legend-color {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+.legend-hotels {
+    background-color: #0d6efd;
+}
+
+.legend-apartments {
+    background-color: #198754;
+}
+
+.legend-student {
+    background-color: #6f42c1;
+}
+
+.map-controls {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.95);
+    padding: 10px 15px;
+    border-radius: 25px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    z-index: 2;
+    display: flex;
+    gap: 10px;
+    backdrop-filter: blur(10px);
+}
+
+.map-btn {
+    background: #fff;
+    border: 1px solid #dee2e6;
+    border-radius: 20px;
+    padding: 8px 15px;
+    font-size: 0.9rem;
+    color: #495057;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.map-btn:hover {
+    background: #0d6efd;
+    color: white;
+    border-color: #0d6efd;
+}
+
+.map-btn.active {
+    background: #0d6efd;
+    color: white;
+    border-color: #0d6efd;
+}
+
+/* تنسيقات للشاشات الصغيرة */
+@media (max-width: 768px) {
+    .map-container {
+        height: 400px;
+        margin: 20px 0;
+    }
+    
+    .map-overlay {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+    
+    .map-legend {
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+    
+    .map-controls {
+        bottom: 10px;
+        padding: 8px 12px;
+    }
+    
+    .map-btn {
+        padding: 6px 12px;
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .map-container {
+        height: 300px;
+    }
+    
+    .map-overlay {
+        top: 10px;
+        left: 10px;
+        right: 10px;
+        padding: 10px 15px;
+    }
+    
+    .map-controls {
+        bottom: 5px;
+        padding: 6px 10px;
+    }
+    
+    .map-btn {
+        padding: 5px 10px;
+        font-size: 0.75rem;
+    }
+}</style>
+</head>
+<body>
+    <div id="navbar-placeholder"></div>
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <div class="hero-content" data-aos="fade-right">
+                        <h1>اكتشف أفضل أماكن الإقامة في مصر</h1>
+                        <p>استمتع بتجربة سفر لا تُنسى مع خيارات سكنية فاخرة تناسب جميع الأذواق والميزانيات</p>
+                        <div class="d-flex mt-4">
+                            <a href="#featured" class="btn btn-search me-3">استعرض العروض</a>
+                            <a href="#services" class="btn btn-outline-auth">المزيد عنا</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="search-card" data-aos="fade-left" data-aos-delay="200">
+                        <div class="search-tabs">
+                            <div class="search-tab active" data-tab="hotels">فنادق</div>
+                            <div class="search-tab" data-tab="apartments">شقق</div>
+                            <div class="search-tab" data-tab="student">سكن طلابي</div>
+                        </div>
+                        
+                        <h4 class="mb-4">ابحث عن إقامتك المثالية</h4>
+                        <form id="searchForm">
+                            <div class="row g-3">
+                                <div class="col-12">
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-transparent border-end-0">
+                                            <i class="fas fa-map-marker-alt text-primary"></i>
+                                        </span>
+                                        <input type="text" class="form-control form-control-lg border-start-0" id="destination" placeholder="أين تريد أن تذهب؟" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-transparent border-end-0">
+                                            <i class="fas fa-calendar-alt text-primary"></i>
+                                        </span>
+                                        <input type="text" class="form-control form-control-lg border-start-0" id="checkInDate" placeholder="تاريخ الوصول">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-transparent border-end-0">
+                                            <i class="fas fa-calendar-alt text-primary"></i>
+                                        </span>
+                                        <input type="text" class="form-control form-control-lg border-start-0" id="checkOutDate" placeholder="تاريخ المغادرة">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-transparent border-end-0">
+                                            <i class="fas fa-user text-primary"></i>
+                                        </span>
+                                        <select class="form-select form-select-lg border-start-0" id="guests">
+                                            <option selected value="0">عدد الضيوف</option>
+                                            <option value="1">1 بالغ</option>
+                                            <option value="2">2 بالغين</option>
+                                            <option value="3">3 بالغين</option>
+                                            <option value="4">4+ بالغين</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-transparent border-end-0">
+                                            <i class="fas fa-bed text-primary"></i>
+                                        </span>
+                                        <select class="form-select form-select-lg border-start-0" id="rooms">
+                                            <option selected value="0">عدد الغرف</option>
+                                            <option value="1">1 غرفة</option>
+                                            <option value="2">2 غرف</option>
+                                            <option value="3">3 غرف</option>
+                                            <option value="4">4+ غرف</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <button type="submit" class="btn btn-search btn-lg w-100" id="searchBtn">
+                                        <i class="fas fa-search me-2"></i>ابحث الآن
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="services">
+        <div class="container">
+            <div class="section-title" data-aos="fade-up">
+                <h2>خدماتنا المتميزة</h2>
+                <p>نوفر لك مجموعة شاملة من خيارات الإقامة الفاخرة والمريحة في جميع أنحاء مصر</p>
+            </div>
+            
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <div class="service-card" data-aos="fade-up" data-aos-delay="100">
+                        <div class="service-img">
+                            <img src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=800" alt="فنادق فاخرة" class="img-fluid">
+                        </div>
+                        <div class="service-content">
+                            <h3>الفنادق الفاخرة</h3>
+                            <p>استمتع بإقامة استثنائية في أرقى الفنادق المصرية مع خدمات عالمية المستوى وإطلالات خلابة</p>
+                            <a href="hotels.html" class="btn btn-service">اكتشف المزيد</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6">
+                    <div class="service-card" data-aos="fade-up" data-aos-delay="200">
+                        <div class="service-img">
+                            <img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=800" alt="شقق مفروشة" class="img-fluid">
+                        </div>
+                        <div class="service-content">
+                            <h3>الشقق المفروشة</h3>
+                            <p>اختبر الحياة المحلية الحقيقية مع عائلات مضيافة تشاركك تراث وثقافة المنطقة</p>
+                            <a href="apartments.html" class="btn btn-service">اكتشف المزيد</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6">
+                    <div class="service-card" data-aos="fade-up" data-aos-delay="300">
+                        <div class="service-img">
+                            <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=800" alt="سكن طلابي" class="img-fluid">
+                        </div>
+                        <div class="service-content">
+                            <h3>السكن الطلابي</h3>
+                            <p>خيار مثالي للطلاب مع أجواء آمنة ومريحة ومرافق متكاملة بأسعار مناسبة</p>
+                            <a href="student-housing.html" class="btn btn-service">اكتشف المزيد</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section bg-light" id="featured">
+        <div class="container">
+            <div class="section-title" data-aos="fade-up">
+                <h2>العروض المميزة</h2>
+                <p>اختيارات مميزة من أفضل أماكن الإقامة في مصر بأسعار لا تقاوم</p>
+            </div>
+            
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <div class="property-card" data-aos="fade-up" data-aos-delay="100">
+                        <div class="property-img">
+                            <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=800" alt="منتجع شرم الشيخ" class="img-fluid">
+                            <div class="property-badge">أفضل عرض</div>
+                        </div>
+                        <div class="property-content">
+                            <h3 class="property-title">منتجع شرم الشيخ</h3>
+                            <div class="property-location">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>شرم الشيخ، جنوب سيناء</span>
+                            </div>
+                            <div class="property-features">
+                                <div class="feature">
+                                    <i class="fas fa-bed"></i>
+                                    <span>2 غرفة</span>
+                                </div>
+                                <div class="feature">
+                                    <i class="fas fa-bath"></i>
+                                    <span>2 حمام</span>
+                                </div>
+                                <div class="feature">
+                                    <i class="fas fa-ruler-combined"></i>
+                                    <span>120 م²</span>
+                                </div>
+                            </div>
+                            <div class="property-price">850 <span>ج.م / ليلة</span></div>
+                            <button class="btn btn-book book-btn">احجز الآن</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6">
+                    <div class="property-card" data-aos="fade-up" data-aos-delay="300">
+                        <div class="property-img">
+                            <img src="https://www.ahstatic.com/photos/1661_ho_02_p_1024x768.jpg" alt="فندق الأقصر" class="img-fluid">
+                            <div class="property-badge">جديد</div>
+                        </div>
+                        <div class="property-content">
+                            <h3 class="property-title">فندق الأقصر التاريخي</h3>
+                            <div class="property-location">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>الأقصر، مصر</span>
+                            </div>
+                            <div class="property-features">
+                                <div class="feature">
+                                    <i class="fas fa-bed"></i>
+                                    <span>1 غرفة</span>
+                                </div>
+                                <div class="feature">
+                                    <i class="fas fa-bath"></i>
+                                    <span>1 حمام</span>
+                                </div>
+                                <div class="feature">
+                                    <i class="fas fa-ruler-combined"></i>
+                                    <span>80 م²</span>
+                                </div>
+                            </div>
+                            <div class="property-price">950 <span>ج.م / ليلة</span></div>
+                            <button class="btn btn-book book-btn">احجز الآن</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6">
+                    <div class="property-card" data-aos="fade-up" data-aos-delay="500">
+                        <div class="property-img">
+                            <img src="https://images.unsplash.com/photo-1611892440504-42a792e24d32?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=800" alt="شقة القاهرة" class="img-fluid">
+                            <div class="property-badge">شعبية</div>
+                        </div>
+                        <div class="property-content">
+                            <h3 class="property-title">شقة زهراء المعادي</h3>
+                            <div class="property-location">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>المعادي، القاهرة</span>
+                            </div>
+                            <div class="property-features">
+                                <div class="feature">
+                                    <i class="fas fa-bed"></i>
+                                    <span>3 غرف</span>
+                                </div>
+                                <div class="feature">
+                                    <i class="fas fa-bath"></i>
+                                    <span>2 حمام</span>
+                                </div>
+                                <div class="feature">
+                                    <i class="fas fa-ruler-combined"></i>
+                                    <span>150 م²</span>
+                                </div>
+                            </div>
+                            <div class="property-price">1200 <span>ج.م / ليلة</span></div>
+                            <button class="btn btn-book book-btn">احجز الآن</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-5" data-aos="fade-up">
+                <a href="property-details.html" class="btn btn-outline-auth">عرض المزيد من الخيارات</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="student">
+        <div class="container">
+            <div class="section-title" data-aos="fade-up">
+                <h2>السكن الطلابي</h2>
+                <p>خيارات سكنية مريحة وآمنة للطلاب في جميع أنحاء مصر مع مرافق متكاملة</p>
+            </div>
+            
+            <div class="student-filters" data-aos="fade-up">
+                <h5 class="filter-title">تصفية حسب:</h5>
+                <div class="filter-options">
+                    <div class="filter-option active">جميع المدن</div>
+                    <div class="filter-option">القاهرة</div>
+                    <div class="filter-option">الجيزة</div>
+                    <div class="filter-option">الإسكندرية</div>
+                    <div class="filter-option">أسيوط</div>
+                    <div class="filter-option">المنصورة</div>
+                </div>
+            </div>
+            
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <div class="property-card" data-aos="fade-up" data-aos-delay="100">
+                        <div class="property-img">
+                            <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=800" alt="سكن طلابي القاهرة" class="img-fluid">
+                            <div class="property-badge">بنات فقط</div>
+                        </div>
+                        <div class="property-content">
+                            <h3 class="property-title">سكن طالبات مدينة نصر</h3>
+                            <div class="property-location">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>مدينة نصر، القاهرة</span>
+                            </div>
+                            <div class="property-features">
+                                <div class="feature">
+                                    <i class="fas fa-bed"></i>
+                                    <span>غرف فردية</span>
+                                </div>
+                                <div class="feature">
+                                    <i class="fas fa-wifi"></i>
+                                    <span>واي فاي مجاني</span>
+                                </div>
+                                <div class="feature">
+                                    <i class="fas fa-utensils"></i>
+                                    <span>مطبخ مشترك</span>
+                                </div>
+                            </div>
+                            <div class="property-price">1200 <span>ج.م / شهر</span></div>
+                            <button class="btn btn-book book-btn">احجز الآن</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6">
+                    <div class="property-card" data-aos="fade-up" data-aos-delay="300">
+                        <div class="property-img">
+                            <img src="https://images.unsplash.com/photo-1555854877-bab0e564b8d5?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=800" alt="سكن طلابي الجيزة" class="img-fluid">
+                            <div class="property-badge">سكن مشترك</div>
+                        </div>
+                        <div class="property-content">
+                            <h3 class="property-title">سكن طلاب الدقي المشترك</h3>
+                            <div class="property-location">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>الدقي، الجيزة</span>
+                            </div>
+                            <div class="property-features">
+                                <div class="feature">
+                                    <i class="fas fa-bed"></i>
+                                    <span>غرف مزدوجة</span>
+                                </div>
+                                <div class="feature">
+                                    <i class="fas fa-wifi"></i>
+                                    <span>واي فاي مجاني</span>
+                                </div>
+                                <div class="feature">
+                                    <i class="fas fa-dumbbell"></i>
+                                    <span>صالة رياضية</span>
+                                </div>
+                            </div>
+                            <div class="property-price">800 <span>ج.م / شهر</span></div>
+                            <button class="btn btn-book book-btn">احجز الآن</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6">
+                    <div class="property-card" data-aos="fade-up" data-aos-delay="500">
+                        <div class="property-img">
+                            <img src="https://images.unsplash.com/photo-1595428774223-ef52624120d2?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=800" alt="سكن طلابي الإسكندرية" class="img-fluid">
+                            <div class="property-badge">بنين فقط</div>
+                        </div>
+                        <div class="property-content">
+                            <h3 class="property-title">سكن طلاب سموحة</h3>
+                            <div class="property-location">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>سموحة، الإسكندرية</span>
+                            </div>
+                            <div class="property-features">
+                                <div class="feature">
+                                    <i class="fas fa-bed"></i>
+                                    <span>غرف فردية</span>
+                                </div>
+                                <div class="feature">
+                                    <i class="fas fa-wifi"></i>
+                                    <span>واي فاي مجاني</span>
+                                </div>
+                                <div class="feature">
+                                    <i class="fas fa-tv"></i>
+                                    <span>غرفة تلفاز</span>
+                                </div>
+                            </div>
+                            <div class="property-price">1100 <span>ج.م / شهر</span></div>
+                            <button class="btn btn-book book-btn">احجز الآن</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-5" data-aos="fade-up">
+                <a href="student-housing.html" class="btn btn-outline-auth">عرض المزيد من السكن الطلابي</a>
+            </div>
+        </div>
+    </section>
+<section class="section bg-light" id="map">
+    <div class="container">
+        <div class="section-title" data-aos="fade-up">
+            <h2>خريطة الأماكن المتاحة</h2>
+            <p>اكتشف أماكن الإقامة المتاحة في جميع أنحاء مصر على الخريطة التفاعلية</p>
+        </div>
+        
+        <div class="map-container" data-aos="fade-up" data-aos-delay="200">
+            <div class="map-overlay">
+                <h5>خريطة أماكن الإقامة في مصر</h5>
+                <div class="map-legend">
+                    <div class="legend-item">
+                        <div class="legend-color legend-hotels"></div>
+                        <span>فنادق</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color legend-apartments"></div>
+                        <span>شقق</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color legend-student"></div>
+                        <span>سكن طلابي</span>
+                    </div>
+                </div>
+            </div>
+            
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7292962.933789023!2d26.34748734999999!3d26.844236!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14368976c35c36e9%3A0x2c45a00925c4c444!2z2YXYtdix!5e0!3m2!1sar!2seg!4v1700000000000!5m2!1sar!2seg" allowfullscreen="" loading="lazy"></iframe>
+            
+            <div class="map-controls">
+                <button class="map-btn active" data-type="all">
+                    <i class="fas fa-layer-group"></i> الكل
+                </button>
+                <button class="map-btn" data-type="hotels">
+                    <i class="fas fa-hotel"></i> فنادق
+                </button>
+                <button class="map-btn" data-type="apartments">
+                    <i class="fas fa-building"></i> شقق
+                </button>
+                <button class="map-btn" data-type="student">
+                    <i class="fas fa-graduation-cap"></i> سكن طلابي
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <div id="footer-placeholder"></div>
+
+    <!-- JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/ar.js"></script>
+     <script src="./js/auth.js"></script>
+    <script src="./js/components.js"></script>
+    <script src="./js/shared.js"></script>
+    <script>
+        // تهيئة AOS للانيميشن
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true,
+            offset: 100
+        });
+        
+        document.getElementById('navbar-placeholder').innerHTML = MabeetComponents.createNavbar();
+        document.getElementById('footer-placeholder').innerHTML = MabeetComponents.createFooter();
+        
+        // تهيئة Flatpickr للتقويم
+        flatpickr.localize(flatpickr.l10ns.ar);
+        flatpickr("#checkInDate", {
+            minDate: "today",
+            dateFormat: "Y-m-d",
+            locale: "ar"
+        });
+        
+        flatpickr("#checkOutDate", {
+            minDate: "today",
+            dateFormat: "Y-m-d",
+            locale: "ar"
+        });
+        
+        // تغيير لون شريط التنقل عند التمرير
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('mainNav');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+        function updateAuthUI() {
+            const authButtons = document.getElementById('authButtons');
+            const userMenu = document.getElementById('userMenu');
+            
+            if (MabeetAuth.isLoggedIn()) {
+                authButtons.classList.add('d-none');
+                userMenu.classList.remove('d-none');
+                userMenu.classList.add('d-flex');
+                
+                const user = MabeetAuth.getCurrentUser();
+                if (user) {
+                    const userAvatar = document.getElementById('userAvatar');
+                    userAvatar.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(user.firstName + ' ' + user.lastName)}&background=4a6cf7&color=fff`;
+                }
+            } else {
+                authButtons.classList.remove('d-none');
+                userMenu.classList.add('d-none');
+                userMenu.classList.remove('d-flex');
+            }
+        }
+        
+        // معالجة النقر على أزرار الحجز
+        const bookButtons = document.querySelectorAll('.book-btn');
+        bookButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                // التحقق مما إذا كان المستخدم مسجلاً
+                if (!MabeetAuth.isLoggedIn()) {
+                    // إذا لم يكن مسجلاً، عرض نافذة التسجيل باستخدام SweetAlert
+                    Swal.fire({
+                        title: 'يجب تسجيل الدخول أولاً',
+                        text: 'يجب إنشاء حساب أو تسجيل الدخول لاستكمال عملية الحجز',
+                        icon: 'info',
+                        showCancelButton: true,
+                        confirmButtonText: 'تسجيل الدخول',
+                        cancelButtonText: 'إنشاء حساب',
+                        customClass: {
+                            confirmButton: 'btn btn-auth me-2',
+                            cancelButton: 'btn btn-outline-auth'
+                        },
+                        buttonsStyling: false
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            showLoginModal();
+                        } else if (result.dismiss === Swal.DismissReason.cancel) {
+                            window.location.href = 'regester.html';
+                        }
+                    });
+                } else {
+                    // إذا كان مسجلاً، توجيه إلى صفحة الدفع
+                    window.location.href = 'property-details.html';
+                }
+            });
+        });
+        
+        function showLoginModal() {
+            Swal.fire({
+                title: 'تسجيل الدخول',
+                html: `
+                    <form id="loginFormSwal">
+                        <div class="mb-3">
+                            <label for="swalLoginEmail" class="form-label">البريد الإلكتروني</label>
+                            <input type="email" class="form-control" id="swalLoginEmail" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="swalLoginPassword" class="form-label">كلمة المرور</label>
+                            <input type="password" class="form-control" id="swalLoginPassword" required>
+                        </div>
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="swalRememberMe">
+                            <label class="form-check-label" for="swalRememberMe">تذكرني</label>
+                        </div>
+                    </form>
+                    <div class="text-center mt-3">
+                        <a href="#" class="text-primary">نسيت كلمة المرور؟</a>
+                    </div>
+                    <div class="auth-divider my-3">
+                        <span>أو سجل الدخول باستخدام</span>
+                    </div>
+                    <div class="social-login d-flex justify-content-center gap-3">
+                        <button class="btn btn-outline-primary"><i class="fab fa-google"></i></button>
+                        <button class="btn btn-outline-primary"><i class="fab fa-facebook-f"></i></button>
+                        <button class="btn btn-outline-primary"><i class="fab fa-twitter"></i></button>
+                    </div>
+                `,
+                showCancelButton: true,
+                confirmButtonText: 'تسجيل الدخول',
+                cancelButtonText: 'إلغاء',
+                showLoaderOnConfirm: true,
+                preConfirm: () => {
+                    const email = document.getElementById('swalLoginEmail').value;
+                    const password = document.getElementById('swalLoginPassword').value;
+                    
+                    if (!email || !password) {
+                        Swal.showValidationMessage('يرجى ملء جميع الحقول');
+                        return false;
+                    }
+                    
+                    // استخدام نظام المصادقة من auth.js
+                    if (MabeetAuth.login(email, password)) {
+                        return { email: email, password: password };
+                    } else {
+                        Swal.showValidationMessage('البريد الإلكتروني أو كلمة المرور غير صحيحة');
+                        return false;
+                    }
+                },
+                customClass: {
+                    confirmButton: 'btn btn-auth me-2',
+                    cancelButton: 'btn btn-outline-auth'
+                },
+                buttonsStyling: false
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        title: 'تم تسجيل الدخول بنجاح!',
+                        text: 'مرحباً بعودتك إلى Mabeet',
+                        icon: 'success',
+                        confirmButtonText: 'متابعة',
+                        customClass: {
+                            confirmButton: 'btn btn-auth'
+                        },
+                        buttonsStyling: false
+                    }).then(() => {
+                        // تحديث واجهة المستخدم
+                        updateAuthUI();
+                    });
+                }
+            });
+        }
+        
+        // معالجة تسجيل الخروج
+        document.addEventListener('click', function(e) {
+            if (e.target && e.target.id === 'logoutBtn') {
+                e.preventDefault();
+                
+                Swal.fire({
+                    title: 'تسجيل الخروج',
+                    text: 'هل أنت متأكد من أنك تريد تسجيل الخروج؟',
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonText: 'نعم، تسجيل الخروج',
+                    cancelButtonText: 'إلغاء',
+                    customClass: {
+                        confirmButton: 'btn btn-auth me-2',
+                        cancelButton: 'btn btn-outline-auth'
+                    },
+                    buttonsStyling: false
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        MabeetAuth.logout();
+                        
+                        // تحديث واجهة المستخدم
+                        updateAuthUI();
+                        
+                        Swal.fire({
+                            title: 'تم تسجيل الخروج',
+                            text: 'نراك قريباً!',
+                            icon: 'success',
+                            confirmButtonText: 'حسناً',
+                            customClass: {
+                                confirmButton: 'btn btn-auth'
+                            },
+                            buttonsStyling: false
+                        });
+                    }
+                });
+            }
+        });
+        
+        // معالجة البحث
+        document.getElementById('searchForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const destination = document.getElementById('destination').value;
+            
+            if (!destination) {
+                Swal.fire({
+                    title: 'خطأ في البحث',
+                    text: 'يرجى إدخال وجهة للبحث',
+                    icon: 'error',
+                    confirmButtonText: 'حسناً',
+                    customClass: {
+                        confirmButton: 'btn btn-auth'
+                    },
+                    buttonsStyling: false
+                });
+                return;
+            }
+            
+            // الحصول على نوع البحث المحدد
+            const activeTab = document.querySelector('.search-tab.active').getAttribute('data-tab');
+            
+            Swal.fire({
+                title: 'جاري البحث...',
+                text: 'يتم الآن البحث عن أماكن الإقامة في ' + destination,
+                icon: 'info',
+                showConfirmButton: false,
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                }
+            });
+            
+            // محاكاة عملية البحث
+            setTimeout(() => {
+                Swal.close();
+                
+                // توجيه إلى صفحة النتائج المناسبة حسب نوع البحث
+                switch(activeTab) {
+                    case 'hotels':
+                        window.location.href = `hotels.html?search=${destination}`;
+                        break;
+                    case 'apartments':
+                        window.location.href = `apartments.html?search=${destination}`;
+                        break;
+                    case 'student':
+                        window.location.href = `student-housing.html?search=${destination}`;
+                        break;
+                    default:
+                        window.location.href = `properties.html?search=${destination}`;
+                }
+            }, 2000);
+        });
+        const searchTabs = document.querySelectorAll('.search-tab');
+        searchTabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                searchTabs.forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+        
+        document.addEventListener('click', function(e) {
+            if (e.target && e.target.id === 'loginBtn') {
+                showLoginModal();
+            } else if (e.target && e.target.id === 'registerBtn') {
+                window.location.href = 'regester.html';
+            }
+        });
+        
+        // تحديث واجهة المستخدم عند تحميل الصفحة
+        document.addEventListener('DOMContentLoaded', function() {
+            updateAuthUI();
+        });
+        // التحكم في أزرار الخريطة
+document.querySelectorAll('.map-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+        document.querySelectorAll('.map-btn').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        
+        // هنا يمكنك إضافة وظائف تصفية الخريطة حسب النوع
+        const type = this.getAttribute('data-type');
+        console.log('تصفية الخريطة حسب:', type);
+    });
+});
+    </script>
+</body>
+</html>

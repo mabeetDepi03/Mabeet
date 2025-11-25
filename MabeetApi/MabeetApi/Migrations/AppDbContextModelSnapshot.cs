@@ -142,6 +142,9 @@ namespace MabeetApi.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<bool>("IsApproved")
+                        .HasColumnType("bit");
+
                     b.Property<int>("LocationID")
                         .HasColumnType("int");
 
@@ -209,6 +212,9 @@ namespace MabeetApi.Migrations
                     b.Property<string>("IDPicture")
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
 
                     b.Property<string>("LastName")
                         .IsRequired()

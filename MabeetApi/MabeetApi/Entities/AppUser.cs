@@ -25,6 +25,8 @@ namespace MabeetApi.Entities
         [Required]
         public UserRole type { get; set; }
         [DataType(DataType.DateTime)]
+        public bool IsActive { get; set; } = true;
+
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         [DataType(DataType.DateTime)]
         public DateTime? UpdatedAt { get; set; }

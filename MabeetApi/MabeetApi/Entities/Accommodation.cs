@@ -18,6 +18,7 @@ namespace MabeetApi.Entities
         [DataType(DataType.DateTime)]
         public DateTime? UpdatedAt { get; set; }
 
+        public bool IsApproved { get; set; } = false;
 
         // Navigation Properties
         // M:1 ==> AppUser 

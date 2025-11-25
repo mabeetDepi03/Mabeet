@@ -1,6 +1,8 @@
 ﻿using MabeetApi.Data;
 
 using MabeetApi.Services;
+using MabeetApi.Services.Admin;
+using MabeetApi.Services.Admin.Accommodations;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -26,6 +28,9 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 // Add other services
 builder.Services.AddScoped<IBookingService, BookingService>();
+builder.Services.AddScoped<IAdminUserService, AdminUserService>();
+builder.Services.AddScoped<IAdminAccommodationService, AdminAccommodationService>();
+builder.Services.AddScoped<IDashboardService, DashboardService>();
 // أضف باقي الـ services هنا...
 
 var app = builder.Build();

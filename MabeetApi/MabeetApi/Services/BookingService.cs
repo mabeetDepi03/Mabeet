@@ -450,5 +450,23 @@ namespace MabeetApi.Services
 
             return allAvailableDates;
         }
+
+        public async Task<bool> UpdateBookingStatusAsync(int bookingId, UpdateBookingStatusDto dto)
+        {
+            var booking = await _context.Bookings
+                .FirstOrDefaultAsync(b => b.BookingID == bookingId);
+
+            if (booking == null)
+                throw new ArgumentException("Booking not found");
+
+            // BookingStatus Enum Check
+            if (!Enum.TryParse<BookingStatus>(dto.Status, true, out var parsedStatus))
+                throw new ArgumentException("Invalid booking status");
+
+            booking.Status = parsedStatus.ToString();
+            await _context.SaveChangesAsync();
+
+            return true;
+        }
     }
 }

@@ -1,8 +1,9 @@
 ﻿using MabeetApi.Data;
-
+using MabeetApi.Entities;
 using MabeetApi.Services;
 using MabeetApi.Services.Admin;
 using MabeetApi.Services.Admin.Accommodations;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,7 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllers();
 
-// ⭐ إضافة Swagger/OpenAPI
+// Swagger
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
@@ -22,34 +23,43 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
-// Add DbContext
+// DbContext
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// Add other services
+// ⭐ Add Identity (VERY IMPORTANT)
+builder.Services.AddIdentity<AppUser, IdentityRole>()
+    .AddEntityFrameworkStores<AppDbContext>()
+    .AddDefaultTokenProviders();
+
+// Authentication + Authorization
+builder.Services.AddAuthentication();
+builder.Services.AddAuthorization();
+
+// Register your services
 builder.Services.AddScoped<IBookingService, BookingService>();
 builder.Services.AddScoped<IAdminUserService, AdminUserService>();
 builder.Services.AddScoped<IAdminAccommodationService, AdminAccommodationService>();
 builder.Services.AddScoped<IDashboardService, DashboardService>();
-// أضف باقي الـ services هنا...
 
 var app = builder.Build();
 
-// ⭐ تمكين Swagger في development environment
+// Swagger
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI(c =>
     {
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "Mabeet API V1");
-        c.RoutePrefix = "swagger"; // يجعل Swagger UI available على /swagger
+        c.RoutePrefix = "swagger";
     });
 }
 
-// Configure the HTTP request pipeline.
+// Pipeline
 app.UseHttpsRedirection();
+app.UseAuthentication();   // لازم يكون قبل UseAuthorization
 app.UseAuthorization();
-app.MapControllers();
 
+app.MapControllers();
 
 app.Run();

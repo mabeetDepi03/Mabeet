@@ -1,9 +1,11 @@
 ﻿using MabeetApi.Data;
 using MabeetApi.Entities;
+using MabeetApi.Interfaces;
 using MabeetApi.Seeding;
 using MabeetApi.Services;
 using MabeetApi.Services.Admin;
 using MabeetApi.Services.Admin.Accommodations;
+using MabeetApi.Services.Property;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 // Update program
@@ -42,6 +44,8 @@ builder.Services.AddScoped<IBookingService, BookingService>();
 builder.Services.AddScoped<IAdminUserService, AdminUserService>();
 builder.Services.AddScoped<IAdminAccommodationService, AdminAccommodationService>();
 builder.Services.AddScoped<IDashboardService, DashboardService>();
+builder.Services.AddScoped<IAccommodationService, AccommodationService>();
+
 
 var app = builder.Build();
 

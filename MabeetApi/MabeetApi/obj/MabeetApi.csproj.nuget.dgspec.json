@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Programming\\Mabeet\\Mabeet\\MabeetApi\\MabeetApi\\MabeetApi.csproj": {}
+    "C:\\Users\\Nvidia\\OneDrive\\Desktop\\رواد مصر\\بروجكت رواد 11111111\\Mabeet\\MabeetApi\\MabeetApi\\MabeetApi.csproj": {}
   },
   "projects": {
-    "D:\\Programming\\Mabeet\\Mabeet\\MabeetApi\\MabeetApi\\MabeetApi.csproj": {
+    "C:\\Users\\Nvidia\\OneDrive\\Desktop\\رواد مصر\\بروجكت رواد 11111111\\Mabeet\\MabeetApi\\MabeetApi\\MabeetApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Programming\\Mabeet\\Mabeet\\MabeetApi\\MabeetApi\\MabeetApi.csproj",
+        "projectUniqueName": "C:\\Users\\Nvidia\\OneDrive\\Desktop\\رواد مصر\\بروجكت رواد 11111111\\Mabeet\\MabeetApi\\MabeetApi\\MabeetApi.csproj",
         "projectName": "MabeetApi",
-        "projectPath": "D:\\Programming\\Mabeet\\Mabeet\\MabeetApi\\MabeetApi\\MabeetApi.csproj",
-        "packagesPath": "C:\\Users\\Mosta\\.nuget\\packages\\",
-        "outputPath": "D:\\Programming\\Mabeet\\Mabeet\\MabeetApi\\MabeetApi\\obj\\",
+        "projectPath": "C:\\Users\\Nvidia\\OneDrive\\Desktop\\رواد مصر\\بروجكت رواد 11111111\\Mabeet\\MabeetApi\\MabeetApi\\MabeetApi.csproj",
+        "packagesPath": "C:\\Users\\Nvidia\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Nvidia\\OneDrive\\Desktop\\رواد مصر\\بروجكت رواد 11111111\\Mabeet\\MabeetApi\\MabeetApi\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "D:\\Programs\\VS Community\\Shared\\NuGetPackages"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Mosta\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Nvidia\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -44,7 +44,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.300"
+        "SdkAnalysisLevel": "9.0.100"
       },
       "frameworks": {
         "net8.0": {
@@ -92,7 +92,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.101/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

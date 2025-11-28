@@ -1,5 +1,6 @@
 ﻿using MabeetApi.Data;
 using MabeetApi.Entities;
+using MabeetApi.Seeding;
 using MabeetApi.Services;
 using MabeetApi.Services.Admin;
 using MabeetApi.Services.Admin.Accommodations;
@@ -43,6 +44,21 @@ builder.Services.AddScoped<IAdminAccommodationService, AdminAccommodationService
 builder.Services.AddScoped<IDashboardService, DashboardService>();
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    try
+    {
+        await DataSeeder.SeedData(services);
+    }
+    catch (Exception ex)
+    {
+        var logger = services.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "An error occurred while seeding the database.");
+    }
+}
+
 
 // Swagger
 if (app.Environment.IsDevelopment())

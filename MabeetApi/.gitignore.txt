@@ -1,0 +1,15 @@
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.cache
+
+# Build Folders
+bin/
+obj/
+
+# Database
+*.db
+
+# Secrets
+appsettings.Development.json

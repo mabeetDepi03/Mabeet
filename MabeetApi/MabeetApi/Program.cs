@@ -48,7 +48,6 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
-
     try
     {
         await DataSeeder.SeedData(services);
@@ -56,11 +55,9 @@ using (var scope = app.Services.CreateScope())
     catch (Exception ex)
     {
         var logger = services.GetRequiredService<ILogger<Program>>();
-        logger.LogError(ex, "❌ Error during data seeding");
+        logger.LogError(ex, "An error occurred while seeding the database.");
     }
 }
-
-
 
 
 // Swagger

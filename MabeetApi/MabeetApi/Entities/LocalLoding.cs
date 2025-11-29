@@ -18,6 +18,6 @@ namespace MabeetApi.Entities
 
         // Navigation Properties
         // M:N ==> Booking
-        public ICollection<Booking> Bookings { get; set; } = new HashSet<Booking>();
+        public new ICollection<Booking> Bookings { get; set; } = new HashSet<Booking>();
     }
 }

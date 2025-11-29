@@ -20,9 +20,9 @@ namespace MabeetApi.Services.Admin
 
             // Users
             dto.TotalUsers = await _context.Users.CountAsync();
-            dto.TotalAdmins = await _context.Users.CountAsync(u => u.type == UserRole.Admin);
-            dto.TotalOwners = await _context.Users.CountAsync(u => u.type == UserRole.Owner);
-            dto.TotalClients = await _context.Users.CountAsync(u => u.type == UserRole.Client);
+            dto.TotalAdmins = await _context.Users.CountAsync(u => u.Type == UserRole.Admin);
+            dto.TotalOwners = await _context.Users.CountAsync(u => u.Type == UserRole.Owner);
+            dto.TotalClients = await _context.Users.CountAsync(u => u.Type == UserRole.Client);
 
             // Accommodations
             dto.TotalAccommodations = await _context.Accommodations.CountAsync();

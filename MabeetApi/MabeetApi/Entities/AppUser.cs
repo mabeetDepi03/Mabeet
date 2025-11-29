@@ -23,7 +23,7 @@ namespace MabeetApi.Entities
         [MaxLength(255)]
         public string? ProfilePicture { get; set; }
         [Required]
-        public UserRole type { get; set; }
+        public UserRole Type { get; set; }
         [DataType(DataType.DateTime)]
         public bool IsActive { get; set; } = true;
 

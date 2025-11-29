@@ -29,7 +29,7 @@ namespace MabeetApi.Services.Admin
                     Email = u.Email,
                     PhoneNumber = u.PhoneNumber,
                     NationalID = u.NationalID,
-                    Type = u.type,
+                    Type = u.Type,
                     IsActive = u.IsActive,
                     CreatedAt = u.CreatedAt
                 })
@@ -50,7 +50,7 @@ namespace MabeetApi.Services.Admin
                 Email = u.Email,
                 PhoneNumber = u.PhoneNumber,
                 NationalID = u.NationalID,
-                Type = u.type,
+                Type = u.Type,
                 IsActive = u.IsActive,
                 CreatedAt = u.CreatedAt
             };
@@ -62,7 +62,7 @@ namespace MabeetApi.Services.Admin
             var u = await _userManager.FindByIdAsync(dto.UserId);
             if (u == null) return false;
 
-            u.type = dto.NewRole;
+            u.Type = dto.NewRole;
             await _userManager.UpdateAsync(u);
             return true;
         }

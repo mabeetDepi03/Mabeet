@@ -25,7 +25,7 @@ namespace MabeetApi.Seeding
                     LastName = "Main",
                     NationalID = "11111111111111",
                     PhoneNumber = "01000000000",
-                    type = UserRole.Admin,
+                    Type = UserRole.Admin,
                     IsActive = true
                 };
                 await userManager.CreateAsync(admin, "Admin@123");
@@ -38,7 +38,7 @@ namespace MabeetApi.Seeding
                     LastName = "One",
                     NationalID = "22222222222222",
                     PhoneNumber = "01011111111",
-                    type = UserRole.Owner,
+                    Type = UserRole.Owner,
                     IsActive = true
                 };
                 await userManager.CreateAsync(owner, "Owner@123");
@@ -51,7 +51,7 @@ namespace MabeetApi.Seeding
                     LastName = "One",
                     NationalID = "33333333333333",
                     PhoneNumber = "01022222222",
-                    type = UserRole.Client,
+                    Type = UserRole.Client,
                     IsActive = true
                 };
                 await userManager.CreateAsync(client1, "Client@123");
@@ -64,7 +64,7 @@ namespace MabeetApi.Seeding
                     LastName = "Two",
                     NationalID = "44444444444444",
                     PhoneNumber = "01033333333",
-                    type = UserRole.Client,
+                    Type = UserRole.Client,
                     IsActive = true
                 };
                 await userManager.CreateAsync(client2, "Client@123");
@@ -72,8 +72,8 @@ namespace MabeetApi.Seeding
                 await context.SaveChangesAsync();
             }
 
-            var ownerUser = await context.Users.FirstAsync(u => u.type == UserRole.Owner);
-            var clientUsers = await context.Users.Where(u => u.type == UserRole.Client).ToListAsync();
+            var ownerUser = await context.Users.FirstAsync(u => u.Type == UserRole.Owner);
+            var clientUsers = await context.Users.Where(u => u.Type == UserRole.Client).ToListAsync();
 
             // ========== 2) Governorates + Cities + Locations ==========
             if (!context.Governorates.Any())
@@ -264,7 +264,7 @@ namespace MabeetApi.Seeding
             // ========== 7) Bookings بسيطة ==========
             if (!context.Bookings.Any())
             {
-                var anyClient = await context.Users.FirstAsync(u => u.type == UserRole.Client);
+                var anyClient = await context.Users.FirstAsync(u => u.Type == UserRole.Client);
                 var anyRoom = await context.HotelRooms.FirstAsync();
 
                 var booking = new Booking

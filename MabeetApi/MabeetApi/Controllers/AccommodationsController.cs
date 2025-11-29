@@ -8,7 +8,7 @@ namespace MabeetApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = "Host")]
+   // [Authorize(Roles = "Host")]
     public class AccommodationController : ControllerBase
     {
         private readonly IAccommodationService _accommodationService;

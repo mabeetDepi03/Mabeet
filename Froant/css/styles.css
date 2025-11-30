@@ -1,32 +1,37 @@
 
 :root {
-    --primary-color: #4a6cf7;
-    --primary-light: #6d89f9;
-    --primary-dark: #3a59d6;
-    --secondary-color: #f093fb;
-    --secondary-light: #f4b5fc;
-    --secondary-dark: #ec72f9;
-    --accent-color: #f5576c;
-    --accent-light: #f87a8b;
-    --accent-dark: #f33a54;
-    --dark-color: #1a1d28;
-    --dark-light: #2d3246;
-    --light-color: #f8fafc;
-    --light-dark: #e2e8f0;
-    --gray-color: #64748b;
-    --gray-light: #94a3b8;
-    --gray-dark: #475569;
+    /* لوحة الألوان الجديدة والمحسنة (أزرق - سماوي - ذهبي) */
+    --primary-color: #007bff; /* أزرق أساسي (للتأكيد والروابط) */
+    --primary-light: #449efd;
+    --primary-dark: #0056b3;
+    
+    --secondary-color: #17a2b8; /* أخضر بحري/سماوي (للتركيز) */
+    --secondary-light: #52c1d3;
+    --secondary-dark: #0f6674;
+    
+    --accent-color: #ffc107; /* أصفر ذهبي (للتنبيه/التمييز) */
+    --accent-light: #ffd564;
+    --accent-dark: #cc9a00;
+    
+    --dark-color: #212529; /* لون النص الداكن */
+    --dark-light: #495057;
+    --light-color: #f8f9fa; /* لون الخلفية الفاتح */
+    --light-dark: #e9ecef;
+    --gray-color: #6c757d;
+    --gray-light: #adb5bd;
+    --gray-dark: #495057;
 
-    --gradient-primary: linear-gradient(135deg, var(--primary-color) 0%, #8a54ff 100%);
-    --gradient-primary-light: linear-gradient(135deg, var(--primary-light) 0%, #9d6dff 100%);
+    /* التدرجات اللونية (Gradients) المحدثة */
+    --gradient-primary: linear-gradient(135deg, var(--primary-color) 0%, #00c7e5 100%);
+    --gradient-primary-light: linear-gradient(135deg, var(--primary-light) 0%, #58d8e5 100%);
     --gradient-secondary: linear-gradient(135deg, var(--secondary-color) 0%, var(--accent-color) 100%);
     --gradient-secondary-light: linear-gradient(135deg, var(--secondary-light) 0%, var(--accent-light) 100%);
-    --gradient-dark: linear-gradient(135deg, var(--dark-color) 0%, #2d3748 100%);
+    --gradient-dark: linear-gradient(135deg, var(--dark-color) 0%, #495057 100%);
     --gradient-light: linear-gradient(135deg, var(--light-color) 0%, #ffffff 100%);
-    --gradient-success: linear-gradient(135deg, #10b981 0%, #34d399 100%);
-    --gradient-warning: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
-    --gradient-danger: linear-gradient(135deg, #ef4444 0%, #f87171 100%);
-    --gradient-gold: linear-gradient(135deg, #fbbf24 0%, #fde68a 100%);
+    --gradient-success: linear-gradient(135deg, #28a745 0%, #218838 100%);
+    --gradient-warning: linear-gradient(135deg, #ffc107 0%, #e0a800 100%);
+    --gradient-danger: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+    --gradient-gold: linear-gradient(135deg, #ffc107 0%, #ffeb99 100%);
     
     /* الظلال المحسنة */
     --shadow-xs: 0 1px 3px rgba(0, 0, 0, 0.05);
@@ -252,7 +257,7 @@ body {
 
 .navbar-toggler:focus {
     box-shadow: none;
-    background: rgba(74, 108, 247, 0.1);
+    background: rgba(0, 123, 255, 0.1); /* تم تعديله ليتناسب مع primary-color الجديد */
 }
 
 /* ===== الأزرار المحسنة ===== */
@@ -394,7 +399,8 @@ body {
 /* ===== قسم البطل (Hero) المحسن ===== */
 .hero {
     min-height: 100vh;
-    background: linear-gradient(135deg, rgba(74, 108, 247, 0.9) 0%, rgba(138, 84, 255, 0.9) 100%), 
+    /* تحديث تدرج اللون في Hero ليستخدم primary-color الجديد */
+    background: linear-gradient(135deg, rgba(0, 123, 255, 0.9) 0%, rgba(0, 207, 229, 0.9) 100%), 
                 url('https://images.unsplash.com/photo-1571896349842-33c89424de2d?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=2000') center/cover;
     display: flex;
     align-items: center;
@@ -410,9 +416,106 @@ body {
     right: 0;
     bottom: 0;
     left: 0;
-    background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+    background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
     opacity: 0.3;
 }
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+.hero-content h1 {
+    font-size: 3.5rem;
+    font-weight: 900;
+    padding: 10px;
+    color: white;
+    margin-top:30px;
+    margin-bottom: var(--space-5);
+
+    line-height: 1.2;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.hero-content p {
+    font-size: 1.25rem;
+    color: rgba(255,255,255,0.9);
+    margin-bottom: var(--space-6);
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+    max-width: 600px;
+}
+
+/* ===== بطاقة البحث المحسنة ===== */
+.search-card {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: var(--border-radius-xl);
+    padding: var(--space-6);
+    box-shadow: var(--shadow-xl);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.search-tabs {
+    display: flex;
+    margin-bottom: var(--space-5);
+    border-bottom: 2px solid var(--light-dark);
+    flex-wrap: wrap;
+}
+
+.search-tab {
+    padding: var(--space-3) var(--space-4);
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--gray-color);
+    transition: all var(--transition-normal);
+    border-bottom: 3px solid transparent;
+    white-space: nowrap;
+    flex: 1;
+    text-align: center;
+    min-width: 120px;
+}
+
+.search-tab.active,
+.search-tab:hover {
+    color: var(--primary-color);
+    border-bottom: 3px solid var(--primary-color);
+}
+
+.search-card .form-control,
+.search-card .form-select {
+    border-radius: var(--border-radius-md);
+    padding: var(--space-3) var(--space-4);
+    border: 2px solid var(--light-dark);
+    transition: all var(--transition-normal);
+    font-size: 0.95rem;
+}
+
+.search-card .form-control:focus,
+.search-card .form-select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.15); /* تم تعديله ليتناسب مع primary-color الجديد */
+}
+
+.search-card .input-group-text {
+    background: transparent;
+    border-left: 0;
+    border-right: 1px solid #ced4da !important;
+    padding: var(--space-3) var(--space-4);
+}
+
+/* ===== بطاقات الخدمات المحسنة ===== */
+.service-card {
+    background: white;
+    border-radius: var(--border-radius-lg);
+    overflow: hidden;
+    transition: all var(--transition-normal);
+    box-shadow: var(--shadow-md);
+    height: 100%;
+    border: 1px solid var(--light-dark);
+    position: relative;
+}
+/* ===== أنما
 
 .hero-content {
     position: relative;

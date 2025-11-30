@@ -530,8 +530,18 @@ C:\Users\Nvidia\OneDrive\Desktop\رواد مصر\بروجكت رواد 11111111\
 C:\Users\Nvidia\OneDrive\Desktop\رواد مصر\بروجكت رواد 11111111\Mabeet\MabeetApi\MabeetApi\obj\Debug\net8.0\MabeetApi.csproj.Up2Date
 C:\Users\Nvidia\OneDrive\Desktop\رواد مصر\بروجكت رواد 11111111\Mabeet\MabeetApi\MabeetApi\obj\Debug\net8.0\MabeetApi.genruntimeconfig.cache
 C:\Users\Nvidia\OneDrive\Desktop\رواد مصر\بروجكت رواد 11111111\Mabeet\MabeetApi\MabeetApi\obj\Debug\net8.0\ref\MabeetApi.dll
+C:\Users\Nour\OneDrive - Egyptian E-Learning University\Apps\Desktop\New folder\finsh\Mabeet\MabeetApi\MabeetApi\obj\Debug\net8.0\MabeetApi.csproj.AssemblyReference.cache
+C:\Users\Nour\OneDrive - Egyptian E-Learning University\Apps\Desktop\New folder\finsh\Mabeet\MabeetApi\MabeetApi\obj\Debug\net8.0\rpswa.dswa.cache.json
+C:\Users\Nour\OneDrive - Egyptian E-Learning University\Apps\Desktop\New folder\finsh\Mabeet\MabeetApi\MabeetApi\obj\Debug\net8.0\MabeetApi.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Nour\OneDrive - Egyptian E-Learning University\Apps\Desktop\New folder\finsh\Mabeet\MabeetApi\MabeetApi\obj\Debug\net8.0\MabeetApi.AssemblyInfoInputs.cache
+C:\Users\Nour\OneDrive - Egyptian E-Learning University\Apps\Desktop\New folder\finsh\Mabeet\MabeetApi\MabeetApi\obj\Debug\net8.0\MabeetApi.AssemblyInfo.cs
+C:\Users\Nour\OneDrive - Egyptian E-Learning University\Apps\Desktop\New folder\finsh\Mabeet\MabeetApi\MabeetApi\obj\Debug\net8.0\MabeetApi.csproj.CoreCompileInputs.cache
+C:\Users\Nour\OneDrive - Egyptian E-Learning University\Apps\Desktop\New folder\finsh\Mabeet\MabeetApi\MabeetApi\obj\Debug\net8.0\MabeetApi.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\Nour\OneDrive - Egyptian E-Learning University\Apps\Desktop\New folder\finsh\Mabeet\MabeetApi\MabeetApi\obj\Debug\net8.0\MabeetApi.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Nour\OneDrive - Egyptian E-Learning University\Apps\Desktop\New folder\finsh\Mabeet\MabeetApi\MabeetApi\obj\Debug\net8.0\MabeetApi.sourcelink.json
 C:\Users\Nour\OneDrive - Egyptian E-Learning University\Apps\Desktop\New folder\finsh\Mabeet\MabeetApi\MabeetApi\bin\Debug\net8.0\appsettings.Development.json
 C:\Users\Nour\OneDrive - Egyptian E-Learning University\Apps\Desktop\New folder\finsh\Mabeet\MabeetApi\MabeetApi\bin\Debug\net8.0\appsettings.json
+C:\Users\Nour\OneDrive - Egyptian E-Learning University\Apps\Desktop\New folder\finsh\Mabeet\MabeetApi\MabeetApi\bin\Debug\net8.0\MabeetApi.staticwebassets.runtime.json
 C:\Users\Nour\OneDrive - Egyptian E-Learning University\Apps\Desktop\New folder\finsh\Mabeet\MabeetApi\MabeetApi\bin\Debug\net8.0\MabeetApi.staticwebassets.endpoints.json
 C:\Users\Nour\OneDrive - Egyptian E-Learning University\Apps\Desktop\New folder\finsh\Mabeet\MabeetApi\MabeetApi\bin\Debug\net8.0\MabeetApi.exe
 C:\Users\Nour\OneDrive - Egyptian E-Learning University\Apps\Desktop\New folder\finsh\Mabeet\MabeetApi\MabeetApi\bin\Debug\net8.0\MabeetApi.deps.json
@@ -684,15 +694,6 @@ C:\Users\Nour\OneDrive - Egyptian E-Learning University\Apps\Desktop\New folder\
 C:\Users\Nour\OneDrive - Egyptian E-Learning University\Apps\Desktop\New folder\finsh\Mabeet\MabeetApi\MabeetApi\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
 C:\Users\Nour\OneDrive - Egyptian E-Learning University\Apps\Desktop\New folder\finsh\Mabeet\MabeetApi\MabeetApi\bin\Debug\net8.0\runtimes\browser\lib\net8.0\System.Text.Encodings.Web.dll
 C:\Users\Nour\OneDrive - Egyptian E-Learning University\Apps\Desktop\New folder\finsh\Mabeet\MabeetApi\MabeetApi\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
-C:\Users\Nour\OneDrive - Egyptian E-Learning University\Apps\Desktop\New folder\finsh\Mabeet\MabeetApi\MabeetApi\obj\Debug\net8.0\MabeetApi.csproj.AssemblyReference.cache
-C:\Users\Nour\OneDrive - Egyptian E-Learning University\Apps\Desktop\New folder\finsh\Mabeet\MabeetApi\MabeetApi\obj\Debug\net8.0\rpswa.dswa.cache.json
-C:\Users\Nour\OneDrive - Egyptian E-Learning University\Apps\Desktop\New folder\finsh\Mabeet\MabeetApi\MabeetApi\obj\Debug\net8.0\MabeetApi.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\Nour\OneDrive - Egyptian E-Learning University\Apps\Desktop\New folder\finsh\Mabeet\MabeetApi\MabeetApi\obj\Debug\net8.0\MabeetApi.AssemblyInfoInputs.cache
-C:\Users\Nour\OneDrive - Egyptian E-Learning University\Apps\Desktop\New folder\finsh\Mabeet\MabeetApi\MabeetApi\obj\Debug\net8.0\MabeetApi.AssemblyInfo.cs
-C:\Users\Nour\OneDrive - Egyptian E-Learning University\Apps\Desktop\New folder\finsh\Mabeet\MabeetApi\MabeetApi\obj\Debug\net8.0\MabeetApi.csproj.CoreCompileInputs.cache
-C:\Users\Nour\OneDrive - Egyptian E-Learning University\Apps\Desktop\New folder\finsh\Mabeet\MabeetApi\MabeetApi\obj\Debug\net8.0\MabeetApi.MvcApplicationPartsAssemblyInfo.cs
-C:\Users\Nour\OneDrive - Egyptian E-Learning University\Apps\Desktop\New folder\finsh\Mabeet\MabeetApi\MabeetApi\obj\Debug\net8.0\MabeetApi.MvcApplicationPartsAssemblyInfo.cache
-C:\Users\Nour\OneDrive - Egyptian E-Learning University\Apps\Desktop\New folder\finsh\Mabeet\MabeetApi\MabeetApi\obj\Debug\net8.0\MabeetApi.sourcelink.json
 C:\Users\Nour\OneDrive - Egyptian E-Learning University\Apps\Desktop\New folder\finsh\Mabeet\MabeetApi\MabeetApi\obj\Debug\net8.0\rjimswa.dswa.cache.json
 C:\Users\Nour\OneDrive - Egyptian E-Learning University\Apps\Desktop\New folder\finsh\Mabeet\MabeetApi\MabeetApi\obj\Debug\net8.0\rjsmrazor.dswa.cache.json
 C:\Users\Nour\OneDrive - Egyptian E-Learning University\Apps\Desktop\New folder\finsh\Mabeet\MabeetApi\MabeetApi\obj\Debug\net8.0\rjsmcshtml.dswa.cache.json

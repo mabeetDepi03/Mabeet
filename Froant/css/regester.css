@@ -1,0 +1,174 @@
+/*
+* ======================================
+* تصميم صفحة التسجيل (Modern & Minimalist Dark Theme - واسع جداً ونظيف جداً)
+* ======================================
+*/
+
+/* تعريف متغيرات الألوان */
+:root {
+    --primary-color: #5d9cec;      
+    --primary-hover: #3d79bf;
+    --bg-color: #1e272e;          
+    --card-bg-color: #2f3640;     
+    --text-color-light: #f5f6fa;  
+    --text-color-muted: #a4b0be;  
+    --input-bg-color: #353b48;    
+    --input-border: #485460;
+    --shadow-deep: 0 10px 30px rgba(0, 0, 0, 0.5);
+    --transition-speed: 0.4s;
+    /* متغيرات التباعد - تم تعديل التباعد الأفقي والجانبي */
+    --space-xl: 60px; /* **التباعد الأفقي بين الحقول في السطر** */
+    --space-lg: 30px; /* التباعد الرأسي بين مجموعات الحقول */
+    --space-md: 20px;
+}
+
+/* 1. تنسيق الخلفية وتوسيع الـ Wrapper */
+.register-wrapper {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--bg-color);
+    padding: 80px 30px; 
+    direction: rtl; 
+    font-family: 'Cairo', sans-serif; 
+    overflow: hidden; 
+}
+
+/* 2. تنسيق بطاقة النموذج (واسع جداً ونظيف) */
+.register-card {
+    background-color: var(--card-bg-color);
+    /* التعديل الرئيسي: زيادة padding من اليمين واليسار (90px) لزيادة المساحة الجانبية */
+    padding: 70px 90px; 
+    border-radius: 20px; 
+    box-shadow: var(--shadow-deep);
+    width: 100%;
+    max-width: 750px; /* زيادة عرض البطاقة */
+    z-index: 10;
+    transition: box-shadow var(--transition-speed);
+}
+
+.register-card:hover {
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7);
+}
+
+/* 3. تنسيق العنوان الرئيسي */
+.register-title {
+    color: var(--text-color-light);
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    font-weight: 800;
+}
+
+.register-subtitle {
+    color: var(--text-color-muted);
+    text-align: center;
+    font-size: 1.1rem;
+    margin-bottom: 50px; 
+}
+
+/* 4. تنسيق مجموعات الحقول - التباعد الرأسي الواضح */
+.form-group {
+    margin-bottom: var(--space-lg); 
+}
+
+.form-group label {
+    display: block;
+    color: var(--text-color-muted);
+    font-weight: 600;
+    margin-bottom: 12px; 
+    font-size: 1rem;
+    transition: color var(--transition-speed);
+}
+
+/* 5. تنسيق حقول الإدخال */
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 20px; 
+    border: 1px solid var(--input-border);
+    border-radius: 10px;
+    font-size: 1.05rem;
+    color: var(--text-color-light);
+    background-color: var(--input-bg-color);
+    transition: all var(--transition-speed);
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3);
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+/* تأثير التحديد (Focus) */
+.form-group input:focus,
+.form-group select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 4px rgba(93, 156, 236, 0.4); 
+    background-color: var(--input-bg-color);
+    outline: none;
+}
+
+/* تنسيق حقلين في سطر واحد (لعدم تداخل الحقول) */
+.form-row {
+    display: flex;
+    /* التعديل هنا: زيادة كبيرة في المسافة الأفقية بين الحقول */
+    gap: var(--space-xl); 
+    margin-bottom: var(--space-lg); 
+}
+
+.form-row .form-group {
+    flex: 1; 
+    margin-bottom: 0; 
+}
+
+/* 6. تنسيق زر التسجيل */
+.register-btn {
+    width: 100%;
+    padding: 20px; 
+    margin-top: 50px; 
+    font-size: 1.2rem;
+    font-weight: 700;
+    cursor: pointer;
+    border: none;
+    border-radius: 10px;
+    color: var(--text-color-light);
+    background: var(--primary-color);
+    box-shadow: 0 5px 15px rgba(93, 156, 236, 0.4);
+    transition: all 0.3s ease;
+}
+
+.register-btn:hover {
+    background: var(--primary-hover);
+    transform: translateY(-3px); 
+    box-shadow: 0 10px 25px rgba(93, 156, 236, 0.6);
+}
+
+/* 7. تنسيق رابط تسجيل الدخول */
+.footer-link {
+    text-align: center;
+    margin-top: 40px; 
+    font-size: 1.05rem;
+    color: var(--text-color-muted);
+}
+
+.footer-link a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 700;
+    transition: color 0.3s;
+}
+
+/* استجابة الشاشات الصغيرة (للحفاظ على الوضوح في الجوال) */
+@media (max-width: 768px) {
+    .register-card {
+        /* تقليل التوسيع على الجوال للحفاظ على سهولة القراءة */
+        padding: 30px; 
+    }
+    .form-row {
+        flex-direction: column;
+        gap: 0;
+    }
+    .form-row .form-group {
+        margin-bottom: var(--space-lg);
+    }
+}

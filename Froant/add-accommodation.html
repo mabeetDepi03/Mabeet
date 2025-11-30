@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إدارة العقار - Mabeet</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    
+    <style>
+        body { font-family: 'Cairo', sans-serif; background-color: #f4f7f6; margin: 0; }
+        .container { max-width: 800px; margin: 50px auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        h2 { text-align: center; color: #5d9cec; margin-bottom: 20px; }
+        
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        input, select, textarea { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box; font-family: inherit; }
+        textarea { height: 100px; resize: vertical; }
+        
+        .btn-submit { width: 100%; padding: 12px; background: #5d9cec; color: white; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; transition: 0.3s; }
+        .btn-submit:hover { background: #4a89dc; }
+        .back-link { display: block; text-align: center; margin-top: 15px; color: #777; text-decoration: none; }
+
+        /* تنسيقات معرض الصور */
+        .images-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 10px;
+            margin-bottom: 15px;
+            padding: 10px;
+            background: #f9f9f9;
+            border-radius: 5px;
+        }
+        .img-wrapper { position: relative; height: 100px; border-radius: 5px; overflow: hidden; border: 1px solid #ddd; }
+        .img-wrapper img { width: 100%; height: 100%; object-fit: cover; }
+        .img-delete-btn {
+            position: absolute; top: 2px; left: 2px;
+            background: rgba(231, 76, 60, 0.9); color: white;
+            border: none; border-radius: 50%; width: 24px; height: 24px;
+            cursor: pointer; display: flex; align-items: center; justify-content: center;
+            font-size: 12px;
+        }
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- سنغير العنوان بالجافاسكريبت حسب الحالة (إضافة أم تعديل) -->
+        <h2 id="pageTitle"><i class="fas fa-plus-circle"></i> إضافة عقار جديد</h2>
+        
+        <form id="addForm">
+            <div class="form-group">
+                <label>اسم العقار</label>
+                <input type="text" id="name" required placeholder="مثال: شقة فندقية على النيل">
+            </div>
+
+            <div class="form-group">
+                <label>نوع العقار</label>
+                <select id="type" required>
+                    <option value="" disabled selected>-- اختر النوع --</option>
+                    <option value="Hotel">فندق (Hotel)</option>
+                    <option value="LocalLoding">سكن محلي (Apartment/LocalLoding)</option>
+                    <option value="StudentHouse">سكن طلابي (StudentHouse)</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>الوصف</label>
+                <textarea id="description" required placeholder="وصف مميزات العقار..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>السعر لليلة (جنيه مصري)</label>
+                <input type="number" id="price" required min="0">
+            </div>
+
+            <div class="form-group">
+                <label>المدينة</label>
+                <select id="cityId" required>
+                    <option value="" disabled selected>-- اختر المدينة --</option>
+                    <option value="1">القاهرة</option>
+                    <option value="2">الجيزة</option>
+                    <option value="3">الإسكندرية</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>المنطقة</label>
+                <input type="text" id="region" required placeholder="مثال: المعادي">
+            </div>
+
+            <div class="form-group">
+                <label>اسم الشارع</label>
+                <input type="text" id="street" required placeholder="مثال: شارع 9">
+            </div>
+
+            <!-- 👇 قسم الصور الحالية (يظهر فقط عند التعديل) 👇 -->
+            <div id="existingImagesSection" class="hidden">
+                <label>الصور الحالية</label>
+                <div id="existingImagesContainer" class="images-gallery">
+                    <!-- سيتم ملء الصور هنا بالجافاسكريبت -->
+                </div>
+            </div>
+
+            <!-- 👇 رفع صور جديدة 👇 -->
+            <div class="form-group">
+                <label style="color: #5d9cec; font-weight: bold;">
+                    <i class="fas fa-camera"></i> <span id="imageLabel">صورة العقار</span>
+                </label>
+                <input type="file" id="imageFile" accept="image/*" style="padding: 10px; background: white;">
+                <small style="color: #888; display: block; margin-top: 5px;">يمكنك اختيار صورة جديدة لإضافتها للعقار</small>
+            </div>
+
+            <button type="submit" class="btn-submit" id="submitBtn">حفظ العقار</button>
+            <a href="owner-dashboard.html" class="back-link">عودة للوحة التحكم</a>
+        </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="js/add-accommodation.js"></script>
+</body>
+</html>

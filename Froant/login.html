@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل الدخول - Mabeet</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="./css/login.css"> 
+</head>
+<body>
+    
+    <div class="login-wrapper">
+        <div class="login-card" data-aos="fade-down" data-aos-duration="1000">
+            <h2 class="login-title">أهلاً بك مجدداً</h2>
+            <p class="login-subtitle">
+                <i class="fas fa-sign-in-alt"></i> 
+                قم بإدخال بياناتك للمتابعة.
+            </p>
+            
+            <!-- 🌟 إضافة div لعرض رسائل الخطأ/النجاح بدلاً من alert -->
+            <div id="message" class="hidden p-3 rounded-lg text-white font-semibold mb-4 text-center"></div>
+            
+            <form id="loginForm">
+                <div class="form-group" data-aos="fade-right" data-aos-delay="200">
+                    <label for="email"><i class="fas fa-envelope"></i> البريد الإلكتروني</label>
+                    <input type="email" id="email" name="Email" required>
+                </div>
+                
+                <div class="form-group" data-aos="fade-left" data-aos-delay="300">
+                    <label for="password"><i class="fas fa-key"></i> كلمة المرور</label>
+                    <input type="password" id="password" name="Password" required>
+                </div>
+                
+                <button type="submit" class="login-btn" data-aos="zoom-in" data-aos-delay="500">
+                    <i class="fas fa-arrow-alt-circle-left"></i> 
+                    تسجيل الدخول
+                </button>
+            </form>
+
+            <div class="footer-link" data-aos="fade-up" data-aos-delay="600">
+                ليس لديك حساب؟ <a href="regester.html">أنشئ حسابك الآن</a>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ once: true, easing: 'ease-out-back', duration: 800 });
+        
+        // دالة لعرض الرسائل للمستخدم (بديل alert)
+        // 🛑 تم نقلها هنا لاستخدامها داخل منطق النموذج (من كتلة <script type="module"> التي لم تكن موجودة في هذا الملف)
+        function displayMessage(message, type = 'error') {
+            const messageDiv = document.getElementById('message');
+            messageDiv.textContent = message;
+            messageDiv.className = `p-3 rounded-lg text-white font-semibold mb-4 text-center ${type === 'success' ? 'bg-green-500' : 'bg-red-500'}`;
+            messageDiv.style.display = 'block';
+        }
+    </script>
+<script src="js/auth.js"></script>
+
+    <script>
+        // 3. حذف سطر الـ import لأنه لم يعد ضرورياً
+        // import { MabeetAuth } from './js/auth.js';  <-- هذا السطر كان يسبب المشكلة
+
+        const loginForm = document.getElementById('loginForm');
+
+        if (loginForm) {
+            loginForm.addEventListener('submit', async function(e) {
+                e.preventDefault(); 
+
+                const form = e.target;
+                const email = form.elements.email.value;
+                const password = form.elements.password.value;
+                
+                const loginBtn = form.querySelector('.login-btn');
+                loginBtn.disabled = true;
+                loginBtn.textContent = 'جاري التحقق...';
+
+                // MabeetAuth الآن معرفة تلقائياً لأننا استدعينا الملف فوق
+                const result = await MabeetAuth.login(email, password);
+                if (result.success) {
+            const userRole = result.userRole;
+            
+            Swal.fire({
+                icon: 'success',
+                title: 'مرحباً بك!',
+                text: result.message,
+                timer: 1500,
+                showConfirmButton: false
+            }).then(() => {
+                // 🛑 التوجيه الصحيح بناءً على الدور
+                if (userRole === 'Admin') {
+                    window.location.href = 'admin-dashboard.html'; 
+                } else if (userRole === 'Owner') {
+                    window.location.href = 'owner-dashboard.html'; 
+                } else {
+                    // العميل العادي يذهب للصفحة الرئيسية
+                    window.location.href = 'index.html'; 
+                }
+            });
+        }
+
+                loginBtn.disabled = false;
+                loginBtn.innerHTML = '<i class="fas fa-arrow-alt-circle-left"></i> تسجيل الدخول';
+
+                if (result.success) {
+                    const userRole = result.userRole;
+                    
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'مرحباً بك!',
+                        text: result.message,
+                        timer: 1500,
+                        showConfirmButton: false
+                    }).then(() => {
+                        // توجيه المستخدم حسب دوره
+                        if (userRole === 'Admin') {
+                            window.location.href = 'admin-dashboard.html'; 
+                        } else if (userRole === 'Owner') {
+                            window.location.href = 'owner-dashboard.html'; 
+                        } else {
+                            window.location.href = 'index.html'; 
+                        }
+                    });
+
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'خطأ في تسجيل الدخول',
+                        text: result.message, 
+                        confirmButtonText: 'حاول مرة أخرى',
+                        confirmButtonColor: '#dc3545'
+                    });
+                }
+            });
+        }
+    </script>
+</body>
+</html>
+</body>
+</html>

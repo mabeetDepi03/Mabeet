@@ -10,162 +10,108 @@ using System.Text;
 
 namespace MabeetApi.Controllers
 {
-    [ApiController]
-    [Route("api/[controller]")]
-    public class UsersController : ControllerBase
-    {
-        private readonly UserManager<AppUser> _userManager;
-        private readonly RoleManager<IdentityRole> _roleManager;
-        private readonly IConfiguration _configuration;
+	[ApiController]
+	[Route("api/[controller]")]
+	public class UsersController : ControllerBase
+	{
+		private readonly UserManager<AppUser> _userManager;
+		private readonly RoleManager<IdentityRole> _roleManager;
+		private readonly IConfiguration _configuration;
 
-        public UsersController(UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager, IConfiguration configuration)
-        {
-            _userManager = userManager;
-            _roleManager = roleManager;
-            _configuration = configuration;
-        }
+		public UsersController(UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager, IConfiguration configuration)
+		{
+			_userManager = userManager;
+			_roleManager = roleManager;
+			_configuration = configuration;
+		}
 
-        // ================== Register ==================
-        [HttpPost("register")]
-        public async Task<IActionResult> Register([FromBody] RegisterViewModel model)
-        {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+		// ================== Register ==================
+		[HttpPost("register")]
+		public async Task<IActionResult> Register([FromBody] RegisterViewModel model)
+		{
+			if (!ModelState.IsValid)
+				return BadRequest(new { Message = "بيانات غير صالحة", Errors = ModelState });
 
-            var existingUser = await _userManager.FindByEmailAsync(model.Email);
-            if (existingUser != null)
-                return BadRequest("Email already exists.");
+			var userExists = await _userManager.FindByEmailAsync(model.Email);
+			if (userExists != null)
+				return BadRequest(new { Message = "البريد الإلكتروني مسجل بالفعل!" });
 
-            var user = new AppUser
-            {
-                FirstName = model.FirstName,
-                LastName = model.LastName,
-                Email = model.Email,
-                UserName = model.Email,
-                NationalID = model.NationalID,
-                PhoneNumber = model.PhoneNumber,
-                Type = model.Role ?? UserRole.Client
-            };
+			// تحديد الصلاحية بناءً على اختيار المستخدم
+			UserRole userRoleEnum;
+			if (model.UserType == "Owner") userRoleEnum = UserRole.Owner;
+			else if (model.UserType == "Admin") userRoleEnum = UserRole.Admin; // حماية إضافية يمكن إزالتها
+			else userRoleEnum = UserRole.Client;
 
-            var result = await _userManager.CreateAsync(user, model.Password);
-            if (!result.Succeeded)
-                return BadRequest(result.Errors);
+			AppUser newUser = new AppUser()
+			{
+				UserName = model.Email,
+				Email = model.Email,
+				FirstName = model.FirstName,
+				LastName = model.LastName,
+				NationalID = model.NationalID,
+				PhoneNumber = model.PhoneNumber,
+				Type = userRoleEnum,
+				SecurityStamp = Guid.NewGuid().ToString()
+			};
 
-            string roleName = user.Type.ToString();
-            if (!await _roleManager.RoleExistsAsync(roleName))
-                await _roleManager.CreateAsync(new IdentityRole(roleName));
+			var result = await _userManager.CreateAsync(newUser, model.Password);
 
-            await _userManager.AddToRoleAsync(user, roleName);
+			if (!result.Succeeded)
+			{
+				var errors = string.Join(", ", result.Errors.Select(e => e.Description));
+				return StatusCode(500, new { Message = "فشل إنشاء المستخدم", Errors = errors });
+			}
 
-            return Ok(new
-            {
-                user.Id,
-                user.UserName,
-                user.Email,
-                user.PhoneNumber,
-                Role = roleName,
-                Message = "User registered successfully"
-            });
-        }
+			// إضافة الصلاحية (Role) في جدول الأدوار
+			await _userManager.AddToRoleAsync(newUser, userRoleEnum.ToString());
 
-        // ================== Login ==================
-        [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] LoginViewModel model)
-        {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+			return Ok(new { Message = "تم إنشاء الحساب بنجاح!" });
+		}
 
-            var user = await _userManager.FindByEmailAsync(model.Email);
-            if (user == null)
-                return Unauthorized("Invalid email or password.");
+		// ================== Login ==================
+		[HttpPost("login")]
+		public async Task<IActionResult> Login([FromBody] LoginViewModel model)
+		{
+			if (!ModelState.IsValid)
+				return BadRequest(new { Message = "بيانات الدخول غير مكتملة" });
 
-            var result = await _userManager.CheckPasswordAsync(user, model.Password);
-            if (!result)
-                return Unauthorized("Invalid email or password.");
+			var user = await _userManager.FindByEmailAsync(model.Email);
 
-            var roles = await _userManager.GetRolesAsync(user);
-            string role = roles.FirstOrDefault() ?? "Client";
+			if (user != null && await _userManager.CheckPasswordAsync(user, model.Password))
+			{
+				var userRoles = await _userManager.GetRolesAsync(user);
 
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]);
-            var tokenDescriptor = new SecurityTokenDescriptor
-            {
-                Subject = new ClaimsIdentity(new[]
-                {
-                    new Claim(JwtRegisteredClaimNames.Sub, user.Id),
-                    new Claim(JwtRegisteredClaimNames.Email, user.Email),
-                    new Claim(ClaimTypes.Role, role),
-                    new Claim(ClaimTypes.MobilePhone, user.PhoneNumber ?? "")
-                }),
-                Expires = DateTime.UtcNow.AddDays(int.Parse(_configuration["Jwt:DurationInDays"])),
-                Issuer = _configuration["Jwt:Issuer"],
-                Audience = _configuration["Jwt:Audience"],
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-            };
+				// نأخذ أول دور للمستخدم (في هذا النظام المستخدم له دور واحد)
+				var role = userRoles.FirstOrDefault() ?? "Client";
 
-            var token = tokenHandler.CreateToken(tokenDescriptor);
+				var authClaims = new List<Claim>
+				{
+					new Claim(ClaimTypes.Name, user.UserName),
+					new Claim(ClaimTypes.Email, user.Email),
+					new Claim(ClaimTypes.NameIdentifier, user.Id),
+					new Claim(ClaimTypes.Role, role),
+					new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+				};
 
-            return Ok(new
-            {
-                user.Id,
-                user.UserName,
-                user.Email,
-                user.PhoneNumber,
-                role,
-                token = tokenHandler.WriteToken(token)
-            });
-        }
+				var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Secret"]));
 
-        // ================== Get All Users (Admin) ==================
-        [Authorize(Roles = "Admin")]
-        [HttpGet("all-users")]
-        public IActionResult GetAllUsers()
-        {
-            var users = _userManager.Users.Select(u => new
-            {
-                u.Id,
-                u.UserName,
-                u.Email,
-                u.PhoneNumber,
-                u.Type
-            }).ToList();
+				var token = new JwtSecurityToken(
+					issuer: _configuration["JWT:ValidIssuer"],
+					audience: _configuration["JWT:ValidAudience"],
+					expires: DateTime.Now.AddDays(7),
+					claims: authClaims,
+					signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
+				);
 
-            return Ok(users);
-        }
-
-        // ================== Get Single User ==================
-        [Authorize(Roles = "Admin,Owner,Client")]
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetUser(string id)
-        {
-            var user = await _userManager.FindByIdAsync(id);
-            if (user == null) return NotFound("User not found");
-
-            var roles = await _userManager.GetRolesAsync(user);
-            string role = roles.FirstOrDefault() ?? "Client";
-
-            return Ok(new
-            {
-                user.Id,
-                user.UserName,
-                user.Email,
-                user.PhoneNumber,
-                role
-            });
-        }
-
-        // ================== Delete User (Admin) ==================
-        [Authorize(Roles = "Admin")]
-        [HttpDelete("delete-user/{id}")]
-        public async Task<IActionResult> DeleteUser(string id)
-        {
-            var user = await _userManager.FindByIdAsync(id);
-            if (user == null) return NotFound("User not found");
-
-            var result = await _userManager.DeleteAsync(user);
-            if (!result.Succeeded) return BadRequest(result.Errors);
-
-            return Ok("User deleted successfully.");
-        }
-    }
+				return Ok(new
+				{
+					token = new JwtSecurityTokenHandler().WriteToken(token),
+					expiration = token.ValidTo,
+					userRole = role, // إرسال الدور للواجهة الأمامية للتوجيه
+					Message = "تم تسجيل الدخول بنجاح"
+				});
+			}
+			return Unauthorized(new { Message = "البريد الإلكتروني أو كلمة المرور غير صحيحة" });
+		}
+	}
 }

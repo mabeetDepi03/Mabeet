@@ -1,95 +1,91 @@
 // auth.js
+
+// 🛑 تأكدي أن هذا الرقم يطابق البورت المفتوح في المتصفح عند تشغيل الـ Swagger
+const PORT = "5216"; 
+const API_BASE_URL = `http://localhost:${PORT}/api`; 
+
 class MabeetAuth {
-    static userTypes = {
-        STUDENT: 'student',
-        REGULAR: 'regular',
-        HOTEL_OWNER: 'hotel_owner',
-        BROKER: 'broker'
-    };
 
-    static register(userData) {
-        // التحقق من صحة البيانات
-        if (!this.validateUserData(userData)) {
-            return false;
-        }
+    // ================== Login ==================
+    static async login(email, password) {
+        try {
+            const response = await fetch(`${API_BASE_URL}/Users/login`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email: email, password: password })
+            });
 
-        // تخزين بيانات المستخدم
-        localStorage.setItem('userData', JSON.stringify(userData));
-        localStorage.setItem('userLoggedIn', 'true');
-        localStorage.setItem('userEmail', userData.email);
-        
-        return true;
-    }
+            const data = await response.json();
 
-    static login(email, password) {
-        // في التطبيق الحقيقي، سيتم الاتصال بالخادم
-        // هنا محاكاة للعملية
-        const userData = JSON.parse(localStorage.getItem('userData') || '{}');
-        
-        if (userData.email === email && userData.password === password) {
-            localStorage.setItem('userLoggedIn', 'true');
-            localStorage.setItem('userEmail', email);
-            return true;
-        }
-        
-        return false;
-    }
-
-    static logout() {
-        localStorage.removeItem('userLoggedIn');
-        localStorage.removeItem('userEmail');
-        // لا نزيل userData للحفاظ على الملف الشخصي
-    }
-
-    static isLoggedIn() {
-        return localStorage.getItem('userLoggedIn') === 'true';
-    }
-
-    static getCurrentUser() {
-        if (this.isLoggedIn()) {
-            return JSON.parse(localStorage.getItem('userData') || '{}');
-        }
-        return null;
-    }
-
-    static getUserType() {
-        const user = this.getCurrentUser();
-        return user ? user.userType : null;
-    }
-
-    static validateUserData(userData) {
-        // التحقق من صحة البيانات
-        const requiredFields = ['firstName', 'lastName', 'email', 'password', 'userType'];
-        
-        for (let field of requiredFields) {
-            if (!userData[field]) {
-                return false;
+            if (response.ok) {
+                // تخزين التوكن
+                localStorage.setItem('userToken', data.token);
+                // تخزين الصلاحية القادمة من السيرفر
+                localStorage.setItem('userRole', data.userRole || 'Client'); 
+                localStorage.setItem('isLoggedIn', 'true');
+                
+                return { 
+                    success: true, 
+                    message: "تم تسجيل الدخول بنجاح!",
+                    userRole: data.userRole // نرجع الدور لصفحة الـ login عشان التوجيه
+                };
+            } else {
+                return { success: false, message: data.message || 'بيانات الدخول غير صحيحة' };
             }
+        } catch (error) {
+            console.error('Login Error:', error);
+            return { success: false, message: "فشل الاتصال بالخادم. تأكد من تشغيل الـ API" };
         }
-
-        // التحقق من صحة البريد الإلكتروني
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(userData.email)) {
-            return false;
-        }
-
-        // التحقق من قوة كلمة المرور
-        if (userData.password.length < 6) {
-            return false;
-        }
-
-        return true;
     }
 
-    static isHotelOwner() {
-        return this.getUserType() === this.userTypes.HOTEL_OWNER;
-    }
+    // ================== Register ==================
+    static async register(userData) {
+        try {
+            // تجهيز البيانات لتطابق الـ Backend
+            const payload = {
+                FirstName: userData.firstName,
+                LastName: userData.lastName,
+                Email: userData.email,
+                NationalID: userData.nationalID,
+                PhoneNumber: userData.phoneNumber,
+                Password: userData.password,
+                ConfirmPassword: userData.confirmPassword,
+                UserType: userData.userType // "Client" Or "Owner"
+            };
 
-    static isBroker() {
-        return this.getUserType() === this.userTypes.BROKER;
-    }
+            const response = await fetch(`${API_BASE_URL}/Users/register`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            });
 
-    static isStudent() {
-        return this.getUserType() === this.userTypes.STUDENT;
+            const data = await response.json();
+
+            if (response.ok) {
+                return { success: true, message: "تم إنشاء الحساب بنجاح!" };
+            } else {
+                let errorMsg = data.message || 'حدث خطأ أثناء التسجيل';
+                if(data.errors) {
+                     // دمج الأخطاء في رسالة واحدة
+                     errorMsg += ": " + JSON.stringify(data.errors);
+                }
+                return { success: false, message: errorMsg };
+            }
+        } catch (error) {
+            console.error('Register Error:', error);
+            return { success: false, message: "فشل الاتصال بالخادم" };
+        }
+    }
+    
+    // ================== Logout ==================
+    static logout() {
+        localStorage.removeItem('userToken');
+        localStorage.removeItem('userRole');
+        localStorage.removeItem('isLoggedIn');
+        window.location.href = 'login.html';
     }
 }

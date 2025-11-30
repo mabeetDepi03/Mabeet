@@ -1,0 +1,8 @@
+# .gitignore content
+# Ignore VS Temporary Folders
+.vs/
+*.suo
+
+# Ignore Binaries and Object files
+*/bin/
+*/obj/

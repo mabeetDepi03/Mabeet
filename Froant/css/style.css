@@ -1,559 +1,278 @@
+
 :root {
-    --primary-color: #4a6cf7;
-    --primary-light: #6d89f9;
-    --primary-dark: #3a59d6;
-    --secondary-color: #f093fb;
-    --secondary-light: #f4b5fc;
-    --secondary-dark: #ec72f9;
-    --accent-color: #f5576c;
-    --accent-light: #f87a8b;
-    --accent-dark: #f33a54;
-    --dark-color: #1a1d28;
-    --dark-light: #2d3246;
-    --light-color: #f8fafc;
-    --light-dark: #e2e8f0;
-    --gray-color: #64748b;
-    --gray-light: #94a3b8;
-    --gray-dark: #475569;
-
-    --gradient-primary: linear-gradient(135deg, var(--primary-color) 0%, #8a54ff 100%);
-    --gradient-primary-light: linear-gradient(135deg, var(--primary-light) 0%, #9d6dff 100%);
-    --gradient-secondary: linear-gradient(135deg, var(--secondary-color) 0%, var(--accent-color) 100%);
-    --gradient-secondary-light: linear-gradient(135deg, var(--secondary-light) 0%, var(--accent-light) 100%);
-    --gradient-dark: linear-gradient(135deg, var(--dark-color) 0%, #2d3748 100%);
-    --gradient-light: linear-gradient(135deg, var(--light-color) 0%, #ffffff 100%);
-    --gradient-success: linear-gradient(135deg, #10b981 0%, #34d399 100%);
-    --gradient-warning: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
-    --gradient-danger: linear-gradient(135deg, #ef4444 0%, #f87171 100%);
-    --gradient-gold: linear-gradient(135deg, #fbbf24 0%, #fde68a 100%);
+    --primary-dark: #1B3C53;    
+    --primary-medium: #234C6A;  
+    --secondary-blue: #456882;  
+    --light-grey: #E3E3E3;      
+    --off-white: #f4f6f8;      
     
-    /* الظلال المحسنة */
-    --shadow-xs: 0 1px 3px rgba(0, 0, 0, 0.05);
-    --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.07);
-    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
-    --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.15);
-    --shadow-xl: 0 20px 50px rgba(0, 0, 0, 0.2);
-    --shadow-xxl: 0 25px 60px rgba(0, 0, 0, 0.25);
-    
-    /* الأنماط الهندسية المحسنة */
-    --border-radius-xs: 4px;
-    --border-radius-sm: 8px;
-    --border-radius-md: 12px;
-    --border-radius-lg: 16px;
-    --border-radius-xl: 20px;
-    --border-radius-2xl: 24px;
-    --border-radius-full: 50%;
-    
-    /* المسافات المحسنة */
-    --space-1: 0.25rem;
-    --space-2: 0.5rem;
-    --space-3: 0.75rem;
-    --space-4: 1rem;
-    --space-5: 1.5rem;
-    --space-6: 2rem;
-    --space-7: 2.5rem;
-    --space-8: 3rem;
-    --space-9: 4rem;
-    --space-10: 5rem;
-    --space-12: 6rem;
-    --space-16: 8rem;
-    
-    /* التوقيتات */
-    --transition-fast: 0.15s ease;
-    --transition-normal: 0.3s ease;
-    --transition-slow: 0.5s ease;
-    --transition-bounce: 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    --gradient-cold: linear-gradient(135deg, #1B3C53 0%, #234C6A 100%);
+    --shadow-soft: 0 10px 40px rgba(27, 60, 83, 0.08);
+    --shadow-hover: 0 15px 50px rgba(27, 60, 83, 0.15);
 }
 
-/* ===== إعادة الضبط الأساسية ===== */
-*,
-*::before,
-*::after {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-html {
-    scroll-behavior: smooth;
-    font-size: 16px;
-}
 
 body {
-    direction: rtl;
     font-family: 'Cairo', sans-serif;
-    background-color: var(--light-color);
-    color: var(--dark-color);
-    line-height: 1.7;
-    overflow-x: hidden;
-    font-weight: 400;
-    text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+    background-color: var(--off-white);
+    color: var(--primary-dark);
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
 }
 
-main {
-    flex: 1;
+h1, h2, h3, h4, h5, h6 {
+    color: var(--primary-dark);
+    font-weight: 700;
 }
 
-/* ===== الأنماط العامة ===== */
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 var(--space-4);
+.text-secondary-custom {
+    color: var(--secondary-blue) !important;
 }
 
-.container-fluid {
+.swiper {
     width: 100%;
-    padding: 0 var(--space-4);
+    height: 480px; 
+    border-radius: 20px;
+    box-shadow: var(--shadow-soft);
+    margin-bottom: 25px;
+    background-color: #ddd;
 }
 
-.section {
-    padding: var(--space-10) 0;
-    position: relative;
-}
-
-.section-title {
-    text-align: center;
-    margin-bottom: var(--space-8);
-}
-
-.section-title h2 {
-    font-size: 2.5rem;
-    font-weight: 900;
-    color: var(--dark-color);
-    margin-bottom: var(--space-4);
-    position: relative;
-    display: inline-block;
-}
-
-.section-title h2::after {
-    content: '';
-    position: absolute;
-    bottom: -12px;
-    right: 50%;
-    transform: translateX(50%);
-    width: 80px;
-    height: 5px;
-    background: var(--gradient-primary);
-    border-radius: var(--border-radius-xs);
-}
-
-.section-title p {
-    font-size: 1.125rem;
-    color: var(--gray-color);
-    max-width: 600px;
-    margin: 0 auto;
-}
-
-/* ===== شريط التنقل ===== */
-.navbar {
-    height: 80px;
-    background: rgba(255, 255, 255, 0.98);
-    backdrop-filter: blur(15px);
-    box-shadow: var(--shadow-sm);
-    transition: all var(--transition-normal);
-    padding: 0 var(--space-4);
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 1030;
-}
-
-.navbar.scrolled {
-    height: 70px;
-    box-shadow: var(--shadow-md);
-}
-
-.navbar-brand {
-    font-weight: 900;
-    font-size: 1.75rem;
-    color: var(--primary-color) !important;
-    text-decoration: none;
-}
-
-.navbar-brand i {
-    margin-left: var(--space-2);
-    font-size: 2rem;
-    background: var(--gradient-primary);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
-
-.navbar-nav .nav-link {
-    color: var(--dark-color) !important;
-    font-weight: 600;
-    margin: 0 var(--space-2);
-    position: relative;
-    padding: var(--space-2) var(--space-3);
-    border-radius: var(--border-radius-sm);
-}
-
-.navbar-nav .nav-link:hover::before,
-.navbar-nav .nav-link.active::before {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    right: 50%;
-    width: 80%;
-    height: 2px;
-    background: var(--gradient-primary);
-    transition: all var(--transition-normal);
-    transform: translateX(50%);
-}
-
-.navbar-nav .nav-link:hover,
-.navbar-nav .nav-link.active {
-    color: var(--primary-color) !important;
-}
-
-/* ===== الأزرار ===== */
-.btn {
-    font-weight: 600;
-    padding: var(--space-3) var(--space-5);
-    border-radius: var(--border-radius-md);
-    transition: all var(--transition-normal);
-    border: none;
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: var(--space-2);
-}
-
-.btn-auth {
-    background: var(--gradient-primary);
-    color: white;
-    box-shadow: var(--shadow-sm);
-}
-
-.btn-auth:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
-    color: white;
-}
-
-.btn-outline-auth {
-    background: transparent;
-    color: var(--primary-color);
-    border: 2px solid var(--primary-color);
-}
-
-.btn-outline-auth:hover {
-    background: var(--gradient-primary);
-    color: white;
-    border-color: transparent;
-}
-
-/* ===== قسم البطل (Hero) ===== */
-.hero {
-    min-height: 100vh;
-    background: linear-gradient(135deg, rgba(74, 108, 247, 0.9) 0%, rgba(138, 84, 255, 0.9) 100%),
-                url('https://images.unsplash.com/photo-1571896349842-33c89424de2d?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=2000') center/cover;
-    display: flex;
-    align-items: center;
-    color: white;
-    padding-top: 80px;
-}
-
-.hero-content h1 {
-    font-size: 3.5rem;
-    font-weight: 900;
-    margin-bottom: var(--space-5);
-    line-height: 1.2;
-}
-
-.hero-content p {
-    font-size: 1.25rem;
-    color: rgba(255, 255, 255, 0.9);
-    margin-bottom: var(--space-6);
-    max-width: 600px;
-}
-
-/* ===== بطاقة البحث ===== */
-.search-card {
-    background: rgba(255, 255, 255, 0.95);
-    border-radius: var(--border-radius-xl);
-    padding: var(--space-6);
-    box-shadow: var(--shadow-xl);
-}
-
-.search-tab {
-    padding: var(--space-3) var(--space-4);
-    cursor: pointer;
-    font-weight: 600;
-    color: var(--gray-color);
-    border-bottom: 3px solid transparent;
-}
-
-.search-tab.active,
-.search-tab:hover {
-    color: var(--primary-color);
-    border-bottom-color: var(--primary-color);
-}
-
-/* ===== بطاقات العقارات والخدمات ===== */
-.property-card,
-.service-card {
-    background: white;
-    border-radius: var(--border-radius-lg);
-    overflow: hidden;
-    box-shadow: var(--shadow-md);
-    transition: all var(--transition-normal);
-    height: 100%;
-    border: 1px solid var(--light-dark);
-}
-
-.property-card:hover,
-.service-card:hover {
-    transform: translateY(-8px);
-    box-shadow: var(--shadow-lg);
-}
-
-.property-img,
-.service-img {
-    height: 220px;
-    position: relative;
+.swiper-slide {
     overflow: hidden;
 }
 
-.property-img img,
-.service-img img {
+.swiper-slide img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform var(--transition-slow);
+    transition: transform 0.5s ease;
 }
 
-.property-card:hover .property-img img,
-.service-card:hover .service-img img {
-    transform: scale(1.05);
+.swiper-slide:hover img {
+    transform: scale(1.03); 
 }
 
-.property-content,
-.service-content {
-    padding: var(--space-5);
+
+.swiper-button-next, .swiper-button-prev {
+    color: var(--white);
+    background: rgba(27, 60, 83, 0.4);
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    backdrop-filter: blur(5px); /* تأثير الزجاج */
+    transition: all 0.3s;
 }
 
-.property-title,
-.service-content h3 {
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: var(--dark-color);
-    margin-bottom: var(--space-3);
+.swiper-button-next:hover, .swiper-button-prev:hover {
+    background: var(--primary-medium);
+    transform: scale(1.1);
 }
 
-.property-location {
-    color: var(--gray-color);
+.swiper-button-next:after, .swiper-button-prev:after {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.swiper-pagination-bullet-active {
+    background: var(--primary-dark) !important;
+}
+
+
+.booking-card {
+    background: var(--white);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 24px;
+    padding: 30px;
+    box-shadow: var(--shadow-soft);
+    position: sticky;
+    top: 20px; 
+    z-index: 99;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.booking-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-hover);
+}
+
+.price-tag {
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: var(--primary-dark);
+    display: block;
+    line-height: 1;
+}
+
+.price-unit {
+    color: var(--secondary-blue);
     font-size: 0.9rem;
-    margin-bottom: var(--space-4);
+    font-weight: 600;
 }
 
-.property-features {
-    display: flex;
-    justify-content: space-between;
-    padding-bottom: var(--space-4);
-    border-bottom: 1px solid var(--light-dark);
-    margin-bottom: var(--space-4);
-}
-
-.property-price {
-    font-size: 1.5rem;
-    font-weight: 900;
-    color: var(--primary-color);
-}
-
-.property-price span {
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: var(--gray-color);
-}
-
-/* ===== الفوتر (Footer) - النسخة الموحدة والصحيحة ===== */
-footer {
-    background: var(--gradient-dark) !important;
-    color: white;
-    padding: var(--space-10) 0 var(--space-6);
-    position: relative;
-    margin-top: auto; /* Important for sticky footer */
-}
-
-footer::before {
-    content: '';
-    position: absolute;
-    top: 0; right: 0; bottom: 0; left: 0;
-    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-}
-
-.footer-content {
-    position: relative;
-    z-index: 2;
-}
-
-.footer-logo {
-    font-size: 1.8rem;
-    font-weight: 900;
-    margin-bottom: var(--space-4);
-    color: white;
-}
-
-.footer-title {
-    font-size: 1.2rem;
+.form-label {
+    color: var(--primary-dark);
     font-weight: 700;
-    margin-bottom: var(--space-4);
-    color: white;
-    position: relative;
-    padding-bottom: var(--space-3);
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+    display: block;
 }
 
-.footer-title::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    width: 50px;
-    height: 3px;
-    background: var(--gradient-primary);
+
+.flatpickr-calendar {
+    border-radius: 16px !important;
+    box-shadow: var(--shadow-hover) !important;
+    border: none !important;
+    font-family: 'Cairo', sans-serif !important;
+    margin-top: 5px;
 }
 
-.footer-links {
-    list-style: none;
-    padding: 0;
+.flatpickr-months .flatpickr-month {
+    background: var(--primary-dark) !important;
+    color: #fff !important;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+    padding-top: 15px;
 }
 
-.footer-links li {
-    margin-bottom: var(--space-3);
+.flatpickr-current-month .flatpickr-monthDropdown-months .flatpickr-monthDropdown-month {
+    background-color: var(--primary-dark) !important;
 }
 
-.footer-links a {
-    color: rgba(255, 255, 255, 0.8);
-    text-decoration: none;
-    transition: all var(--transition-fast);
+.flatpickr-weekdays {
+    background: var(--primary-dark) !important;
+}
+span.flatpickr-weekday {
+    background: var(--primary-dark) !important;
+    color: #ccc !important;
 }
 
-.footer-links a:hover {
-    color: white;
-    transform: translateX(-5px);
+.flatpickr-day.selected, .flatpickr-day.startRange, .flatpickr-day.endRange, 
+.flatpickr-day.selected.inRange, .flatpickr-day.startRange.inRange, .flatpickr-day.endRange.inRange {
+    background: var(--primary-medium) !important;
+    border-color: var(--primary-medium) !important;
 }
 
-.footer-bottom {
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    padding-top: var(--space-5);
-    margin-top: var(--space-8);
-    text-align: center;
-    color: rgba(255, 255, 255, 0.7);
+.flatpickr-day.inRange {
+    background: #E3E3E3 !important;
+    border-color: #E3E3E3 !important;
+    box-shadow: -5px 0 0 #E3E3E3, 5px 0 0 #E3E3E3 !important;
+    color: var(--primary-dark) !important;
 }
 
-.social-links {
+/* حقل الإدخال الخاص بالتاريخ */
+#dateRange {
+    background-color: #fcfcfc;
+    border: 2px solid #eef2f5;
+    border-radius: 12px;
+    padding: 12px 15px;
+    font-weight: 600;
+    color: var(--primary-dark);
+}
+
+.choices__inner {
+    background-color: #fcfcfc !important;
+    border: 2px solid #eef2f5 !important;
+    border-radius: 12px !important;
+    min-height: 48px !important;
     display: flex;
-    justify-content: center;
-    gap: var(--space-3);
-    margin-top: var(--space-4);
-    padding: 0;
+    align-items: center;
 }
 
-.social-links a {
+.is-focused .choices__inner {
+    border-color: var(--primary-medium) !important;
+}
+
+.choices__list--dropdown {
+    border-radius: 12px !important;
+    box-shadow: var(--shadow-soft) !important;
+    border: none !important;
+    margin-top: 8px !important;
+    z-index: 100 !important;
+}
+
+.choices__list--dropdown .choices__item--selectable.is-highlighted {
+    background-color: var(--primary-medium) !important;
+    color: #fff !important;
+}
+
+.btn-grad {
+    background-image: var(--gradient-cold);
+    color: var(--white);
+    padding: 16px;
+    border-radius: 12px;
+    border: none;
+    font-size: 1.1rem;
+    font-weight: 700;
+    width: 100%;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    box-shadow: 0 4px 15px rgba(27, 60, 83, 0.2);
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.1);
-    color: white;
-    text-decoration: none;
-    transition: all var(--transition-normal);
 }
 
-.social-links a:hover {
-    background: var(--gradient-primary);
-    transform: translateY(-3px);
+.btn-grad:hover {
+    background-position: right center;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(27, 60, 83, 0.3);
 }
 
-/* ===== صفحات أخرى (ملف شخصي، دفع، ...) ===== */
-.page-header {
-    background: var(--gradient-primary);
-    color: white;
-    padding: var(--space-9) 0;
-    text-align: center;
+.btn-grad i {
+    margin-right: 8px;
 }
 
-.profile-card, .payment-card {
-    background: white;
-    border-radius: var(--border-radius-xl);
-    padding: var(--space-8);
-    box-shadow: var(--shadow-lg);
+
+.location-capsule {
+    display: inline-flex;
+    align-items: center;
+    background-color: rgba(69, 104, 130, 0.08); 
+    color: var(--primary-medium);
+    padding: 10px 20px;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    margin-bottom: 25px;
+    border: 1px solid rgba(69, 104, 130, 0.1);
 }
 
-.booking-item, .fav-item {
-    background-color: var(--light-color);
-    border-radius: var(--border-radius-md);
-    padding: var(--space-5);
-    margin-bottom: var(--space-3);
-    border-right: 5px solid var(--primary-color);
-    transition: all var(--transition-normal);
+.location-capsule i {
+    color: #e74c3c; 
+    margin-left: 10px;
+    font-size: 1.1rem;
 }
 
-/* ===== الوضع الليلي (Dark Mode) ===== */
-@media (prefers-color-scheme: dark) {
-    :root {
-        --light-color: #1a1d28;
-        --light-dark: #2d3246;
-        --dark-color: #f8fafc;
-        --gray-color: #94a3b8;
-    }
+.description-box {
+    background: var(--white);
+    border-radius: 20px;
+    padding: 35px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.02);
+    margin-top: 30px;
+    line-height: 1.9;
+    color: #555;
+    position: relative;
+    border-right: 4px solid var(--secondary-blue); 
+}
 
-    .navbar, .navbar.scrolled {
-        background: rgba(26, 29, 40, 0.98);
-    }
+.description-box h4 {
+    margin-bottom: 20px;
+    color: var(--primary-dark);
+}
 
-    .search-card {
-        background: rgba(26, 29, 40, 0.95);
+
+@media (max-width: 992px) {
+    .booking-card {
+        position: static; 
+        margin-top: 30px;
     }
     
-    .property-card, .service-card, .profile-card, .payment-card {
-        background-color: var(--dark-light);
-        border-color: var(--light-dark);
+    .swiper {
+        height: 350px;
     }
-}
-
-/* ===== التجاوب مع الشاشات (Responsive) ===== */
-@media (max-width: 991.98px) {
-    .hero-content h1 {
-        font-size: 2.5rem;
-    }
-    .navbar-collapse {
-        background: white;
-        padding: var(--space-4);
-        border-radius: var(--border-radius-lg);
-        box-shadow: var(--shadow-lg);
-        margin-top: var(--space-3);
-    }
-    @media (prefers-color-scheme: dark) {
-        .navbar-collapse {
-            background: var(--dark-light);
-        }
-    }
-}
-
-@media (max-width: 767.98px) {
-    .hero {
-        text-align: center;
-    }
-    .hero-content h1 {
-        font-size: 2rem;
-    }
-    footer .col-lg-4, footer .col-lg-2, footer .col-lg-3 {
-        margin-bottom: var(--space-6);
-        text-align: center;
-    }
-    .footer-title::after {
-        right: 50%;
-        transform: translateX(50%);
+    
+    .price-tag {
+        font-size: 1.8rem;
     }
 }

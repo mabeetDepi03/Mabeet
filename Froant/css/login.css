@@ -1,9 +1,4 @@
-/*
-* ======================================
-* تصميم صفحة تسجيل الدخول (Modern, Clean, and Premium)
-* (أفضل من Register)
-* ======================================
-*/
+
 
 :root {
     --primary-color: #5d9cec;      
@@ -127,7 +122,7 @@
     box-shadow: none;
 }
 
-/* 7. تنسيق رابط التسجيل */
+
 .footer-link {
     text-align: center;
     margin-top: 35px; 
@@ -142,7 +137,7 @@
     transition: color 0.3s;
 }
 
-/* استجابة الشاشات الصغيرة */
+
 @media (max-width: 768px) {
     .login-card {
         padding: 40px;

@@ -1,15 +1,46 @@
-// components.js
+// js/components.js
+
 class MabeetComponents {
     static createNavbar() {
-        const isLoggedIn = localStorage.getItem('userLoggedIn') === 'true';
-        const userData = JSON.parse(localStorage.getItem('userData') || '{}');
-        const userName = userData.firstName ? `${userData.firstName} ${userData.lastName}` : 'مستخدم';
+
+        const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true'; 
+  
+        let userData = {};
+        try {
+            userData = JSON.parse(localStorage.getItem('userData') || '{}');
+        } catch (e) {
+            console.error("Error parsing userData", e);
+        }
+
+        // 1. تحديد الاسم
+        const firstName = userData.firstName || 'مستخدم';
         
+        // 2. تحديد نوع المستخدم (Role)
+        const role = userData.role || 'Client'; // الافتراضي عميل
+
+        // 3. 🟢 اللوجيك السحري: تحديد الرابط والاسم حسب النوع
+        let dashboardLink = "profile.html"; // الافتراضي
+        let dashboardText = "الملف الشخصي";
+        let dashboardIcon = "fa-user";
+
+        if (role === 'Admin') {
+            dashboardLink = "Admin.html";
+            dashboardText = "لوحة التحكم (Admin)";
+            dashboardIcon = "fa-cogs";
+        } else if (role === 'Owner') {
+            dashboardLink = "owner-dashboard.html";
+            dashboardText = "إدارة عقاراتي";
+            dashboardIcon = "fa-building";
+        }
+
+        // رابط الصورة الرمزية
+        const avatarUrl = `https://ui-avatars.com/api/?name=${encodeURIComponent(firstName)}&background=1B3C53&color=fff&size=40`;
+
         return `
             <nav class="navbar navbar-expand-lg fixed-top" id="mainNav">
                 <div class="container">
                     <a class="navbar-brand" href="index.html">
-                        <i class="fa-solid fa-bed"></i>
+                        <i class="fa-solid fa-bed me-2"></i>
                         <span>Mabeet</span>
                     </a>
                     
@@ -19,47 +50,42 @@ class MabeetComponents {
                     
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav mx-auto">
-                            <li class="nav-item">
-                                <a class="nav-link" href="index.html">الرئيسية</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="hotels.html">الفنادق</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="apartments.html">الشقق</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="student-housing.html">السكن الطلابي</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="map.html">الخريطة</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#footer">اتصل بنا</a>
-                            </li>
+                            <li class="nav-item"><a class="nav-link" href="index.html">الرئيسية</a></li>
+                            <li class="nav-item"><a class="nav-link" href="hotels.html">الفنادق</a></li>
+                            <li class="nav-item"><a class="nav-link" href="apartments.html">الشقق</a></li>
+                            <li class="nav-item"><a class="nav-link" href="student-housing.html">السكن الطلابي</a></li>
                         </ul>
                         
                         <div class="d-flex align-items-center ${isLoggedIn ? 'd-none' : ''}" id="authButtons">
-                            <button class="btn btn-auth me-2" id="loginBtn">تسجيل دخول</button>
-                            <button class="btn btn-outline-auth" id="registerBtn">إنشاء حساب</button>
+                            <a href="login.html" class="btn btn-auth me-2" id="loginBtn">دخول</a>
+                            <a href="regester.html" class="btn btn-outline-auth" id="registerBtn">تسجيل</a>
                         </div>
                         
                         <div class="d-flex align-items-center ${isLoggedIn ? '' : 'd-none'}" id="userMenu">
-                            <a href="favorites.html" class="text-dark me-3 favorite-icon"><i class="fas fa-heart"></i></a>
-                            <a href="bookings.html" class="text-dark me-3 booking-icon"><i class="fas fa-calendar-check"></i></a>
+                            
+                            ${role === 'Client' ? `
+                            <a href="profile.html#bookings" class="text-secondary me-3 position-relative" title="حجوزاتي">
+                                <i class="fas fa-calendar-check fa-lg"></i>
+                            </a>` : ''}
+                            
                             <div class="dropdown user-dropdown">
-                                <img src="https://ui-avatars.com/api/?name=${encodeURIComponent(userName)}&background=4a6cf7&color=fff&size=40" 
-                                     class="user-avatar rounded-circle" 
-                                     id="userAvatar" 
-                                     alt="صورة المستخدم" 
-                                     data-bs-toggle="dropdown" 
-                                     aria-expanded="false">
-                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userAvatar">
-                                    <li><a class="dropdown-item" href="profile.html"><i class="fas fa-user me-2"></i>الملف الشخصي</a></li>
-                                    <li><a class="dropdown-item" href="bookings.html"><i class="fas fa-calendar-check me-2"></i>حجوزاتي</a></li>
-                                    <li><a class="dropdown-item" href="favorites.html"><i class="fas fa-heart me-2"></i>المفضلة</a></li>
+                                <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <img src="${avatarUrl}" class="user-avatar rounded-circle border border-2 border-white shadow-sm" alt="Avatar" width="40" height="40">
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0 mt-2" aria-labelledby="userDropdown">
+                                    <li class="px-3 py-2 text-center border-bottom bg-light">
+                                        <span class="fw-bold d-block text-primary">${firstName}</span>
+                                        <span class="badge bg-secondary" style="font-size: 0.7rem;">${role}</span>
+                                    </li>
+                                    
+                                    <li>
+                                        <a class="dropdown-item py-2" href="${dashboardLink}">
+                                            <i class="fas ${dashboardIcon} me-2 text-secondary"></i> ${dashboardText}
+                                        </a>
+                                    </li>
+
                                     <li><hr class="dropdown-divider"></li>
-                                    <li><a class="dropdown-item" href="#" id="logoutBtn"><i class="fas fa-sign-out-alt me-2"></i>تسجيل خروج</a></li>
+                                    <li><a class="dropdown-item py-2 text-danger" href="#" id="logoutBtn"><i class="fas fa-sign-out-alt me-2"></i> خروج</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -69,95 +95,65 @@ class MabeetComponents {
         `;
     }
 
+  
     static createFooter() {
         return `
-            <footer class="footer" id="footer">
-                <div class="container">
+            <footer id="footer">
+                <div class="container text-center text-md-start">
                     <div class="row">
-                        <div class="col-lg-4 col-md-6 mb-4 mb-md-0">
-                            <div class="footer-logo">
-                                <i class="fa-solid fa-bed"></i> Mabeet
-                            </div>
-                            <p class="mb-4">منصة رائدة في مجال حجوزات السكن في مصر، نقدم تجربة حجز سلسة ومريحة مع خيارات متنوعة تناسب جميع الاحتياجات والميزانيات.</p>
-                            <div class="social-links">
-                                <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
-                                <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
-                                <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
-                                <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
-                            </div>
+                        <div class="col-md-3 mx-auto mt-3">
+                            <h5 class="footer-title">Mabeet</h5>
+                            <p>مكانك الأول لحجز الفنادق، الشقق، والسكن الطلابي بأفضل الأسعار.</p>
                         </div>
-                        
-                        <div class="col-lg-2 col-md-6 mb-4 mb-md-0">
-                            <h3 class="footer-title">روابط سريعة</h3>
-                            <ul class="footer-links">
-                                <li><a href="index.html"><i class="fas fa-chevron-left me-2"></i>الرئيسية</a></li>
-                                <li><a href="hotels.html"><i class="fas fa-chevron-left me-2"></i>الفنادق</a></li>
-                                <li><a href="apartments.html"><i class="fas fa-chevron-left me-2"></i>الشقق</a></li>
-                                <li><a href="student-housing.html"><i class="fas fa-chevron-left me-2"></i>السكن الطلابي</a></li>
-                                <li><a href="map.html"><i class="fas fa-chevron-left me-2"></i>الخريطة</a></li>
-                            </ul>
+                        <div class="col-md-2 mx-auto mt-3">
+                            <h5 class="footer-title">الخدمات</h5>
+                            <p><a href="hotels.html">الفنادق</a></p>
+                            <p><a href="apartments.html">الشقق</a></p>
+                            <p><a href="student-housing.html">السكن الطلابي</a></p>
                         </div>
-                        
-                        <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
-                            <h3 class="footer-title">روابط مساعدة</h3>
-                            <ul class="footer-links">
-                                <li><a href="faq.html"><i class="fas fa-chevron-left me-2"></i>الأسئلة الشائعة</a></li>
-                                <li><a href="privacy.html"><i class="fas fa-chevron-left me-2"></i>سياسة الخصوصية</a></li>
-                                <li><a href="terms.html"><i class="fas fa-chevron-left me-2"></i>شروط الاستخدام</a></li>
-                                <li><a href="cancellation.html"><i class="fas fa-chevron-left me-2"></i>سياسة الإلغاء</a></li>
-                                <li><a href="support.html"><i class="fas fa-chevron-left me-2"></i>الدعم الفني</a></li>
-                            </ul>
+                        <div class="col-md-3 mx-auto mt-3">
+                            <h5 class="footer-title">روابط</h5>
+                            <p><a href="profile.html">حسابي</a></p>
+                            <p><a href="#">المساعدة</a></p>
                         </div>
-                        
-                        <div class="col-lg-3 col-md-6">
-                            <h3 class="footer-title">اتصل بنا</h3>
-                            <div class="footer-contact">
-                                <div class="contact-item">
-                                    <i class="fas fa-map-marker-alt"></i>
-                                    <span>123 شارع التحرير، القاهرة، مصر</span>
-                                </div>
-                                <div class="contact-item">
-                                    <i class="fas fa-phone-alt"></i>
-                                    <span>+20 123 456 7890</span>
-                                </div>
-                                <div class="contact-item">
-                                    <i class="fas fa-envelope"></i>
-                                    <span>info@mabeet.com</span>
-                                </div>
-                                <div class="contact-item">
-                                    <i class="fas fa-clock"></i>
-                                    <span>من الأحد إلى الخميس: 9 ص - 5 م</span>
-                                </div>
-                            </div>
+                        <div class="col-md-4 mx-auto mt-3">
+                            <h5 class="footer-title">تواصل معنا</h5>
+                            <p><i class="fas fa-envelope me-2"></i> info@mabeet.com</p>
                         </div>
                     </div>
-                    
-                    <div class="footer-bottom">
-                        <p>© 2025 Mabeet</p>
+                    <hr class="my-4">
+                    <div class="text-center">
+                        <p>© 2025 جميع الحقوق محفوظة لـ <strong>Mabeet</strong></p>
                     </div>
                 </div>
             </footer>
         `;
     }
 
-    static createPageHeader(title, breadcrumbItems = []) {
-        const breadcrumbHtml = breadcrumbItems.map(item => 
-            `<li class="breadcrumb-item ${item.active ? 'active' : ''}">
-                ${item.active ? item.text : `<a href="${item.href}">${item.text}</a>`}
-            </li>`
-        ).join('');
-        
-        return `
-            <div class="page-header">
-                <div class="container">
-                    <h1>${title}</h1>
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb justify-content-center">
-                            ${breadcrumbHtml}
-                        </ol>
-                    </nav>
-                </div>
-            </div>
-        `;
+
+    static init() {
+
+        const navContainer = document.getElementById('navbar-placeholder'); 
+        if (navContainer) {
+            navContainer.innerHTML = MabeetComponents.createNavbar();
+
+            const logoutButton = document.getElementById('logoutBtn');
+            if (logoutButton) { 
+                logoutButton.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    if (typeof MabeetAuth !== 'undefined') MabeetAuth.logout();
+                    else { localStorage.clear(); window.location.href = 'index.html'; }
+                });
+            }
+        }
+
+        const footerContainer = document.getElementById('footer-placeholder');
+        if (footerContainer) footerContainer.innerHTML = MabeetComponents.createFooter();
+        else {
+            const oldFooter = document.getElementById('footer');
+            if (oldFooter) oldFooter.innerHTML = MabeetComponents.createFooter();
+        }
     }
 }
+
+document.addEventListener('DOMContentLoaded', MabeetComponents.init);

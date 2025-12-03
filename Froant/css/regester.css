@@ -1,10 +1,4 @@
-/*
-* ======================================
-* تصميم صفحة التسجيل (Modern & Minimalist Dark Theme - واسع جداً ونظيف جداً)
-* ======================================
-*/
 
-/* تعريف متغيرات الألوان */
 :root {
     --primary-color: #5d9cec;      
     --primary-hover: #3d79bf;
@@ -16,13 +10,13 @@
     --input-border: #485460;
     --shadow-deep: 0 10px 30px rgba(0, 0, 0, 0.5);
     --transition-speed: 0.4s;
-    /* متغيرات التباعد - تم تعديل التباعد الأفقي والجانبي */
-    --space-xl: 60px; /* **التباعد الأفقي بين الحقول في السطر** */
-    --space-lg: 30px; /* التباعد الرأسي بين مجموعات الحقول */
+
+    --space-xl: 60px; 
+    --space-lg: 30px; 
     --space-md: 20px;
 }
 
-/* 1. تنسيق الخلفية وتوسيع الـ Wrapper */
+
 .register-wrapper {
     min-height: 100vh;
     display: flex;
@@ -35,15 +29,14 @@
     overflow: hidden; 
 }
 
-/* 2. تنسيق بطاقة النموذج (واسع جداً ونظيف) */
 .register-card {
     background-color: var(--card-bg-color);
-    /* التعديل الرئيسي: زيادة padding من اليمين واليسار (90px) لزيادة المساحة الجانبية */
+
     padding: 70px 90px; 
     border-radius: 20px; 
     box-shadow: var(--shadow-deep);
     width: 100%;
-    max-width: 750px; /* زيادة عرض البطاقة */
+    max-width: 750px; 
     z-index: 10;
     transition: box-shadow var(--transition-speed);
 }
@@ -52,7 +45,7 @@
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7);
 }
 
-/* 3. تنسيق العنوان الرئيسي */
+
 .register-title {
     color: var(--text-color-light);
     text-align: center;
@@ -68,7 +61,7 @@
     margin-bottom: 50px; 
 }
 
-/* 4. تنسيق مجموعات الحقول - التباعد الرأسي الواضح */
+
 .form-group {
     margin-bottom: var(--space-lg); 
 }
@@ -82,7 +75,6 @@
     transition: color var(--transition-speed);
 }
 
-/* 5. تنسيق حقول الإدخال */
 .form-group input,
 .form-group select {
     width: 100%;
@@ -99,7 +91,7 @@
     appearance: none;
 }
 
-/* تأثير التحديد (Focus) */
+
 .form-group input:focus,
 .form-group select:focus {
     border-color: var(--primary-color);
@@ -108,10 +100,9 @@
     outline: none;
 }
 
-/* تنسيق حقلين في سطر واحد (لعدم تداخل الحقول) */
 .form-row {
     display: flex;
-    /* التعديل هنا: زيادة كبيرة في المسافة الأفقية بين الحقول */
+
     gap: var(--space-xl); 
     margin-bottom: var(--space-lg); 
 }
@@ -143,7 +134,7 @@
     box-shadow: 0 10px 25px rgba(93, 156, 236, 0.6);
 }
 
-/* 7. تنسيق رابط تسجيل الدخول */
+
 .footer-link {
     text-align: center;
     margin-top: 40px; 
@@ -158,10 +149,9 @@
     transition: color 0.3s;
 }
 
-/* استجابة الشاشات الصغيرة (للحفاظ على الوضوح في الجوال) */
 @media (max-width: 768px) {
     .register-card {
-        /* تقليل التوسيع على الجوال للحفاظ على سهولة القراءة */
+  
         padding: 30px; 
     }
     .form-row {

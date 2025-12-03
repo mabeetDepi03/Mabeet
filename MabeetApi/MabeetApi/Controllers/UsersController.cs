@@ -30,88 +30,118 @@ namespace MabeetApi.Controllers
 		public async Task<IActionResult> Register([FromBody] RegisterViewModel model)
 		{
 			if (!ModelState.IsValid)
-				return BadRequest(new { Message = "بيانات غير صالحة", Errors = ModelState });
+				return BadRequest(new { Message = "بيانات التسجيل غير صالحة.", Errors = ModelState });
 
-			var userExists = await _userManager.FindByEmailAsync(model.Email);
-			if (userExists != null)
-				return BadRequest(new { Message = "البريد الإلكتروني مسجل بالفعل!" });
-
-			// تحديد الصلاحية بناءً على اختيار المستخدم
-			UserRole userRoleEnum;
-			if (model.UserType == "Owner") userRoleEnum = UserRole.Owner;
-			else if (model.UserType == "Admin") userRoleEnum = UserRole.Admin; // حماية إضافية يمكن إزالتها
-			else userRoleEnum = UserRole.Client;
-
-			AppUser newUser = new AppUser()
+			try
 			{
-				UserName = model.Email,
-				Email = model.Email,
-				FirstName = model.FirstName,
-				LastName = model.LastName,
-				NationalID = model.NationalID,
-				PhoneNumber = model.PhoneNumber,
-				Type = userRoleEnum,
-				SecurityStamp = Guid.NewGuid().ToString()
-			};
+				var existingUser = await _userManager.FindByEmailAsync(model.Email);
+				if (existingUser != null)
+					return BadRequest(new { Message = "البريد الإلكتروني مستخدم بالفعل." });
 
-			var result = await _userManager.CreateAsync(newUser, model.Password);
+				var user = new AppUser
+				{
+					FirstName = model.FirstName,
+					LastName = model.LastName,
+					Email = model.Email,
+					UserName = model.Email,
+					NationalID = model.NationalID,
+					PhoneNumber = model.PhoneNumber,
+					IsActive = true,
+					Type = model.UserType == "Owner" ? UserRole.Owner : UserRole.Client,
+					CreatedAt = DateTime.UtcNow
+				};
 
-			if (!result.Succeeded)
-			{
-				var errors = string.Join(", ", result.Errors.Select(e => e.Description));
-				return StatusCode(500, new { Message = "فشل إنشاء المستخدم", Errors = errors });
+				var result = await _userManager.CreateAsync(user, model.Password);
+
+				if (result.Succeeded)
+				{
+					// إضافة الدور لجدول الأدوار أيضاً للتوافق
+					string roleName = user.Type.ToString();
+					if (!await _roleManager.RoleExistsAsync(roleName))
+						await _roleManager.CreateAsync(new IdentityRole(roleName));
+
+					await _userManager.AddToRoleAsync(user, roleName);
+
+					return Ok(new { Message = "تم التسجيل بنجاح" });
+				}
+				else
+				{
+					var identityErrors = result.Errors.Select(e => e.Description).ToList();
+					return BadRequest(new { Message = "فشل إنشاء المستخدم.", Errors = identityErrors });
+				}
 			}
-
-			// إضافة الصلاحية (Role) في جدول الأدوار
-			await _userManager.AddToRoleAsync(newUser, userRoleEnum.ToString());
-
-			return Ok(new { Message = "تم إنشاء الحساب بنجاح!" });
+			catch (Exception ex)
+			{
+				return StatusCode(500, new { Message = "حدث خطأ داخلي.", ErrorDetails = ex.Message });
+			}
 		}
 
 		// ================== Login ==================
 		[HttpPost("login")]
 		public async Task<IActionResult> Login([FromBody] LoginViewModel model)
 		{
-			if (!ModelState.IsValid)
-				return BadRequest(new { Message = "بيانات الدخول غير مكتملة" });
+			if (!ModelState.IsValid) return BadRequest(ModelState);
 
 			var user = await _userManager.FindByEmailAsync(model.Email);
 
-			if (user != null && await _userManager.CheckPasswordAsync(user, model.Password))
+			if (user == null || !await _userManager.CheckPasswordAsync(user, model.Password))
+				return Unauthorized(new { Message = "البريد الإلكتروني أو كلمة المرور غير صحيحة." });
+
+			if (!user.IsActive)
 			{
-				var userRoles = await _userManager.GetRolesAsync(user);
-
-				// نأخذ أول دور للمستخدم (في هذا النظام المستخدم له دور واحد)
-				var role = userRoles.FirstOrDefault() ?? "Client";
-
-				var authClaims = new List<Claim>
-				{
-					new Claim(ClaimTypes.Name, user.UserName),
-					new Claim(ClaimTypes.Email, user.Email),
-					new Claim(ClaimTypes.NameIdentifier, user.Id),
-					new Claim(ClaimTypes.Role, role),
-					new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-				};
-
-				var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Secret"]));
-
-				var token = new JwtSecurityToken(
-					issuer: _configuration["JWT:ValidIssuer"],
-					audience: _configuration["JWT:ValidAudience"],
-					expires: DateTime.Now.AddDays(7),
-					claims: authClaims,
-					signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
-				);
-
-				return Ok(new
-				{
-					token = new JwtSecurityTokenHandler().WriteToken(token),
-					expiration = token.ValidTo,
-					userRole = role, // إرسال الدور للواجهة الأمامية للتوجيه
-					Message = "تم تسجيل الدخول بنجاح"
-				});
+				return Unauthorized(new { Message = "عذراً، تم تعطيل هذا الحساب. يرجى التواصل مع الإدارة." });
 			}
-			return Unauthorized(new { Message = "البريد الإلكتروني أو كلمة المرور غير صحيحة" });
+
+			// 🛑🛑 التعديل الجذري هنا 🛑🛑
+			// بدلاً من البحث في جدول الأدوار (الذي قد يكون قديماً)، نعتمد على حقل Type الموجود في المستخدم نفسه
+			// هذا يضمن أنه إذا قمتِ بتغيير النوع من لوحة التحكم، سينعكس هنا فوراً
+			string role = user.Type.ToString();
+
+			var token = GenerateJwtToken(user, role);
+
+			return Ok(new
+			{
+				user.Id,
+				user.UserName,
+				user.Email,
+				role, // سيرسل الآن "Admin" لأننا قرأناه من الـ Type المحدث
+				token = new JwtSecurityTokenHandler().WriteToken(token)
+			});
+		}
+
+		// ================== Get User By ID ==================
+		[Authorize]
+		[HttpGet("{id}")]
+		public async Task<IActionResult> GetUser(string id)
+		{
+			var user = await _userManager.FindByIdAsync(id);
+			if (user == null) return NotFound("User not found");
+
+			// قراءة الدور من النوع أيضاً
+			return Ok(new { user.Id, user.Email, user.FirstName, user.LastName, Role = user.Type.ToString() });
+		}
+
+		// ================== JWT Helper ==================
+		private SecurityToken GenerateJwtToken(AppUser user, string role)
+		{
+			var authClaims = new List<Claim>
+			{
+				new Claim(ClaimTypes.Name, user.UserName ?? ""),
+				new Claim(ClaimTypes.Email, user.Email ?? ""),
+				new Claim(ClaimTypes.NameIdentifier, user.Id),
+				new Claim(ClaimTypes.Role, role),
+				new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+			};
+
+			var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Secret"]!));
+
+			return new JwtSecurityToken(
+				issuer: _configuration["JWT:ValidIssuer"],
+				audience: _configuration["JWT:ValidAudience"],
+				expires: DateTime.Now.AddDays(7),
+				claims: authClaims,
+				signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
+			);
 		}
 	}
 }

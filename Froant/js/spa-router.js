@@ -1,7 +1,3 @@
-/*
-    هذا الملف يحتوي على أكواد JavaScript المدمجة من الملفات التي أرسلتها،
-    مع تعديلات لدعم نظام الصفحة الواحدة (Single Page Application).
-*/
 
 // auth.js
 class MabeetAuth {
@@ -357,14 +353,14 @@ document.addEventListener('click', function(e) {
     }
 });
 
-// تحميل المحتوى عند تحميل الصفحة لأول مرة
+
 window.addEventListener('load', () => {
     renderComponents();
     updateAuthUI();
     const initialPage = window.location.hash.substring(1) || 'home';
     loadContent(initialPage);
 
-    // تأثير الناف بار عند التمرير
+
     const mainNav = document.getElementById('mainNav');
     if (mainNav) {
         window.addEventListener('scroll', () => {

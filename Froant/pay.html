@@ -1,519 +1,261 @@
-<!-- <!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>الدفع - Mabeet</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
-     <link rel="stylesheet" href="../css/styles.css">
-</head>
-<body>
-    
-    <div id="navbar-placeholder"></div>
-
-    <div class="page-header">
-        <div class="container">
-            <h1>الدفع</h1>
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb justify-content-center">
-                    <li class="breadcrumb-item"><a href="index.html">الرئيسية</a></li>
-                    <li class="breadcrumb-item"><a href="bookings.html">حجوزاتي</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">الدفع</li>
-                </ol>
-            </nav>
-        </div>
-    </div>
-    <section class="section">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-8">
-                    <div class="payment-card">
-                        <div class="payment-header">
-                            <h2 class="text-center">إتمام الدفع</h2>
-                        </div>
-                        <div class="payment-body">
-                            <form id="paymentForm">
-                                <div class="mb-4">
-                                    <label for="fullName" class="form-label">الاسم الكامل على البطاقة</label>
-                                    <input type="text" class="form-control" id="fullName" required>
-                                </div>
-                                <div class="mb-4">
-                                    <label for="cardNumber" class="form-label">رقم البطاقة</label>
-                                    <input type="text" class="form-control" id="cardNumber" placeholder="xxxx-xxxx-xxxx-xxxx" required>
-                                </div>
-                                <div class="row mb-4">
-                                    <div class="col-md-6">
-                                        <label for="expiryDate" class="form-label">تاريخ الانتهاء</label>
-                                        <input type="text" class="form-control" id="expiryDate" placeholder="MM/YY" required>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label for="cvv" class="form-label">CVV</label>
-                                        <input type="text" class="form-control" id="cvv" placeholder="xxx" required>
-                                    </div>
-                                </div>
-                                <div class="mb-4">
-                                    <label for="email" class="form-label">البريد الإلكتروني</label>
-                                    <input type="email" class="form-control" id="email" required>
-                                </div>
-                                <div class="d-grid">
-                                    <button type="submit" class="btn btn-primary btn-lg">ادفع الآن</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    <div class="payment-summary mt-5">
-                        <h4 class="mb-3">ملخص الحجز</h4>
-                        <ul class="list-group">
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                               <span>اسم العقار</span>
-                               <span id="summary-property-name">فندق جراند بلازا</span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                               <span>تاريخ الدخول</span>
-                               <span id="summary-check-in-date">25/10/2023</span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                               <span>تاريخ المغادرة</span>
-                               <span id="summary-check-out-date">28/10/2023</span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center fw-bold">
-                               <span>الإجمالي</span>
-                               <span id="summary-total-price">5250 ج.م</span>
-                            </li>
-                        </ul>
-                        <div class="mt-4 text-center">
-                            <button class="btn btn-outline-secondary" onclick="goBack()">العودة</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <div id="footer-placeholder"></div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-   <script src="../js/auth.js"></script>
-    <script src="../js/components.js"></script>
-    <script src="../js/shared.js"></script>
-    <script>
-        AOS.init();
-        
-        // Functions to handle payment form submission and go back
-        document.getElementById('paymentForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            Swal.fire({
-                title: 'جاري إتمام الدفع...',
-                text: 'الرجاء الانتظار قليلاً.',
-                icon: 'info',
-                showConfirmButton: false,
-                allowOutsideClick: false,
-                didOpen: () => { Swal.showLoading(); }
-            });
-            
-            setTimeout(() => {
-                Swal.close();
-                Swal.fire({
-                    title: 'تم الدفع بنجاح!',
-                    text: 'تم تأكيد حجزك. شكراً لاستخدامك Mabeet.',
-                    icon: 'success',
-                    confirmButtonText: 'حسناً',
-                    customClass: { confirmButton: 'btn btn-auth' },
-                    buttonsStyling: false
-                }).then(() => {
-                    window.location.href = 'bookings.html';
-                });
-            }, 3000);
-        });
-        
-        function goBack() {
-            window.history.back();
-        }
-    </script>
-</body>
-</html> -->
-
 
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>الدفع - Mabeet</title>
+    <title>Mabeet</title>
+    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
-     <link rel="stylesheet" href="./css/styles.css">
-     <style>
-        /* تنسيقات خاصة بطرق الدفع */
-        .payment-methods {
-            margin-bottom: 30px;
-        }
-        
-        .payment-methods h4 {
-            margin-bottom: 20px;
-            color: #333;
-            font-weight: 600;
-        }
-        
-        .payment-options {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-        
-        .payment-option {
-            border: 2px solid #e9ecef;
-            border-radius: 10px;
-            padding: 15px;
-            text-align: center;
+    <link rel="stylesheet" href="css/styles.css">
+
+    <style>
+        .payment-method-card {
+            border: 2px solid #eee;
+            border-radius: 15px;
+            padding: 20px;
             cursor: pointer;
             transition: all 0.3s ease;
-            background-color: #fff;
-        }
-        
-        .payment-option:hover {
-            border-color: #6c757d;
-            transform: translateY(-2px);
-        }
-        
-        .payment-option.active {
-            border-color: #0d6efd;
-            background-color: #f8f9fa;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
-        
-        .payment-option i {
-            font-size: 2rem;
-            margin-bottom: 10px;
-            display: block;
-        }
-        
-        .payment-option .fa-cc-visa {
-            color: #1a1f71;
-        }
-        
-        .payment-option .fa-money-bill-wave {
-            color: #28a745;
-        }
-        
-        .payment-option .fa-paypal {
-            color: #003087;
-        }
-        
-        .payment-option .fa-mobile-alt {
-            color: #8a2be2;
-        }
-        
-        .payment-option span {
-            font-weight: 600;
-            color: #495057;
-        }
-        
-        .payment-option.active span {
-            color: #0d6efd;
-        }
-        
-        /* تنسيقات النموذج */
-        .payment-card {
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-            overflow: hidden;
-            margin-bottom: 30px;
-        }
-        
-        .payment-header {
-            background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%);
-            color: white;
-            padding: 20px;
             text-align: center;
+            background: white;
         }
         
-        .payment-body {
-            padding: 30px;
-            background-color: #fff;
+        .payment-method-card:hover {
+            border-color: var(--secondary-blue);
+            transform: translateY(-5px);
         }
-        
-        .form-label {
-            font-weight: 600;
-            margin-bottom: 8px;
-            color: #495057;
+
+        .payment-method-card.active {
+            border-color: var(--primary-dark);
+            background-color: #f0f7ff;
+            box-shadow: 0 5px 15px rgba(27, 60, 83, 0.1);
         }
-        
-        .btn-primary {
-            background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%);
-            border: none;
-            padding: 12px;
-            font-weight: 600;
-            font-size: 1.1rem;
+
+        .payment-icon {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: var(--primary-medium);
         }
-        
-        .btn-primary:hover {
-            background: linear-gradient(135deg, #0a58ca 0%, #084298 100%);
-        }
-        
-        /* ملخص الحجز */
-        .payment-summary {
-            background-color: #f8f9fa;
-            border-radius: 10px;
-            padding: 25px;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
-        }
-        
-        .payment-summary h4 {
-            color: #333;
-            font-weight: 700;
-            border-bottom: 2px solid #0d6efd;
-            padding-bottom: 10px;
-        }
-        
-        .list-group-item {
-            border: none;
-            border-bottom: 1px solid #e9ecef;
-            padding: 12px 0;
-        }
-        
-        .list-group-item:last-child {
-            border-bottom: none;
-        }
-        
-        /* تنسيقات للشاشات الصغيرة */
-        @media (max-width: 768px) {
-            .payment-options {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .payment-body {
-                padding: 20px;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .payment-options {
-                grid-template-columns: 1fr;
-            }
-        }
-     </style>
+
+        .payment-form { display: none; } /* إخفاء النماذج افتراضياً */
+        .payment-form.active { display: block; animation: fadeIn 0.5s; }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    </style>
 </head>
-<body>
-    
+<body class="d-flex flex-column min-vh-100">
+
     <div id="navbar-placeholder"></div>
 
-    <div class="page-header">
-        <div class="container">
-            <h1>الدفع</h1>
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb justify-content-center">
-                    <li class="breadcrumb-item"><a href="index.html">الرئيسية</a></li>
-                    <li class="breadcrumb-item"><a href="bookings.html">حجوزاتي</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">الدفع</li>
-                </ol>
-            </nav>
+    <main class="flex-grow-1">
+        <div class="page-header" style="padding-bottom: 60px;">
+            <div class="container">
+                <h1>إتمام الحجز والدفع</h1>
+            </div>
         </div>
-    </div>
-    <section class="section">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-8">
-                    <!-- قسم طرق الدفع الجديد -->
-                    <div class="payment-methods">
-                        <h4>اختر طريقة الدفع</h4>
-                        <div class="payment-options">
-                            <div class="payment-option active" data-method="visa">
-                                <i class="fab fa-cc-visa"></i>
-                                <span>Visa</span>
+
+        <div class="container" style="margin-top: -40px; position: relative; z-index: 10;">
+            <div class="row g-4">
+                
+                <div class="col-lg-4 order-lg-2">
+                    <div class="booking-card h-100">
+                        <h4 class="mb-4 border-bottom pb-3">ملخص الحجز</h4>
+                        
+                        <div class="text-center mb-3">
+                            <img id="summaryImage" src="" class="img-fluid rounded mb-2" style="max-height: 150px; object-fit: cover; display: none;">
+                        </div>
+
+                        <div class="mb-3">
+                            <small class="text-muted d-block">العقار</small>
+                            <h5 class="fw-bold text-primary" id="summaryName">...</h5>
+                        </div>
+
+                        <div class="mb-3">
+                            <small class="text-muted d-block">الوحدة</small>
+                            <span class="fw-bold" id="summaryUnit">...</span>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-6">
+                                <small class="text-muted d-block">الوصول</small>
+                                <span class="fw-bold" id="summaryIn">...</span>
                             </div>
-                            <div class="payment-option" data-method="cash">
-                                <i class="fas fa-money-bill-wave"></i>
-                                <span>الدفع نقداً</span>
-                            </div>
-                            <div class="payment-option" data-method="paypal">
-                                <i class="fab fa-paypal"></i>
-                                <span>PayPal</span>
-                            </div>
-                            <div class="payment-option" data-method="fawry">
-                                <i class="fas fa-mobile-alt"></i>
-                                <span>Fawry</span>
+                            <div class="col-6">
+                                <small class="text-muted d-block">المغادرة</small>
+                                <span class="fw-bold" id="summaryOut">...</span>
                             </div>
                         </div>
-                    </div>
-                    
-                    <div class="payment-card">
-                        <div class="payment-header">
-                            <h2 class="text-center">إتمام الدفع</h2>
-                        </div>
-                        <div class="payment-body">
-                            <form id="paymentForm">
-                                <!-- نموذج Visa (يظهر افتراضياً) -->
-                                <div id="visa-form" class="payment-method-form">
-                                    <div class="mb-4">
-                                        <label for="fullName" class="form-label">الاسم الكامل على البطاقة</label>
-                                        <input type="text" class="form-control" id="fullName" required>
-                                    </div>
-                                    <div class="mb-4">
-                                        <label for="cardNumber" class="form-label">رقم البطاقة</label>
-                                        <input type="text" class="form-control" id="cardNumber" placeholder="xxxx-xxxx-xxxx-xxxx" required>
-                                    </div>
-                                    <div class="row mb-4">
-                                        <div class="col-md-6">
-                                            <label for="expiryDate" class="form-label">تاريخ الانتهاء</label>
-                                            <input type="text" class="form-control" id="expiryDate" placeholder="MM/YY" required>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label for="cvv" class="form-label">CVV</label>
-                                            <input type="text" class="form-control" id="cvv" placeholder="xxx" required>
-                                        </div>
-                                    </div>
-                                    <div class="mb-4">
-                                        <label for="email" class="form-label">البريد الإلكتروني</label>
-                                        <input type="email" class="form-control" id="email" required>
-                                    </div>
-                                </div>
-                                
-                                <!-- نموذج الدفع نقداً (مخفي افتراضياً) -->
-                                <div id="cash-form" class="payment-method-form" style="display: none;">
-                                    <div class="alert alert-info text-center">
-                                        <i class="fas fa-info-circle me-2"></i>
-                                        سيتم الدفع نقداً عند الوصول إلى مكان الإقامة
-                                    </div>
-                                    <div class="mb-4">
-                                        <label for="cash-email" class="form-label">البريد الإلكتروني للتأكيد</label>
-                                        <input type="email" class="form-control" id="cash-email" required>
-                                    </div>
-                                </div>
-                                
-                                <!-- نموذج PayPal (مخفي افتراضياً) -->
-                                <div id="paypal-form" class="payment-method-form" style="display: none;">
-                                    <div class="alert alert-info text-center">
-                                        <i class="fas fa-info-circle me-2"></i>
-                                        سيتم توجيهك إلى موقع PayPal لإتمام عملية الدفع
-                                    </div>
-                                    <div class="mb-4">
-                                        <label for="paypal-email" class="form-label">بريد PayPal الإلكتروني</label>
-                                        <input type="email" class="form-control" id="paypal-email" required>
-                                    </div>
-                                </div>
-                                
-                                <!-- نموذج Fawry (مخفي افتراضياً) -->
-                                <div id="fawry-form" class="payment-method-form" style="display: none;">
-                                    <div class="alert alert-info text-center">
-                                        <i class="fas fa-info-circle me-2"></i>
-                                        أدخل رقم هاتفك المحمول لاستلام كود Fawry للدفع
-                                    </div>
-                                    <div class="mb-4">
-                                        <label for="fawry-phone" class="form-label">رقم الهاتف المحمول</label>
-                                        <input type="tel" class="form-control" id="fawry-phone" placeholder="01XXXXXXXXX" required>
-                                    </div>
-                                </div>
-                                
-                                <div class="d-grid">
-                                    <button type="submit" class="btn btn-primary btn-lg">ادفع الآن</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    <div class="payment-summary mt-5">
-                        <h4 class="mb-3">ملخص الحجز</h4>
-                        <ul class="list-group">
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                               <span>اسم العقار</span>
-                               <span id="summary-property-name">فندق جراند بلازا</span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                               <span>تاريخ الدخول</span>
-                               <span id="summary-check-in-date">25/10/2023</span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                               <span>تاريخ المغادرة</span>
-                               <span id="summary-check-out-date">28/10/2023</span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center fw-bold">
-                               <span>الإجمالي</span>
-                               <span id="summary-total-price">5250 ج.م</span>
-                            </li>
-                        </ul>
-                        <div class="mt-4 text-center">
-                            <button class="btn btn-outline-secondary" onclick="goBack()">العودة</button>
+
+                        <div class="alert alert-light border mt-4">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="fw-bold text-secondary">الإجمالي:</span>
+                                <span class="fs-4 fw-bold text-success" id="summaryTotal">0 ج.م</span>
+                            </div>
                         </div>
                     </div>
                 </div>
+
+                <div class="col-lg-8 order-lg-1">
+                    <div class="bg-white p-4 p-md-5 rounded-4 shadow-sm border">
+                        <h4 class="mb-4">اختر طريقة الدفع</h4>
+                        
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-4">
+                                <div class="payment-method-card active" onclick="selectPayment('visa')">
+                                    <div class="payment-icon"><i class="fab fa-cc-visa"></i></div>
+                                    <h6 class="fw-bold">بطاقة ائتمان</h6>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="payment-method-card" onclick="selectPayment('vodafone')">
+                                    <div class="payment-icon"><i class="fas fa-mobile-alt"></i></div>
+                                    <h6 class="fw-bold">فودافون كاش</h6>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="payment-method-card" onclick="selectPayment('cash')">
+                                    <div class="payment-icon"><i class="fas fa-money-bill-wave"></i></div>
+                                    <h6 class="fw-bold">دفع عند الوصول</h6>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="form-visa" class="payment-form active">
+                            <h5 class="mb-3 text-primary"><i class="far fa-credit-card me-2"></i> الدفع بالبطاقة</h5>
+                            <div class="row g-3">
+                                <div class="col-12">
+                                    <label class="form-label">رقم البطاقة</label>
+                                    <input type="text" class="form-control" placeholder="0000 0000 0000 0000">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">تاريخ الانتهاء</label>
+                                    <input type="text" class="form-control" placeholder="MM/YY">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">CVC</label>
+                                    <input type="text" class="form-control" placeholder="123">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="form-vodafone" class="payment-form">
+                            <h5 class="mb-3 text-danger"><i class="fas fa-mobile-alt me-2"></i> فودافون كاش</h5>
+                            <div class="alert alert-info">
+                                يرجى تحويل المبلغ إلى الرقم: <strong>01012345678</strong> ثم إدخال رقم محفظتك أدناه للتأكيد.
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">رقم محفظتك</label>
+                                <input type="text" class="form-control" placeholder="010xxxxxxxx">
+                            </div>
+                        </div>
+
+                        <div id="form-cash" class="payment-form">
+                            <h5 class="mb-3 text-success"><i class="fas fa-hand-holding-usd me-2"></i> الدفع عند الوصول</h5>
+                            <div class="alert alert-success">
+                                سيتم تأكيد حجزك مبدئياً. يرجى الدفع نقداً عند الوصول إلى مكان الإقامة.
+                            </div>
+                        </div>
+
+                        <hr class="my-4">
+
+                        <button id="confirmBtn" class="btn btn-grad w-100 py-3 fs-5" onclick="processPayment()">
+                            تأكيد الحجز <span id="btnTotal"></span>
+                        </button>
+                    </div>
+                </div>
+
             </div>
         </div>
-    </section>
+    </main>
 
     <div id="footer-placeholder"></div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-   <script src="./js/auth.js"></script>
-    <script src="./js/components.js"></script>
-    <script src="./js/shared.js"></script>
+    <script src="js/api-config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/components.js"></script>
+
     <script>
-        AOS.init();
-        
-        // اختيار طريقة الدفع
-        document.querySelectorAll('.payment-option').forEach(option => {
-            option.addEventListener('click', function() {
-                // إزالة النشاط من جميع الخيارات
-                document.querySelectorAll('.payment-option').forEach(opt => {
-                    opt.classList.remove('active');
-                });
-                
-                // إضافة النشاط للخيار المحدد
-                this.classList.add('active');
-                
-                // إخفاء جميع النماذج
-                document.querySelectorAll('.payment-method-form').forEach(form => {
-                    form.style.display = 'none';
-                });
-                
-                // إظهار النموذج المناسب
-                const method = this.getAttribute('data-method');
-                document.getElementById(`${method}-form`).style.display = 'block';
-            });
-        });
-        
-        // Functions to handle payment form submission and go back
-        document.getElementById('paymentForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            Swal.fire({
-                title: 'جاري إتمام الدفع...',
-                text: 'الرجاء الانتظار قليلاً.',
-                icon: 'info',
-                showConfirmButton: false,
-                allowOutsideClick: false,
-                didOpen: () => { Swal.showLoading(); }
-            });
+        let currentMethod = 'visa'; 
+
+        function selectPayment(method) {
+            currentMethod = method;
+     
+            document.querySelectorAll('.payment-method-card').forEach(c => c.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+            document.querySelectorAll('.payment-form').forEach(f => f.classList.remove('active'));
+            document.getElementById(`form-${method}`).classList.add('active');
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const bookingData = JSON.parse(localStorage.getItem('pendingBooking'));
             
-            setTimeout(() => {
-                Swal.close();
-                Swal.fire({
-                    title: 'تم الدفع بنجاح!',
-                    text: 'تم تأكيد حجزك. شكراً لاستخدامك Mabeet.',
-                    icon: 'success',
-                    confirmButtonText: 'حسناً',
-                    customClass: { confirmButton: 'btn btn-auth' },
-                    buttonsStyling: false
-                }).then(() => {
-                    window.location.href = 'bookings.html';
-                });
-            }, 3000);
+            if (!bookingData) {
+                Swal.fire('خطأ', 'لا توجد بيانات حجز', 'error').then(() => window.location.href = 'index.html');
+                return;
+            }
+
+            // عرض البيانات
+            document.getElementById('summaryName').innerText = bookingData._displayName || 'عقار';
+            document.getElementById('summaryUnit').innerText = bookingData._displayUnit || 'وحدة سكنية';
+            document.getElementById('summaryIn').innerText = bookingData.checkIN.split('T')[0];
+            document.getElementById('summaryOut').innerText = bookingData.checkOUT.split('T')[0];
+            
+            // حساب الإجمالي
+            const d1 = new Date(bookingData.checkIN);
+            const d2 = new Date(bookingData.checkOUT);
+            const days = Math.ceil(Math.abs(d2 - d1) / (1000 * 60 * 60 * 24)); 
+            const total = (bookingData._displayPrice || 0) * days;
+            
+            document.getElementById('summaryTotal').innerText = `${total} ج.م`;
+            document.getElementById('btnTotal').innerText = `(${total} ج.م)`;
         });
-        
-        function goBack() {
-            window.history.back();
+
+        async function processPayment() {
+            const token = localStorage.getItem('userToken');
+            const bookingData = JSON.parse(localStorage.getItem('pendingBooking'));
+
+            if(!token || !bookingData) return;
+
+            const payload = {};
+            for (const key in bookingData) {
+                if (!key.startsWith('_')) payload[key] = bookingData[key];
+            }
+
+
+            Swal.fire({ title: 'جاري تأكيد الحجز...', didOpen: () => Swal.showLoading() });
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/Bookings`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+                    body: JSON.stringify(payload)
+                });
+
+                if (response.ok) {
+                    localStorage.removeItem('pendingBooking');
+                    
+                    let msg = "تم الحجز بنجاح!";
+                    if(currentMethod === 'cash') msg = "تم الحجز! الدفع عند الوصول.";
+                    else if(currentMethod === 'vodafone') msg = "تم الحجز! سيتم مراجعة التحويل.";
+
+                    Swal.fire({
+                        icon: 'success',
+                        title: msg,
+                        text: 'يمكنك متابعة حالة الحجز من ملفك الشخصي.',
+                        confirmButtonText: 'الذهاب لملفي الشخصي'
+                    }).then(() => window.location.href = 'profile.html'); 
+                } else {
+                    const err = await response.json();
+                    Swal.fire('فشل الحجز', err.message || 'حدث خطأ غير متوقع', 'error');
+                }
+            } catch (e) {
+                Swal.fire('خطأ', 'تعذر الاتصال بالسيرفر', 'error');
+            }
         }
     </script>
 </body>

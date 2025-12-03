@@ -1,4 +1,3 @@
-
 window.IS_REAL_API = true; 
 const API_BASE_URL = 'https://localhost:7066/api/admin'; 
 
@@ -8,9 +7,29 @@ const sidebarLinksMobile = document.querySelectorAll('#mobile-nav-links .nav-lin
 const adminLogoutBtnDesktop = document.getElementById('adminLogoutBtn');
 const adminLogoutBtnMobile = document.getElementById('adminLogoutBtnMobile');
 
-// **********************************************
-// وظائف المساعدة المشتركة
-// **********************************************
+
+function handleLogout() {
+    Swal.fire({
+        title: "هل أنت متأكد؟",
+        text: "سيتم تسجيل خروجك من لوحة التحكم.",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#d33", 
+        cancelButtonColor: "#3085d6",
+        confirmButtonText: "نعم، تسجيل الخروج",
+        cancelButtonText: "إلغاء"
+    }).then((result) => {
+        if (result.isConfirmed) {
+        
+            localStorage.removeItem('authToken'); 
+            
+
+            window.location.href = 'login.html'; 
+        }
+    });
+}
+
+
 
 async function fetchAdminData(route, method = 'GET', body = null) {
     if (!window.IS_REAL_API && typeof mockFetch === 'function') { 
@@ -39,22 +58,17 @@ async function fetchAdminData(route, method = 'GET', body = null) {
             return { success: true }; 
         }
 
-        // ✅ التعديل هنا: فحص نوع المحتوى قبل محاولة قراءته كـ JSON
         const contentType = response.headers.get("content-type");
         let data;
 
         if (contentType && contentType.indexOf("application/json") !== -1) {
-            // إذا كان الرد JSON، اقرأه كـ JSON
             data = await response.json();
         } else {
-            // إذا كان نصاً عادياً (مثل رسائل النجاح من السيرفر)، اقرأه كنص
             const text = await response.text();
-            // غلّف النص في كائن ليتوافق مع باقي الكود
             data = { message: text, success: response.ok };
         }
 
         if (!response.ok) {
-            // التعامل مع رسائل الخطأ من الـ API بشكل أفضل
             const errorMessage = data.message || data.title || `Error: ${response.status}`;
             Swal.fire('خطأ', errorMessage, 'error');
             return null;
@@ -69,15 +83,12 @@ async function fetchAdminData(route, method = 'GET', body = null) {
     }
 }
 
-// **********************************************
-// Dashboard
-// **********************************************
+
 async function loadDashboard() {
     contentPlaceholder.innerHTML = '<div class="text-center p-5"><i class="fas fa-spinner fa-spin fa-2x"></i> جارٍ تحميل لوحة التحكم...</div>';
     const stats = await fetchAdminData('/dashboard'); 
     
     if (stats) {
-        // نستخدم أسماء الحقول كما تأتي من الـ DTO (camelCase)
         const html = `
             <h2 class="section-title mb-5">لوحة التحكم الرئيسية</h2>
             <div class="row g-4" data-aos="fade-up">
@@ -110,9 +121,7 @@ async function loadDashboard() {
     }
 }
 
-// **********************************************
-// Users
-// **********************************************
+
 async function loadUsers() {
     contentPlaceholder.innerHTML = '<div class="text-center p-5"><i class="fas fa-spinner fa-spin fa-2x"></i> جارٍ تحميل المستخدمين...</div>';
     const users = await fetchAdminData('/users');
@@ -127,7 +136,6 @@ async function loadUsers() {
 function generateUsersHtml(users) {
     const roleMap = { 1: 'Admin', 2: 'Owner', 3: 'Client' };
     
-    // تأكد من أن أسماء الحقول هنا تطابق AdminUserListDto بصيغة camelCase
     let tableRows = users.map(user => `
         <tr>
             <td>${user.firstName} ${user.lastName}</td>
@@ -210,10 +218,6 @@ function addUsersEventListeners() {
     });
 }
 
-// **********************************************
-// 🟩 Admin Accommodations (تم التحديث هنا ✅)
-// **********************************************
-
 async function loadAccommodations() {
     contentPlaceholder.innerHTML = '<div class="text-center p-5"><i class="fas fa-spinner fa-spin fa-2x"></i> جارٍ تحميل العقارات...</div>';
     const accommodations = await fetchAdminData('/accommodations');
@@ -226,15 +230,13 @@ async function loadAccommodations() {
 }
 
 function generateAccommodationsHtml(accommodations) {
-    // ✅ تحديث: استخدام الأسماء الصحيحة من AdminAccommodationListDto
-    // accommodationID, accommodationName, accommodationType, ownerName, isApproved
     
     let tableRows = accommodations.map(acc => `
         <tr>
-            <td>${acc.accommodationID}</td> <!-- كان acc.id -->
-            <td>${acc.accommodationName}</td> <!-- كان acc.name -->
-            <td>${acc.accommodationType}</td> <!-- كان acc.type -->
-            <td>${acc.ownerName}</td> <!-- كان acc.owner -->
+            <td>${acc.accommodationID}</td> 
+            <td>${acc.accommodationName}</td> 
+            <td>${acc.accommodationType}</td> 
+            <td>${acc.ownerName}</td> 
             <td>
                 <span class="badge ${acc.isApproved ? 'bg-success' : 'bg-warning'}">
                     ${acc.isApproved ? 'موافق عليه' : 'بانتظار الموافقة'}
@@ -262,61 +264,50 @@ function generateAccommodationsHtml(accommodations) {
 }
 
 function addAccommodationEventListeners() {
+
     document.querySelectorAll('.toggle-status-acc-btn').forEach(button => {
         button.addEventListener('click', async (e) => {
             const id = parseInt(e.target.dataset.id);
-            const isApproved = e.target.dataset.approved === 'true';
+            const currentStatusString = e.target.dataset.approved; 
+            const isCurrentlyApproved = currentStatusString === 'true'; 
+            
+            const newStatus = !isCurrentlyApproved;
+
+            const actionText = newStatus ? 'الموافقة والنشر' : 'إلغاء النشر';
             
             const { isConfirmed } = await Swal.fire({
-                title: !isApproved ? 'الموافقة على العقار؟' : 'رفض العقار؟',
-                icon: 'warning',
-                showCancelButton: true
+                title: `${actionText}؟`,
+                text: newStatus ? "سيظهر هذا العقار الآن في صفحات البحث للعملاء." : "سيتم إخفاء هذا العقار.",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonText: 'نعم، نفذ',
+                cancelButtonText: 'إلغاء'
             });
 
-            // تأكد من أن الـ DTO في الباك إند يستقبل IsApproved (UpdateAccommodationStatusDto)
             if (isConfirmed) {
-                const result = await fetchAdminData(`/accommodations/${id}/status`, 'PUT', { isApproved: !isApproved });
-                if (result) loadAccommodations(); 
+                const result = await fetchAdminData(`/accommodations/${id}/status`, 'PUT', { 
+                    isApproved: newStatus 
+                });
+                
+                if (result) {
+                    Swal.fire('تم!', `تم ${newStatus ? 'اعتماد' : 'إخفاء'} العقار بنجاح.`, 'success');
+                    loadAccommodations(); 
+                }
             }
         });
     });
-    
+
     document.querySelectorAll('.delete-acc-btn').forEach(button => {
         button.addEventListener('click', async (e) => {
             const id = parseInt(e.target.dataset.id);
-            const { isConfirmed } = await Swal.fire({ title: 'حذف نهائي؟', icon: 'error', showCancelButton: true });
-            
-            if (isConfirmed) {
-                const result = await fetchAdminData(`/accommodations/${id}`, 'DELETE');
-                if (result) loadAccommodations(); 
-            }
-        });
-    });
-    
-    document.querySelectorAll('.details-acc-btn').forEach(button => {
-        button.addEventListener('click', async (e) => {
-            const id = parseInt(e.target.dataset.id);
-            const details = await fetchAdminData(`/accommodations/${id}`);
-            
-            if (details) {
-                // ✅ تحديث: استخدام الأسماء الصحيحة من AdminAccommodationDetailsDto
-                Swal.fire({
-                    title: `تفاصيل: ${details.accommodationName}`,
-                    html: `<p><strong>المالك:</strong> ${details.ownerName}</p>
-                           <p><strong>المدينة:</strong> ${details.city}</p>
-                           <p><strong>النوع:</strong> ${details.accommodationType}</p>
-                           <p><strong>الحالة:</strong> ${details.isApproved ? 'موافق عليه' : 'بانتظار الموافقة'}</p>
-                           <p><strong>الوصف:</strong> ${details.description || 'لا يوجد'}</p>`,
-                    icon: 'info'
-                });
+            if((await Swal.fire({ title: 'حذف نهائي؟', icon: 'error', showCancelButton: true })).isConfirmed) {
+                const res = await fetchAdminData(`/accommodations/${id}`, 'DELETE');
+                if(res) loadAccommodations();
             }
         });
     });
 }
 
-// **********************************************
-// Bookings
-// **********************************************
 async function loadBookings() {
     contentPlaceholder.innerHTML = '<div class="text-center p-5"><i class="fas fa-spinner fa-spin fa-2x"></i> جارٍ تحميل الحجوزات...</div>';
     const bookings = await fetchAdminData('/bookings');
@@ -358,7 +349,6 @@ function generateBookingsHtml(bookings) {
 }
 
 function addBookingEventListeners() {
-    // ... (نفس المنطق السابق، تأكد من استخدام booking.bookingID في الزر)
     document.querySelectorAll('.change-status-book-btn').forEach(btn => {
         btn.addEventListener('click', async (e) => {
             const id = e.target.dataset.id;
@@ -399,14 +389,25 @@ function addBookingEventListeners() {
 }
 
 function initAdmin() {
-    if (adminLogoutBtnDesktop) adminLogoutBtnDesktop.addEventListener('click', (e) => e.preventDefault()); 
-    if (adminLogoutBtnMobile) adminLogoutBtnMobile.addEventListener('click', (e) => e.preventDefault());
+
+    if (adminLogoutBtnDesktop) {
+        adminLogoutBtnDesktop.addEventListener('click', handleLogout); 
+    }
+    if (adminLogoutBtnMobile) {
+        adminLogoutBtnMobile.addEventListener('click', handleLogout);
+    }
 
     const allSidebarLinks = [...sidebarLinksDesktop, ...sidebarLinksMobile];
     allSidebarLinks.forEach(link => {
         link.addEventListener('click', (e) => {
-            e.preventDefault();
+
+            const isInternalLink = e.target.closest('.nav-link').hasAttribute('data-section');
+            if(isInternalLink) {
+                 e.preventDefault(); 
+            }
+            
             const section = e.target.closest('.nav-link').dataset.section;
+
             allSidebarLinks.forEach(l => l.classList.remove('active'));
             e.target.closest('.nav-link').classList.add('active');
 

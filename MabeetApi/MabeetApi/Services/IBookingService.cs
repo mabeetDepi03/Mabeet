@@ -14,8 +14,8 @@ namespace MabeetApi.Services
         Task<List<Accommodation>> GetAvailableAccommodationsAsync(AvailabilityCheckDto availabilityDto);
         Task<AvailabilityResponseDto> GetAccommodationAvailabilityAsync(AccommodationAvailabilityDto availabilityDto);
         Task<List<DateTime>> GetAllAvailableDatesAsync(int accommodationId);
-
-        // admin
-        Task<bool> UpdateBookingStatusAsync(int bookingId, UpdateBookingStatusDto dto);
+		Task<Accommodation> GetPublicAccommodationByIdAsync(int id);
+		// admin
+		Task<bool> UpdateBookingStatusAsync(int bookingId, UpdateBookingStatusDto dto);
     }
 }

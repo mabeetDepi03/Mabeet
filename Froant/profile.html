@@ -3,100 +3,167 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>الملف الشخصي - Mabeet</title>
+    <title>Mabeet</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
-     <link rel="stylesheet" href="./css/styles.css">
-</head>
-<body>
+    <link rel="stylesheet" href="css/styles.css">
     
+    <style>
+        .profile-header-card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 30px;
+            margin-top: -60px;
+            position: relative;
+            z-index: 10;
+            box-shadow: var(--shadow-hover);
+            text-align: center;
+        }
+        .profile-avatar {
+            width: 100px; height: 100px;
+            border-radius: 50%;
+            background: var(--primary-dark);
+            color: white;
+            font-size: 3rem;
+            display: flex; align-items: center; justify-content: center;
+            margin: -80px auto 20px; /* لرفع الصورة فوق الكارت */
+            border: 5px solid white;
+        }
+        .booking-history-card {
+            transition: 0.3s; border: none; border-radius: 15px; box-shadow: var(--shadow-soft);
+        }
+        .booking-history-card:hover { transform: translateY(-5px); }
+    </style>
+</head>
+<body class="d-flex flex-column min-vh-100">
+
     <div id="navbar-placeholder"></div>
 
-    <section class="section">
-        <div class="container">
+    <main class="flex-grow-1">
+        <div class="page-header" style="padding-bottom: 100px;">
+            <div class="container">
+                <h1>ملفي الشخصي</h1>
+            </div>
+        </div>
+
+        <div class="container pb-5">
             <div class="row justify-content-center">
                 <div class="col-lg-10">
-                    <div class="profile-card">
-                        <div class="profile-header">
-                            <div class="profile-picture-container">
-                                <img src="https://ui-avatars.com/api/?name=اسم المستخدم&background=4a6cf7&color=fff" class="profile-picture" alt="User Profile Picture">
-                            </div>
-                            <div class="profile-info">
-                                <h1 class="profile-title">الملف الشخصي</h1>
-                                <h5 id="profile-user-name"></h5>
-                            </div>
+                    
+                    <div class="profile-header-card mb-5" data-aos="fade-up">
+                        <div class="profile-avatar"><i class="fas fa-user"></i></div>
+                        <h2 id="userNameDisplay" class="mb-1">...</h2>
+                        <p id="userEmailDisplay" class="text-muted mb-4">...</p>
+                        
+                        <div class="d-flex justify-content-center gap-3">
+                            <span class="badge bg-light text-dark p-2 px-3 border"><i class="fas fa-phone me-2"></i> <span id="userPhone">...</span></span>
+                            <span class="badge bg-light text-dark p-2 px-3 border"><i class="fas fa-id-card me-2"></i> <span id="userNationalId">...</span></span>
                         </div>
-                        <div class="profile-body">
-                            <div class="row">
-                                <div class="col-md-6 mb-4">
-                                    <div class="info-item">
-                                        <i class="fas fa-user-circle"></i>
-                                        <div>
-                                            <span>الاسم الكامل</span>
-                                            <p id="profile-full-name"></p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 mb-4">
-                                    <div class="info-item">
-                                        <i class="fas fa-envelope"></i>
-                                        <div>
-                                            <span>البريد الإلكتروني</span>
-                                            <p id="profile-email"></p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 mb-4">
-                                    <div class="info-item">
-                                        <i class="fas fa-phone-alt"></i>
-                                        <div>
-                                            <span>رقم الهاتف</span>
-                                            <p id="profile-phone"></p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 mb-4">
-                                    <div class="info-item">
-                                        <i class="fas fa-user-tag"></i>
-                                        <div>
-                                            <span>نوع المستخدم</span>
-                                            <p id="profile-user-type"></p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="action-buttons">
-                                <a href="#" class="btn btn-edit" data-bs-toggle="modal" data-bs-target="#editProfileModal">
-                                    <i class="fas fa-edit"></i> تعديل الملف الشخصي
-                                </a>
-                                <a href="#" class="btn btn-password" data-bs-toggle="modal" data-bs-target="#changePasswordModal">
-                                    <i class="fas fa-lock"></i> تغيير كلمة المرور
-                                </a>
-                                <button id="logoutBtn" class="btn btn-danger">
-                                    <i class="fas fa-sign-out-alt"></i> تسجيل الخروج
-                                </button>
-                            </div>
+                        
+                        <hr class="my-4">
+                        <button onclick="MabeetAuth.logout()" class="btn btn-outline-danger rounded-pill px-4">
+                            <i class="fas fa-sign-out-alt me-2"></i> تسجيل الخروج
+                        </button>
+                    </div>
+
+                    <h3 class="fw-bold mb-4 border-bottom pb-2">سجل حجوزاتي</h3>
+                    <div id="bookings-list" class="row g-4">
+                        <div class="text-center py-5">
+                            <div class="spinner-border text-primary" role="status"></div>
+                            <p class="mt-2 text-muted">جاري تحميل حجوزاتك...</p>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
-    </section>
+    </main>
 
     <div id="footer-placeholder"></div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="./js/auth.js"></script>
-    <script src="./js/components.js"></script>
-    <script src="./js/shared.js"></script>
+    <script src="js/api-config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/components.js"></script>
+
     <script>
         AOS.init();
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            const token = localStorage.getItem('userToken');
+            const userData = JSON.parse(localStorage.getItem('userData') || '{}');
+
+            if (!token) { window.location.href = 'login.html'; return; }
+
+            // تعبئة البيانات
+            document.getElementById('userNameDisplay').innerText = `${userData.firstName} ${userData.lastName || ''}`;
+            document.getElementById('userEmailDisplay').innerText = userData.email;
+            document.getElementById('userPhone').innerText = userData.phoneNumber || 'غير مسجل';
+            document.getElementById('userNationalId').innerText = userData.nationalID || 'غير مسجل';
+
+            const container = document.getElementById('bookings-list');
+            try {
+             
+                const userId = userData.id; 
+                const bookings = await ApiService.get(`/Bookings/user/${userId}`);
+                
+                container.innerHTML = '';
+                if (!bookings || bookings.length === 0) {
+                    container.innerHTML = '<div class="col-12 text-center alert alert-info">ليس لديك حجوزات سابقة.</div>';
+                    return;
+                }
+
+                bookings.forEach(b => {
+                    let statusColor = 'secondary';
+                    if (b.status === 'Confirmed') statusColor = 'success';
+                    else if (b.status === 'Pending') statusColor = 'warning';
+                    else if (b.status === 'Cancelled') statusColor = 'danger';
+
+                    const card = `
+                        <div class="col-md-6">
+                            <div class="card booking-history-card h-100">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between align-items-start mb-3">
+                                        <h5 class="fw-bold text-primary">${b.accommodationName || 'حجز رقم ' + b.bookingID}</h5>
+                                        <span class="badge bg-${statusColor}">${b.status}</span>
+                                    </div>
+                                    <p class="small text-muted mb-1"><i class="fas fa-calendar-alt me-2"></i> من: ${new Date(b.checkIN).toLocaleDateString()}</p>
+                                    <p class="small text-muted mb-3"><i class="fas fa-calendar-check me-2"></i> إلى: ${new Date(b.checkOUT).toLocaleDateString()}</p>
+                                    <div class="d-flex justify-content-between align-items-center pt-2 border-top">
+                                        <span class="fw-bold">${b.totalPrice} ج.م</span>
+                                        ${b.status === 'Pending' ? `<button onclick="cancelBooking(${b.bookingID})" class="btn btn-sm btn-outline-danger">إلغاء</button>` : ''}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    container.innerHTML += card;
+                });
+
+            } catch (e) {
+                console.error(e);
+                container.innerHTML = '<div class="alert alert-danger">حدث خطأ أثناء تحميل الحجوزات</div>';
+            }
+        });
+
+        async function cancelBooking(id) {
+            if(await Swal.fire({title:'هل أنت متأكد؟', text:'سيتم إلغاء الحجز.', icon:'warning', showCancelButton:true}).then(r => r.isConfirmed)){
+                try {
+                    const res = await fetch(`${API_BASE_URL}/Bookings/${id}/cancel`, {
+                        method: 'PUT',
+                        headers: { 'Authorization': `Bearer ${localStorage.getItem('userToken')}` }
+                    });
+                    if(res.ok) {
+                        Swal.fire('تم', 'تم إلغاء الحجز', 'success').then(() => location.reload());
+                    } else { throw new Error(); }
+                } catch(e) { Swal.fire('خطأ', 'فشل الإلغاء', 'error'); }
+            }
+        }
     </script>
 </body>
 </html>

@@ -11,8 +11,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using System.Text.Json.Serialization; // 👈 مهم جداً
-using Microsoft.Extensions.Logging;
+using System.Text.Json.Serialization;
+// لا نحتاج Microsoft.Extensions.FileProviders هنا
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -59,7 +59,7 @@ builder.Services.AddAuthentication(options =>
 	};
 });
 
-// 5. تسجيل الخدمات (Services) مع حل مشكلة التكرار الحلقي 🛑
+// 5. تسجيل الخدمات
 builder.Services.AddControllers().AddJsonOptions(x =>
 	x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
@@ -73,8 +73,6 @@ builder.Services.AddScoped<IAccommodationService, AccommodationService>();
 builder.Services.AddScoped<IBookingService, BookingService>();
 
 var app = builder.Build();
-
-// ================= PIPELINE =================
 
 // Seed Data
 using (var scope = app.Services.CreateScope())
@@ -98,12 +96,12 @@ if (app.Environment.IsDevelopment())
 	app.UseSwaggerUI();
 }
 
-// 🛑 تفعيل الملفات الثابتة (الصور)
+// 🛑 تفعيل الملفات الثابتة (الصور داخل wwwroot)
+// هذا السطر وحده كافٍ لقراءة أي ملف داخل wwwroot بما في ذلك uploads/accommodations
 app.UseStaticFiles();
 
 app.UseRouting();
 
-// الترتيب الصحيح
 app.UseCors(MyAllowedOrigins);
 app.UseAuthentication();
 app.UseAuthorization();

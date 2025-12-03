@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using static System.Net.Mime.MediaTypeNames;
-
+using System.ComponentModel.DataAnnotations.Schema;
 namespace MabeetApi.Entities
 {
     public class Accommodation
@@ -41,6 +41,10 @@ namespace MabeetApi.Entities
         // 1:M ==> Images
         public virtual ICollection<Image> Images { get; set; } = new HashSet<Image>();
         public string AccommodationType { get; internal set; }
+
         public IEnumerable<Booking> Bookings { get; internal set; }
-    }
+	
+		[NotMapped]
+		public decimal PricePerNight { get; set; }
+	}
 }

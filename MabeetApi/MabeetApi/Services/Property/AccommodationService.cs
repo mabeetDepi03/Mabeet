@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 using Microsoft.AspNetCore.Http;
 using System.IO;
-using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Hosting; // مكتبة هامة للتعامل مع IWebHostEnvironment
 
 namespace MabeetApi.Services.Property
 {
@@ -21,13 +21,16 @@ namespace MabeetApi.Services.Property
 			_environment = environment;
 		}
 
-		// ----------------------------------------------------------------------
-		// 1. CREATE OPERATIONS
-		// ----------------------------------------------------------------------
+		// ... (دالة Create تبقى كما هي لعدم الإطالة، ركزنا على Read) ...
+		// يرجى استخدام دالة Create الموجودة في الكود السابق
 
+		// ----------------------------------------------------------------------
+		// 1. CREATE OPERATIONS (مختصرة هنا، استخدمي الكود الكامل)
+		// ----------------------------------------------------------------------
 		public async Task<AccommodationDetailDto> CreateAccommodationAsync(AccommodationCreateDto dto, string hostId)
 		{
-			// 1. Create Location
+			// ... (نفس الكود السابق للإنشاء) ...
+			// تأكدي من نسخ كود الإنشاء الكامل من الرد السابق إذا لم يكن موجوداً
 			var location = new Location
 			{
 				Region = dto.Location.Region,
@@ -37,122 +40,63 @@ namespace MabeetApi.Services.Property
 			_context.Locations.Add(location);
 			await _context.SaveChangesAsync();
 
-			// 2. Create Accommodation based on type
 			Accommodation accommodation = dto.AccommodationType.ToLower() switch
 			{
-				"hotel" => new Hotel
-				{
-					AccommodationName = dto.AccommodationName,
-					AccommodationDescription = dto.AccommodationDescription,
-					AppUserID = hostId,
-					LocationID = location.LocationID,
-					StarsRate = dto.StarsRate ?? 3
-				},
-				"localloding" => new LocalLoding
-				{
-					AccommodationName = dto.AccommodationName,
-					AccommodationDescription = dto.AccommodationDescription,
-					AppUserID = hostId,
-					LocationID = location.LocationID,
-					Area = dto.Area ?? 0,
-					Floor = dto.Floor ?? 1,
-					TotalRooms = dto.TotalRooms ?? 1,
-					TotalGuests = dto.TotalGuests ?? 1,
-					PricePerNight = dto.PricePerNight ?? 0
-				},
-				"studenthouse" => new StudentHouse
-				{
-					AccommodationName = dto.AccommodationName,
-					AccommodationDescription = dto.AccommodationDescription,
-					AppUserID = hostId,
-					LocationID = location.LocationID,
-					Area = dto.Area ?? 0,
-					Floor = dto.Floor ?? 1,
-					TotalGuests = dto.TotalGuests ?? 1
-				},
+				"hotel" => new Hotel { AccommodationName = dto.AccommodationName, AccommodationDescription = dto.AccommodationDescription, AppUserID = hostId, LocationID = location.LocationID, StarsRate = dto.StarsRate ?? 3 },
+				"localloding" => new LocalLoding { AccommodationName = dto.AccommodationName, AccommodationDescription = dto.AccommodationDescription, AppUserID = hostId, LocationID = location.LocationID, Area = dto.Area ?? 0, Floor = dto.Floor ?? 1, TotalRooms = dto.TotalRooms ?? 1, TotalGuests = dto.TotalGuests ?? 1, PricePerNight = dto.PricePerNight ?? 0 },
+				"studenthouse" => new StudentHouse { AccommodationName = dto.AccommodationName, AccommodationDescription = dto.AccommodationDescription, AppUserID = hostId, LocationID = location.LocationID, Area = dto.Area ?? 0, Floor = dto.Floor ?? 1, TotalGuests = dto.TotalGuests ?? 1 },
 				_ => throw new ArgumentException("Invalid accommodation type")
 			};
 
 			_context.Accommodations.Add(accommodation);
 			await _context.SaveChangesAsync();
 
-			// 3. Add Amenities
 			if (dto.AmenityIds != null && dto.AmenityIds.Any())
 			{
-				var amenities = await _context.Amenities
-					.Where(a => dto.AmenityIds.Contains(a.AmenityID))
-					.ToListAsync();
-
-				foreach (var amenity in amenities)
-				{
-					accommodation.Amenities.Add(amenity);
-				}
+				var amenities = await _context.Amenities.Where(a => dto.AmenityIds.Contains(a.AmenityID)).ToListAsync();
+				foreach (var amenity in amenities) accommodation.Amenities.Add(amenity);
 			}
-
-			// 4. Add Hotel Rooms
+			// إضافة الغرف للفنادق
 			if (dto.HotelRooms != null && dto.HotelRooms.Any() && accommodation is Hotel hotel)
 			{
 				foreach (var roomDto in dto.HotelRooms)
 				{
-					var hotelRoom = new HotelRoom
-					{
-						RoomNumber = roomDto.RoomNumber,
-						Type = roomDto.Type,
-						RoomDescription = roomDto.RoomDescription,
-						PricePerNight = roomDto.PricePerNight,
-						IsAvailable = roomDto.IsAvailable,
-						AccommodationID = hotel.AccommodationID
-					};
-					_context.HotelRooms.Add(hotelRoom);
+					_context.HotelRooms.Add(new HotelRoom { RoomNumber = roomDto.RoomNumber, Type = roomDto.Type, RoomDescription = roomDto.RoomDescription, PricePerNight = roomDto.PricePerNight, IsAvailable = roomDto.IsAvailable, AccommodationID = hotel.AccommodationID });
 				}
 			}
-
-			// 5. Add Student Rooms
+			// إضافة غرف الطلاب
 			if (dto.StudentRooms != null && dto.StudentRooms.Any() && accommodation is StudentHouse studentHouse)
 			{
 				foreach (var roomDto in dto.StudentRooms)
 				{
-					var studentRoom = new StudentRoom
-					{
-						TotalBeds = roomDto.TotalBeds,
-						AccommodationID = studentHouse.AccommodationID
-					};
+					var studentRoom = new StudentRoom { TotalBeds = roomDto.TotalBeds, AccommodationID = studentHouse.AccommodationID };
 					_context.StudentRooms.Add(studentRoom);
 					await _context.SaveChangesAsync();
-
 					if (roomDto.Beds != null)
 					{
-						foreach (var bedDto in roomDto.Beds)
-						{
-							var bed = new Bed
-							{
-								RoomDescription = bedDto.RoomDescription,
-								PricePerNight = bedDto.PricePerNight,
-								IsAvailable = bedDto.IsAvailable,
-								StudentRoomID = studentRoom.StudentRoomID
-							};
-							_context.Beds.Add(bed);
-						}
+						foreach (var bedDto in roomDto.Beds) _context.Beds.Add(new Bed { RoomDescription = bedDto.RoomDescription, PricePerNight = bedDto.PricePerNight, IsAvailable = bedDto.IsAvailable, StudentRoomID = studentRoom.StudentRoomID });
 					}
 				}
 			}
-
 			await _context.SaveChangesAsync();
 			return await MapToAccommodationDetailDto(accommodation.AccommodationID);
 		}
 
 		// ----------------------------------------------------------------------
-		// 2. READ OPERATIONS (Host Specific)
+		// 2. READ OPERATIONS (Host Specific) - 🛑 الحل لمشكلة السعر Null
 		// ----------------------------------------------------------------------
 
 		public async Task<IEnumerable<AccommodationListDto>> GetHostAccommodationsAsync(string hostId)
 		{
+			// 🛑 تحديث: جلب الغرف والأسرة لحساب السعر المعروض في القائمة
 			var accommodations = await _context.Accommodations
 				.Include(a => a.Location)
 					.ThenInclude(l => l.City)
 					.ThenInclude(c => c.Governorate)
 				.Include(a => a.Images)
+				// نحتاج لتضمين الغرف لحساب السعر للفنادق
 				.Include(a => ((Hotel)a).HotelRooms)
+				// نحتاج لتضمين الغرف والأسرة لحساب السعر للسكن الطلابي
 				.Include(a => ((StudentHouse)a).StudentRooms).ThenInclude(sr => sr.Beds)
 				.Where(a => a.AppUserID == hostId)
 				.ToListAsync();
@@ -161,9 +105,7 @@ namespace MabeetApi.Services.Property
 
 			foreach (var accommodation in accommodations)
 			{
-				// 🛑 التعديل الذكي: إذا لم توجد صورة رئيسية، خذ أول صورة موجودة
-				var mainImage = accommodation.Images?.FirstOrDefault(i => i.IsMain)
-							 ?? accommodation.Images?.FirstOrDefault();
+				var mainImage = accommodation.Images?.FirstOrDefault(i => i.IsMain);
 
 				var dto = new AccommodationListDto
 				{
@@ -178,10 +120,12 @@ namespace MabeetApi.Services.Property
 					MainImageAltText = mainImage?.AltText
 				};
 
+				// حساب السعر حسب النوع
 				switch (accommodation)
 				{
 					case Hotel hotel:
 						dto.StarsRate = hotel.StarsRate;
+						// 🛑 حساب أقل سعر غرفة ليعرض كـ "يبدأ من"
 						if (hotel.HotelRooms != null && hotel.HotelRooms.Any())
 						{
 							dto.PricePerNight = hotel.HotelRooms.Min(r => r.PricePerNight);
@@ -194,6 +138,7 @@ namespace MabeetApi.Services.Property
 						break;
 
 					case StudentHouse studentHouse:
+						// 🛑 حساب أقل سعر سرير ليعرض كـ "يبدأ من"
 						var allBeds = studentHouse.StudentRooms?.SelectMany(r => r.Beds);
 						if (allBeds != null && allBeds.Any())
 						{
@@ -351,10 +296,10 @@ namespace MabeetApi.Services.Property
 				_context.Images.RemoveRange(accommodation.Images);
 			}
 
+			// تحميل وحذف الغرف حسب النوع لتجنب خطأ 500
 			if (accommodation is Hotel hotel)
 			{
 				await _context.Entry(hotel).Collection(h => h.HotelRooms).LoadAsync();
-
 				if (hotel.HotelRooms != null && hotel.HotelRooms.Any())
 				{
 					_context.HotelRooms.RemoveRange(hotel.HotelRooms);
@@ -363,7 +308,6 @@ namespace MabeetApi.Services.Property
 			else if (accommodation is StudentHouse studentHouse)
 			{
 				await _context.Entry(studentHouse).Collection(sh => sh.StudentRooms).Query().Include(r => r.Beds).LoadAsync();
-
 				if (studentHouse.StudentRooms != null && studentHouse.StudentRooms.Any())
 				{
 					var beds = studentHouse.StudentRooms.SelectMany(r => r.Beds).ToList();
@@ -392,19 +336,18 @@ namespace MabeetApi.Services.Property
 
 			var fileName = await SaveFileAsync(dto.ImageFile, "accommodations");
 
-			// 🛑 التحقق إذا كانت هذه أول صورة للعقار، نجعلها رئيسية تلقائياً
 			bool isFirstImage = !await _context.Images.AnyAsync(i => i.AccommodationID == dto.AccommodationID);
 
 			var image = new Image
 			{
 				ImageUrl = $"/uploads/accommodations/{fileName}",
 				AltText = dto.AltText ?? accommodation.AccommodationName,
-				IsMain = dto.IsMain || isFirstImage, // 🛑 جعلها رئيسية إذا كانت الأولى
+				IsMain = dto.IsMain || isFirstImage,
 				AccommodationID = dto.AccommodationID,
 				CreatedAt = DateTime.Now
 			};
 
-			if (image.IsMain) // إذا كانت الصورة الجديدة رئيسية، نلغي الرئيسية القديمة
+			if (image.IsMain)
 			{
 				var previousMain = await _context.Images
 					.Where(i => i.AccommodationID == dto.AccommodationID && i.IsMain)

@@ -8,7 +8,7 @@ namespace MabeetApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-   // [Authorize(Roles = "Host")]
+  
     public class AccommodationController : ControllerBase
     {
         private readonly IAccommodationService _accommodationService;
@@ -21,12 +21,17 @@ namespace MabeetApi.Controllers
         // ----------------------------------------------------------------------
         // 1. CREATE OPERATIONS
         // ----------------------------------------------------------------------
-
+        [Authorize]
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(AccommodationDetailDto))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> CreateAccommodation([FromBody] AccommodationCreateDto dto)
         {
+            var role = User.FindFirst(ClaimTypes.Role)?.Value;
+
+            if (role != "Owner")
+                return Forbid();
+
             // استخراج AppUserID من التوكن (الـ HostId)
             var hostId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (hostId == null) return Unauthorized(new { Message = "Host ID not found in token." });
@@ -104,12 +109,17 @@ namespace MabeetApi.Controllers
         /// <param name="id">معرف الإقامة</param>
         /// <param name="dto">بيانات التحديث</param>
         /// <returns>تفاصيل الإقامة المحدثة</returns>
+        [Authorize]
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AccommodationDetailDto))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> UpdateAccommodation(int id, [FromBody] AccommodationUpdateDto dto)
         {
+            var role = User.FindFirst(ClaimTypes.Role)?.Value;
+
+            if (role != "Owner")
+                return Forbid();
             if (id != dto.AccommodationID)
             {
                 return BadRequest(new { Message = "Route ID and DTO ID mismatch." });
@@ -137,11 +147,16 @@ namespace MabeetApi.Controllers
         /// </summary>
         /// <param name="id">معرف الإقامة</param>
         /// <returns>نتيجة عملية الحذف</returns>
+        [Authorize]
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> DeleteAccommodation(int id)
         {
+            var role = User.FindFirst(ClaimTypes.Role)?.Value;
+
+            if (role != "Owner")
+                return Forbid();
             var hostId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (hostId == null) return Unauthorized(new { Message = "Host ID not found in token." });
 
@@ -162,12 +177,17 @@ namespace MabeetApi.Controllers
         /// <summary>
         /// رفع صورة جديدة للإقامة
         /// </summary>
+        [Authorize]
         [HttpPost("{accommodationId}/images")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> UploadImage(int accommodationId, [FromForm] ImageUploadDto dto)
         {
+            var role = User.FindFirst(ClaimTypes.Role)?.Value;
+
+            if (role != "Owner")
+                return Forbid();
             if (accommodationId != dto.AccommodationID)
             {
                 return BadRequest(new { Message = "Route ID and DTO ID mismatch." });
@@ -194,11 +214,16 @@ namespace MabeetApi.Controllers
         /// <summary>
         /// تعيين صورة كصورة رئيسية للإقامة
         /// </summary>
+        [Authorize]
         [HttpPut("{accommodationId}/images/{imageId}/main")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> SetMainImage(int accommodationId, int imageId)
         {
+            var role = User.FindFirst(ClaimTypes.Role)?.Value;
+
+            if (role != "Owner")
+                return Forbid();
             var hostId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (hostId == null) return Unauthorized(new { Message = "Host ID not found in token." });
 
@@ -215,11 +240,16 @@ namespace MabeetApi.Controllers
         /// <summary>
         /// حذف صورة من الإقامة
         /// </summary>
+        [Authorize]
         [HttpDelete("{accommodationId}/images/{imageId}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> DeleteImage(int accommodationId, int imageId)
         {
+            var role = User.FindFirst(ClaimTypes.Role)?.Value;
+
+            if (role != "Owner")
+                return Forbid();
             var hostId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (hostId == null) return Unauthorized(new { Message = "Host ID not found in token." });
 
@@ -240,11 +270,16 @@ namespace MabeetApi.Controllers
         /// <summary>
         /// تحديث قائمة المرافق (Amenities) الخاصة بالإقامة
         /// </summary>
+        [Authorize]
         [HttpPut("{accommodationId}/amenities")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> UpdateAmenities(int accommodationId, [FromBody] List<int> amenityIds)
         {
+            var role = User.FindFirst(ClaimTypes.Role)?.Value;
+
+            if (role != "Owner")
+                return Forbid();
             var hostId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (hostId == null) return Unauthorized(new { Message = "Host ID not found in token." });
 
@@ -265,11 +300,16 @@ namespace MabeetApi.Controllers
         /// <summary>
         /// إضافة غرفة فندقية جديدة إلى فندق
         /// </summary>
+        [Authorize]
         [HttpPost("{accommodationId}/hotel-rooms")]
         [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(HotelRoomDto))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> AddHotelRoom(int accommodationId, [FromBody] HotelRoomCreateDto dto)
         {
+            var role = User.FindFirst(ClaimTypes.Role)?.Value;
+
+            if (role != "Owner")
+                return Forbid();
             var hostId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (hostId == null) return Unauthorized(new { Message = "Host ID not found in token." });
 
@@ -290,11 +330,16 @@ namespace MabeetApi.Controllers
         /// <summary>
         /// تحديث تفاصيل غرفة فندقية
         /// </summary>
+        [Authorize]
         [HttpPut("hotel-rooms/{roomId}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> UpdateHotelRoom(int roomId, [FromBody] HotelRoomCreateDto dto)
         {
+            var role = User.FindFirst(ClaimTypes.Role)?.Value;
+
+            if (role != "Owner")
+                return Forbid();
             var hostId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (hostId == null) return Unauthorized(new { Message = "Host ID not found in token." });
 
@@ -311,11 +356,16 @@ namespace MabeetApi.Controllers
         /// <summary>
         /// حذف غرفة فندقية
         /// </summary>
+        [Authorize]
         [HttpDelete("hotel-rooms/{roomId}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> DeleteHotelRoom(int roomId)
         {
+            var role = User.FindFirst(ClaimTypes.Role)?.Value;
+
+            if (role != "Owner")
+                return Forbid();
             var hostId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (hostId == null) return Unauthorized(new { Message = "Host ID not found in token." });
 
@@ -336,11 +386,16 @@ namespace MabeetApi.Controllers
         /// <summary>
         /// إضافة غرفة طلابية جديدة إلى سكن طلابي
         /// </summary>
+        [Authorize]
         [HttpPost("{accommodationId}/student-rooms")]
         [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(StudentRoomDto))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> AddStudentRoom(int accommodationId, [FromBody] StudentRoomCreateDto dto)
         {
+            var role = User.FindFirst(ClaimTypes.Role)?.Value;
+
+            if (role != "Owner")
+                return Forbid();
             var hostId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (hostId == null) return Unauthorized(new { Message = "Host ID not found in token." });
 
@@ -361,11 +416,16 @@ namespace MabeetApi.Controllers
         /// <summary>
         /// تحديث عدد الأسرة في الغرفة الطلابية
         /// </summary>
+        [Authorize]
         [HttpPut("student-rooms/{roomId}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> UpdateStudentRoom(int roomId, [FromBody] StudentRoomUpdateDto dto)
         {
+            var role = User.FindFirst(ClaimTypes.Role)?.Value;
+
+            if (role != "Owner")
+                return Forbid();
             var hostId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (hostId == null) return Unauthorized(new { Message = "Host ID not found in token." });
 
@@ -382,11 +442,16 @@ namespace MabeetApi.Controllers
         /// <summary>
         /// إضافة سرير جديد إلى غرفة طلابية
         /// </summary>
+        [Authorize]
         [HttpPost("student-rooms/{roomId}/beds")]
         [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(BedDto))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> AddBedToRoom(int roomId, [FromBody] BedCreateDto dto)
         {
+            var role = User.FindFirst(ClaimTypes.Role)?.Value;
+
+            if (role != "Owner")
+                return Forbid();
             var hostId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (hostId == null) return Unauthorized(new { Message = "Host ID not found in token." });
 
@@ -403,11 +468,16 @@ namespace MabeetApi.Controllers
         /// <summary>
         /// تحديث تفاصيل سرير محدد في غرفة طلابية
         /// </summary>
+        [Authorize]
         [HttpPut("beds/{bedId}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> UpdateBed(int bedId, [FromBody] BedCreateDto dto)
         {
+            var role = User.FindFirst(ClaimTypes.Role)?.Value;
+
+            if (role != "Owner")
+                return Forbid();
             var hostId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (hostId == null) return Unauthorized(new { Message = "Host ID not found in token." });
 
@@ -424,11 +494,16 @@ namespace MabeetApi.Controllers
         /// <summary>
         /// حذف سرير من غرفة طلابية
         /// </summary>
+        [Authorize]
         [HttpDelete("beds/{bedId}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> DeleteBed(int bedId)
         {
+            var role = User.FindFirst(ClaimTypes.Role)?.Value;
+
+            if (role != "Owner")
+                return Forbid();
             var hostId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (hostId == null) return Unauthorized(new { Message = "Host ID not found in token." });
 
@@ -445,11 +520,16 @@ namespace MabeetApi.Controllers
         /// <summary>
         /// حذف غرفة طلابية بالكامل
         /// </summary>
+        [Authorize]
         [HttpDelete("student-rooms/{roomId}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> DeleteStudentRoom(int roomId)
         {
+            var role = User.FindFirst(ClaimTypes.Role)?.Value;
+
+            if (role != "Owner")
+                return Forbid();
             var hostId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (hostId == null) return Unauthorized(new { Message = "Host ID not found in token." });
 

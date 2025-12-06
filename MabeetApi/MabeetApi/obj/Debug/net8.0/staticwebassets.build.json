@@ -1,0 +1,228 @@
+{
+  "Version": 1,
+  "Hash": "8M8erMSoSQzy2srvHgMhGyGme4S/Zxk7dzsSleo6ocs=",
+  "Source": "MabeetApi",
+  "BasePath": "_content/MabeetApi",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "MabeetApi\\wwwroot",
+      "Source": "MabeetApi",
+      "ContentRoot": "C:\\Users\\Nvidia\\OneDrive\\Desktop\\2\\Mabeet\\MabeetApi\\MabeetApi\\wwwroot\\",
+      "BasePath": "_content/MabeetApi",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "C:\\Users\\Nvidia\\OneDrive\\Desktop\\2\\Mabeet\\MabeetApi\\MabeetApi\\wwwroot\\uploads\\accommodations\\81da0560-0fc8-4780-a543-50e6f1002ea3.png",
+      "SourceId": "MabeetApi",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Nvidia\\OneDrive\\Desktop\\2\\Mabeet\\MabeetApi\\MabeetApi\\wwwroot\\",
+      "BasePath": "_content/MabeetApi",
+      "RelativePath": "uploads/accommodations/81da0560-0fc8-4780-a543-50e6f1002ea3#[.{fingerprint}]?.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "kyyiyfq1rd",
+      "Integrity": "hKBW4hV60saACG8C9+doHDPQS53hIV7EtZ7XhmQhJzw=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\accommodations\\81da0560-0fc8-4780-a543-50e6f1002ea3.png"
+    },
+    {
+      "Identity": "C:\\Users\\Nvidia\\OneDrive\\Desktop\\2\\Mabeet\\MabeetApi\\MabeetApi\\wwwroot\\uploads\\accommodations\\8d0d7a0e-8c0b-40d4-9d61-0c79b31677ab.png",
+      "SourceId": "MabeetApi",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Nvidia\\OneDrive\\Desktop\\2\\Mabeet\\MabeetApi\\MabeetApi\\wwwroot\\",
+      "BasePath": "_content/MabeetApi",
+      "RelativePath": "uploads/accommodations/8d0d7a0e-8c0b-40d4-9d61-0c79b31677ab#[.{fingerprint}]?.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "2rwh4u73s5",
+      "Integrity": "Dqy2Y7/q8t4+1SSGs0S7Ty+NSGJ//VKeuEmZjMlk7FM=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\accommodations\\8d0d7a0e-8c0b-40d4-9d61-0c79b31677ab.png"
+    }
+  ],
+  "Endpoints": [
+    {
+      "Route": "uploads/accommodations/81da0560-0fc8-4780-a543-50e6f1002ea3.kyyiyfq1rd.png",
+      "AssetFile": "C:\\Users\\Nvidia\\OneDrive\\Desktop\\2\\Mabeet\\MabeetApi\\MabeetApi\\wwwroot\\uploads\\accommodations\\81da0560-0fc8-4780-a543-50e6f1002ea3.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "696161"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"hKBW4hV60saACG8C9+doHDPQS53hIV7EtZ7XhmQhJzw=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 06 Dec 2025 15:39:50 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "kyyiyfq1rd"
+        },
+        {
+          "Name": "label",
+          "Value": "uploads/accommodations/81da0560-0fc8-4780-a543-50e6f1002ea3.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-hKBW4hV60saACG8C9+doHDPQS53hIV7EtZ7XhmQhJzw="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/accommodations/81da0560-0fc8-4780-a543-50e6f1002ea3.png",
+      "AssetFile": "C:\\Users\\Nvidia\\OneDrive\\Desktop\\2\\Mabeet\\MabeetApi\\MabeetApi\\wwwroot\\uploads\\accommodations\\81da0560-0fc8-4780-a543-50e6f1002ea3.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "696161"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"hKBW4hV60saACG8C9+doHDPQS53hIV7EtZ7XhmQhJzw=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 06 Dec 2025 15:39:50 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-hKBW4hV60saACG8C9+doHDPQS53hIV7EtZ7XhmQhJzw="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/accommodations/8d0d7a0e-8c0b-40d4-9d61-0c79b31677ab.2rwh4u73s5.png",
+      "AssetFile": "C:\\Users\\Nvidia\\OneDrive\\Desktop\\2\\Mabeet\\MabeetApi\\MabeetApi\\wwwroot\\uploads\\accommodations\\8d0d7a0e-8c0b-40d4-9d61-0c79b31677ab.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "454339"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Dqy2Y7/q8t4+1SSGs0S7Ty+NSGJ//VKeuEmZjMlk7FM=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 06 Dec 2025 15:39:50 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "2rwh4u73s5"
+        },
+        {
+          "Name": "label",
+          "Value": "uploads/accommodations/8d0d7a0e-8c0b-40d4-9d61-0c79b31677ab.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-Dqy2Y7/q8t4+1SSGs0S7Ty+NSGJ//VKeuEmZjMlk7FM="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/accommodations/8d0d7a0e-8c0b-40d4-9d61-0c79b31677ab.png",
+      "AssetFile": "C:\\Users\\Nvidia\\OneDrive\\Desktop\\2\\Mabeet\\MabeetApi\\MabeetApi\\wwwroot\\uploads\\accommodations\\8d0d7a0e-8c0b-40d4-9d61-0c79b31677ab.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "454339"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Dqy2Y7/q8t4+1SSGs0S7Ty+NSGJ//VKeuEmZjMlk7FM=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 06 Dec 2025 15:39:50 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-Dqy2Y7/q8t4+1SSGs0S7Ty+NSGJ//VKeuEmZjMlk7FM="
+        }
+      ]
+    }
+  ]
+}

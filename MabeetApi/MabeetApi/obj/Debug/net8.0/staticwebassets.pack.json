@@ -1,0 +1,33 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\Nvidia\\OneDrive\\Desktop\\2\\Mabeet\\MabeetApi\\MabeetApi\\wwwroot\\uploads\\accommodations\\81da0560-0fc8-4780-a543-50e6f1002ea3.png",
+      "PackagePath": "staticwebassets\\uploads\\accommodations\\81da0560-0fc8-4780-a543-50e6f1002ea3.png"
+    },
+    {
+      "Id": "C:\\Users\\Nvidia\\OneDrive\\Desktop\\2\\Mabeet\\MabeetApi\\MabeetApi\\wwwroot\\uploads\\accommodations\\8d0d7a0e-8c0b-40d4-9d61-0c79b31677ab.png",
+      "PackagePath": "staticwebassets\\uploads\\accommodations\\8d0d7a0e-8c0b-40d4-9d61-0c79b31677ab.png"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.MabeetApi.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssetEndpoints.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.MabeetApi.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.MabeetApi.props",
+      "PackagePath": "build\\MabeetApi.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.MabeetApi.props",
+      "PackagePath": "buildMultiTargeting\\MabeetApi.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.MabeetApi.props",
+      "PackagePath": "buildTransitive\\MabeetApi.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

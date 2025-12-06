@@ -127,11 +127,36 @@ namespace MabeetApi.Seeding
 			// ========== 2) Governorates + Cities + Locations ==========
 			if (!context.Governorates.Any())
 			{
-				var cairo = new Governorate { GovernorateName = "Cairo" };
-				var giza = new Governorate { GovernorateName = "Giza" };
-				var alex = new Governorate { GovernorateName = "Alexandria" };
+                var cairo = new Governorate { GovernorateName = "Cairo" };
+                var giza = new Governorate { GovernorateName = "Giza" };
+                var alex = new Governorate { GovernorateName = "Alexandria" };
+                var aswan = new Governorate { GovernorateName = "Aswan" };
+                var asyut = new Governorate { GovernorateName = "Asyut" };
+                var behaira = new Governorate { GovernorateName = "Beheira" };
+                var bniSuef = new Governorate { GovernorateName = "Beni Suef" };
+                var dakahlia = new Governorate { GovernorateName = "Dakahlia" };
+                var damietta = new Governorate { GovernorateName = "Damietta" };
+                var faiyum = new Governorate { GovernorateName = "Faiyum" };
+                var ghharbia = new Governorate { GovernorateName = "Gharbia" };               
+                var ismailia = new Governorate { GovernorateName = "Ismailia" };
+                var kafrElSheikh = new Governorate { GovernorateName = "Kafr El Sheikh" };
+                var luxor = new Governorate { GovernorateName = "Luxor" };
+                var matruh = new Governorate { GovernorateName = "Matruh" };
+                var minya = new Governorate { GovernorateName = "Minya" };
+                var monufia = new Governorate { GovernorateName = "Monufia" };
+                var newValley = new Governorate { GovernorateName = "New Valley" };
+                var northSinai = new Governorate { GovernorateName = "North Sinai" };
+                var portSaid = new Governorate { GovernorateName = "Port Said" };
+                var qalyubia = new Governorate { GovernorateName = "Qalyubia" };
+                var qena = new Governorate { GovernorateName = "Qena" };
+                var redSea = new Governorate { GovernorateName = "Red Sea" };
+                var sohag = new Governorate { GovernorateName = "Sohag" };
+                var southSinai = new Governorate { GovernorateName = "South Sinai" };
+                var suiiz = new Governorate { GovernorateName = "Suez" };
+                var sharqia = new Governorate { GovernorateName = "Sharqia" };
 
-				context.Governorates.AddRange(cairo, giza, alex);
+
+                context.Governorates.AddRange(cairo, giza, alex);
 				await context.SaveChangesAsync();
 
 				var cities = new List<City>

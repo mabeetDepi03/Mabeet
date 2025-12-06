@@ -227,14 +227,18 @@
             }
         }
 
-        const userData = localStorage.getItem("user");
-        if (!userData) { window.location.href = "login.html"; }
+        const userData = localStorage.getItem("userData");
+        if (!userData) {
+            window.location.href = "login.html";
+        }
 
         const user = JSON.parse(userData);
+
         if (user.role !== "Owner") {
             alert("غير مسموح لك بالدخول إلى هذه الصفحة");
             window.location.href = "index.html";
         }
+
     </script>
 </body>
 

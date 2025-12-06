@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MabeetApi")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+60462fcc3c938cdcabf44a5bd5dc3fd5faf5163f")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+07af1a8a26e1dab1e820aada5425a1bb794cdf0a")]
 [assembly: System.Reflection.AssemblyProductAttribute("MabeetApi")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MabeetApi")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

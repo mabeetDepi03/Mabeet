@@ -1,6 +1,8 @@
 ﻿using MabeetApi.DTOs.Admin;
 using MabeetApi.Services.Admin;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 
 namespace MabeetApi.Controllers.Admin
@@ -17,17 +19,27 @@ namespace MabeetApi.Controllers.Admin
         }
 
         // get : api/admin/users
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> GetAllUsers()
         {
+            var role = User.FindFirst(ClaimTypes.Role)?.Value;
+
+            if (role != "Admin")
+                return Forbid();
             var users = await _adminService.GetAllUsersAsync();
             return Ok(users);
         }
 
         // get : api/admin/users/{id}
+        [Authorize]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetUserById(string id)
         {
+            var role = User.FindFirst(ClaimTypes.Role)?.Value;
+
+            if (role != "Admin")
+                return Forbid();
             var user = await _adminService.GetUserByIdAsync(id);
             if (user == null) return NotFound();
 
@@ -35,9 +47,14 @@ namespace MabeetApi.Controllers.Admin
         }
 
         // change role : api/admin/users/changerole
+        [Authorize]
         [HttpPut("changerole")]
         public async Task<IActionResult> ChangeRole(ChangeUserRoleDto dto)
         {
+            var role = User.FindFirst(ClaimTypes.Role)?.Value;
+
+            if (role != "Admin")
+                return Forbid();
             var result = await _adminService.ChangeUserRoleAsync(dto);
             if (!result) return BadRequest("Cannot change role");
 
@@ -45,9 +62,14 @@ namespace MabeetApi.Controllers.Admin
         }
 
         // switch active/inactive : api/admin/users/toggle-status
+        [Authorize]
         [HttpPut("toggle-status")]
         public async Task<IActionResult> ToggleStatus(ToggleUserStatusDto dto)
         {
+            var role = User.FindFirst(ClaimTypes.Role)?.Value;
+
+            if (role != "Admin")
+                return Forbid();
             var result = await _adminService.ToggleUserStatusAsync(dto);
             if (!result) return BadRequest("Cannot update status");
 
@@ -55,9 +77,14 @@ namespace MabeetApi.Controllers.Admin
         }
 
         // delete : api/admin/users/{id}
+        [Authorize]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUser(string id)
         {
+            var role = User.FindFirst(ClaimTypes.Role)?.Value;
+
+            if (role != "Admin")
+                return Forbid();
             var result = await _adminService.DeleteUserAsync(id);
             if (!result) return BadRequest("Cannot delete user");
 

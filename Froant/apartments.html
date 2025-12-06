@@ -27,12 +27,12 @@
     <main class="flex-grow-1">
       <div class="page-header">
         <div class="container">
-          <h1 data-aos="fade-down">السكن الطلابي</h1>
+          <h1 data-aos="fade-down">الشقق السكنية</h1>
           <nav aria-label="breadcrumb" data-aos="fade-up">
             <ol class="breadcrumb justify-content-center">
               <li class="breadcrumb-item"><a href="index.html">الرئيسية</a></li>
               <li class="breadcrumb-item active" aria-current="page">
-                السكن الطلابي
+                الشقق السكنية
               </li>
             </ol>
           </nav>
@@ -74,10 +74,10 @@
         <div class="container">
           <div id="loading-spinner" class="text-center py-5">
             <div class="spinner-border text-primary" role="status"></div>
-            <p class="mt-2 text-muted">جاري البحث عن سكن مناسب...</p>
+            <p class="mt-2 text-muted">جاري البحث عن شقق سكنية مناسبة...</p>
           </div>
 
-          <div class="row g-4" id="student-container"></div>
+          <div class="row g-4" id="apartments-container"></div>
         </div>
       </section>
     </main>
@@ -92,13 +92,14 @@
     <script src="./js/auth.js"></script>
     <script src="./js/components.js"></script>
     <script src="./js/shared.js"></script>
-    <script src="./js/student-housing.js"></script>
+    <script src="./js/apartments.js"></script> 
 
     <script>
       AOS.init();
       function applyUnifiedFilter() {
         const cityId = document.getElementById("cityFilter").value;
-        loadStudentHousing(cityId ? { CityID: cityId } : {});
+        // 🟢 التعديل: استدعاء الدالة الصحيحة لملف apartments.js
+        loadApartments(cityId ? { CityID: cityId } : {});
       }
     </script>
   </body>

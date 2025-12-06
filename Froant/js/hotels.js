@@ -21,10 +21,12 @@ async function loadHotels(filters = {}) {
             CheckIN: filters.CheckIN || today.toISOString(),
             CheckOUT: filters.CheckOUT || tomorrow.toISOString(),
             AccommodationType: 'Hotel', 
+            // 🟢 التعديل: إضافة فلتر Status لضمان جلب الفنادق المعتمدة فقط من الإدارة
+            Status: 'Approved', 
             ...filters
         };
 
-        console.log("🔄 [API Request] جاري طلب البيانات من السيرفر...", params);
+        console.log("🔄 [API Request] جاري طلب الفنادق المعتمدة...", params);
 
         // 🟢 نطلب البيانات بدون إجبار تسجيل الدخول (false)
         const accommodations = await ApiService.get('/Availability/accommodations', params, false);

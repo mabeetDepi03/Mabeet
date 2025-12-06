@@ -21,10 +21,12 @@ async function loadStudentHousing(filters = {}) {
             CheckIN: filters.CheckIN || today.toISOString(),
             CheckOUT: filters.CheckOUT || tomorrow.toISOString(),
             AccommodationType: 'StudentHouse', // فلتر من السيرفر
+            // 🟢 التعديل: إضافة فلتر Status لضمان جلب السكن الطلابي المعتمد فقط من الإدارة
+            Status: 'Approved',
             ...filters
         };
 
-        console.log("🔄 [API Request] جاري طلب السكن الطلابي...", params);
+        console.log("🔄 [API Request] جاري طلب السكن الطلابي المعتمد...", params);
         
         // false: عشان ميطلبش تسجيل دخول
         const accommodations = await ApiService.get('/Availability/accommodations', params, false);
@@ -56,7 +58,7 @@ async function loadStudentHousing(filters = {}) {
             const id = house.accommodationID || house.AccommodationID;
             const name = house.accommodationName || house.AccommodationName;
 
-            // 1. السعر (جاي جاهز من الباك إند بعد التعديل)
+            // 1. السعر
             let price = house.pricePerNight || house.PricePerNight || 0;
             console.log(`💰 السعر المستلم: ${price}`);
 

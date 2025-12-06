@@ -21,10 +21,15 @@ async function loadApartments(filters = {}) {
             CheckIN: filters.CheckIN || today.toISOString(),
             CheckOUT: filters.CheckOUT || tomorrow.toISOString(),
             AccommodationType: 'LocalLoding', // اسم النوع في الباك إند
+
+            // 🟢 التعديل: إضافة فلتر Status لضمان جلب الشقق المعتمدة فقط من الإدارة
+            Status: 'Approved', 
+            
             ...filters
         };
 
-        console.log("🔄 [API Request] جاري طلب الشقق...", params);
+        console.log("🔄 [API Request] جاري طلب الشقق المعتمدة...", params);
+        // false: عشان ميطلبش تسجيل دخول
         const accommodations = await ApiService.get('/Availability/accommodations', params, false);
         console.log("📦 [API Response] الداتا الخام للشقق:", accommodations);
         
@@ -53,21 +58,21 @@ async function loadApartments(filters = {}) {
             const id = apt.accommodationID || apt.AccommodationID;
             const name = apt.accommodationName || apt.AccommodationName;
 
-            // السعر
+            // السعر (يُفترض وجوده في ListDto لـ LocalLoding)
             const price = apt.pricePerNight || apt.PricePerNight || 0;
             console.log(`💰 السعر: ${price}`);
 
             // الموقع (المنطقة + المدينة)
             const loc = apt.location || apt.Location || {};
             const region = apt.region || apt.Region || loc.region || loc.Region || "مصر";
-            const cityName = apt.cityName || apt.CityName || (loc.city ? (loc.city.cityName || loc.city.CityName) : "");
+            const cityName = apt.cityName || apt.cityName || (loc.city ? (loc.city.cityName || loc.city.CityName) : "");
             
             console.log(`📍 الموقع: ${region} - ${cityName}`);
             console.groupEnd();
 
             // الصورة
             const imgObj = (apt.images && apt.images.length > 0) ? apt.images[0] : null;
-            const imgUrl = ApiService.getImageUrl(imgObj ? (imgObj.imageUrl || imgObj.ImageUrl) : null);
+            const imgUrl = ApiService.getImageUrl(apt.mainImageUrl || apt.MainImageUrl || (imgObj ? (imgObj.imageUrl || imgObj.ImageUrl) : null));
 
             const priceDisplay = price > 0 
                 ? `<span class="fw-bold fs-5">${price}</span> <small>ج.م / ليلة</small>` 

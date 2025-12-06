@@ -30,37 +30,29 @@ function handleLogout() {
 }
 
 
-
+// اتعدل 
 async function fetchAdminData(route, method = 'GET', body = null) {
-    if (!window.IS_REAL_API && typeof mockFetch === 'function') { 
-        return mockFetch(route, method, body);
-    }
-
     const url = `${API_BASE_URL}${route}`;
-
+// دول 
+    const token = localStorage.getItem('userToken'); // 🔹 هنا ناخد التوكن
     const headers = {
         'Content-Type': 'application/json',
+        ...(token ? { 'Authorization': `Bearer ${token}` } : {}) // 🔹 لو فيه توكن، نضيفه
     };
 
-    const config = {
-        method: method,
-        headers: headers,
-    };
+    const config = { method, headers };
 
     if (body && (method === 'POST' || method === 'PUT' || method === 'PATCH')) {
         config.body = JSON.stringify(body);
     }
-    
+
     try {
         const response = await fetch(url, config);
-        
-        if (response.status === 204) {
-            return { success: true }; 
-        }
 
-        const contentType = response.headers.get("content-type");
+        if (response.status === 204) return { success: true };
+
         let data;
-
+        const contentType = response.headers.get("content-type");
         if (contentType && contentType.indexOf("application/json") !== -1) {
             data = await response.json();
         } else {
@@ -75,13 +67,13 @@ async function fetchAdminData(route, method = 'GET', body = null) {
         }
 
         return data;
-
     } catch (error) {
         console.error("Fetch Error:", error);
         Swal.fire('خطأ في الاتصال', 'فشل الاتصال بالخادم.', 'error');
         return null;
     }
 }
+
 
 
 async function loadDashboard() {

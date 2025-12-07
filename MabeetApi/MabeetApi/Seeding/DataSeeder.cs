@@ -559,7 +559,8 @@ namespace MabeetApi.Seeding
                             AppUserID = owner.Id,
                             LocationID = govLocations[i].LocationID,
                             StarsRate = random.Next(3, 6),
-                            Amenities = GetRandomAmenities(amenities, random, 4, 7)
+                            Amenities = GetRandomAmenities(amenities, random, 4, 7),
+                            IsApproved = true
                         };
 
                         hotels.Add(hotel);
@@ -599,7 +600,8 @@ namespace MabeetApi.Seeding
                             TotalGuests = random.Next(2, 8),
                             PricePerNight = random.Next(500, 3000),
                             IsAvailable = random.Next(0, 10) > 2, // 70% available
-                            Amenities = GetRandomAmenities(amenities, random, 3, 6)
+                            Amenities = GetRandomAmenities(amenities, random, 3, 6),
+                            IsApproved = true
                         };
 
                         localLodings.Add(apartment);
@@ -636,7 +638,8 @@ namespace MabeetApi.Seeding
                             Area = random.Next(300, 1000),
                             Floor = random.Next(1, 5),
                             TotalGuests = random.Next(20, 100),
-                            Amenities = GetRandomAmenities(amenities, random, 5, 8)
+                            Amenities = GetRandomAmenities(amenities, random, 5, 8),
+                            IsApproved = true
                         };
 
                         studentHouses.Add(studentHouse);
@@ -675,7 +678,8 @@ namespace MabeetApi.Seeding
                         RoomDescription = GetRoomDescription(roomType, hotel.AccommodationName),
                         PricePerNight = price,
                         IsAvailable = random.Next(0, 10) > 2, // 70% available
-                        AccommodationID = hotel.AccommodationID
+                        AccommodationID = hotel.AccommodationID 
+                        
                     };
 
                     hotelRooms.Add(hotelRoom);

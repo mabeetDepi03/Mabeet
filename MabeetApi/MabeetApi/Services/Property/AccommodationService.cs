@@ -47,8 +47,8 @@ namespace MabeetApi.Services.Property
 				"studenthouse" => new StudentHouse { AccommodationName = dto.AccommodationName, AccommodationDescription = dto.AccommodationDescription, AppUserID = hostId, LocationID = location.LocationID, Area = dto.Area ?? 0, Floor = dto.Floor ?? 1, TotalGuests = dto.TotalGuests ?? 1 },
 				_ => throw new ArgumentException("Invalid accommodation type")
 			};
-
-			_context.Accommodations.Add(accommodation);
+            accommodation.IsApproved = false;
+            _context.Accommodations.Add(accommodation);
 			await _context.SaveChangesAsync();
 
 			if (dto.AmenityIds != null && dto.AmenityIds.Any())
@@ -98,7 +98,7 @@ namespace MabeetApi.Services.Property
 				.Include(a => ((Hotel)a).HotelRooms)
 				// نحتاج لتضمين الغرف والأسرة لحساب السعر للسكن الطلابي
 				.Include(a => ((StudentHouse)a).StudentRooms).ThenInclude(sr => sr.Beds)
-				.Where(a => a.AppUserID == hostId)
+				.Where(a => a.AppUserID == hostId )
 				.ToListAsync();
 
 			var accommodationDtos = new List<AccommodationListDto>();

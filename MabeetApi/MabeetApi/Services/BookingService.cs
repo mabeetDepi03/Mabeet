@@ -86,7 +86,9 @@ namespace MabeetApi.Services
 				.Include(a => ((StudentHouse)a).StudentRooms).ThenInclude(sr => sr.Beds)
 				.AsQueryable();
 
-			if (dto.CityID.HasValue)
+            query = query.Where(a => a.IsApproved == true);
+
+            if (dto.CityID.HasValue)
 				query = query.Where(a => a.Location.CityID == dto.CityID);
 
 			if (!string.IsNullOrEmpty(dto.AccommodationType))

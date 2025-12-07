@@ -1,6 +1,10 @@
-
-
 document.addEventListener('DOMContentLoaded', () => {
+    // 💡 أولاً: جلب المدن وملء قائمة الاختيار (باستخدام البيانات الثابتة والمفلترة)
+    loadCities(); 
+    
+    // 🔍 ثانيًا: جلب كل العقارات وطباعتها في الكونسول (لا يزال يعمل إذا كان التوكين صحيحاً)
+    loadAllAccommodationsData(); 
+
     const urlParams = new URLSearchParams(window.location.search);
     const id = urlParams.get('id');
 
@@ -13,6 +17,72 @@ document.addEventListener('DOMContentLoaded', () => {
 
 let currentLocationId = 0; 
 let hasExistingUnits = false; 
+
+// 🆕 الدالة الجديدة لتحميل كل العقارات وطباعتها
+async function loadAllAccommodationsData() {
+    try {
+        const token = ApiService.getToken(); 
+        
+        if (!token) {
+            console.warn("⚠️ [Auth] لا يوجد توكين. لا يمكن جلب بيانات العقارات. يرجى تسجيل الدخول.");
+            return; 
+        }
+
+        console.log("%c🌐 [GET] جاري جلب كل بيانات العقارات...", "color: purple; font-weight: bold;");
+        
+        // استخدام GET /api/Accommodation لجلب كل العقارات
+        const response = await fetch(`${API_BASE_URL}/Accommodation`, {
+            headers: { 'Authorization': `Bearer ${token}` } 
+        }); 
+        
+        if (!response.ok) {
+            const errorText = await response.text();
+            throw new Error(`فشل في جلب كل العقارات. (رمز الحالة: ${response.status}. الرد من الخادم: ${errorText.substring(0, 100)})`);
+        }
+        
+        const allAccommodations = await response.json();
+        
+        console.log("📦 [API Response - All Accommodations] البيانات الخام الكاملة المستلمة:", allAccommodations);
+        
+        console.log(`✅ [Success] تم تحميل ${allAccommodations.length} عقار بنجاح.`);
+
+    } catch (error) {
+        console.error("❌ خطأ أثناء تحميل كل العقارات:", error);
+    }
+}
+
+
+// دالة جلب المدن (باستخدام البيانات الثابتة المفلترة)
+async function loadCities() {
+    try {
+        console.log("%c🏙️ [Local Data] جاري تحميل قائمة المحافظات المفلترة...", "color: orange; font-weight: bold;");
+        
+        // 🔴 البيانات الثابتة المفلترة التي طلبها المستخدم
+        const governorates = [
+            "سوهاج", "القاهرة", "الجيزة", "الإسكندرية", "المنوفية", "الإسماعيلية"
+        ];
+        
+        const citySelect = document.getElementById('cityId');
+        
+        citySelect.innerHTML = '<option value="" disabled selected>-- اختر المحافظة --</option>'; 
+        
+        // يتم استخدام اسم المحافظة كقيمة (Value) وكعرض (Text Content) مؤقتاً
+        governorates.forEach((city, index) => {
+            const option = document.createElement('option');
+            // 💡 استخدام (index + 1) كـ CityID مؤقت إذا كان يحتاجه السيرفر
+            option.value = index + 1; 
+            option.textContent = city;
+            citySelect.appendChild(option);
+        });
+        
+        console.log(`✅ [Success] تم تحميل ${governorates.length} محافظة بنجاح من بيانات ثابتة ومفلترة.`);
+
+    } catch (error) {
+        console.error("❌ خطأ أثناء تحميل المدن الثابتة:", error);
+        Swal.fire('خطأ', `تعذر بناء قائمة المدن.`, 'error');
+    }
+}
+
 
 async function loadAccommodationForEdit(id) {
     try {
@@ -42,7 +112,7 @@ async function loadAccommodationForEdit(id) {
                 break;
             }
         }
-        toggleUnitCount(); // إظهار خانة العدد المناسبة
+        window.toggleUnitCount(); // استدعاء الدالة كـ window.toggleUnitCount لتجنب خطأ undefined
 
         // 🟢 (مهم) حساب وعرض العدد الموجود حالياً في الداتا بيز
         // ده بيعرفنا الـ API راجعة بـ كام غرفة
@@ -120,7 +190,7 @@ document.getElementById('addForm').addEventListener('submit', async (e) => {
             region: document.getElementById('region').value,
             street: document.getElementById('street').value,
             cityName: document.getElementById('cityId').options[document.getElementById('cityId').selectedIndex].text,
-            governorateName: "مصر"
+            governorateName: document.getElementById('cityId').options[document.getElementById('cityId').selectedIndex].text // استخدام اسم المحافظة كـ governorateName
         },
         starsRate: 1, 
         area: 50, floor: 1, 
@@ -256,6 +326,3 @@ window.toggleUnitCount = function() {
         document.getElementById('unitCount').value = 1;
     }
 };
-
-
-

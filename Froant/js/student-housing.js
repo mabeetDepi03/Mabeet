@@ -13,34 +13,127 @@ async function loadStudentHousing(filters = {}) {
     if(container) container.innerHTML = '';
 
     try {
-        const today = new Date();
-        const tomorrow = new Date(today);
-        tomorrow.setDate(tomorrow.getDate() + 1);
+        // ⭐️ قراءة قيم الفلاتر من واجهة المستخدم
+        const checkInElement = document.getElementById('checkIn');
+        const checkOutElement = document.getElementById('checkOut');
+        const cityFilterElement = document.getElementById('cityFilter');
+        
+        const checkInValue = checkInElement ? checkInElement.value : new Date().toISOString().split('T')[0];
+        const checkOutValue = checkOutElement ? checkOutElement.value : new Date(new Date().setDate(new Date().getDate() + 1)).toISOString().split('T')[0];
+        const CheckIN = checkInValue ? new Date(checkInValue).toISOString() : new Date().toISOString();
+        const CheckOUT = checkOutValue ? new Date(checkOutValue).toISOString() : new Date(new Date().setDate(new Date().getDate() + 1)).toISOString();
 
+        const targetGovernorates = "سوهاج,القاهرة,الجيزة,الإسكندرية,المنوفية,الإسماعيلية";
+        const cityFilterValue = cityFilterElement ? cityFilterElement.value : '';
+        const governorateFilter = cityFilterValue || targetGovernorates;
+
+        // 🆕 جلب اسم المدينة الذي اختاره المستخدم من الـ Dropdown لفلترة النتائج محلياً
+        let selectedCityNameForClientFilter = '';
+        if (cityFilterElement && cityFilterValue) {
+            const selectedOption = cityFilterElement.options[cityFilterElement.selectedIndex];
+            selectedCityNameForClientFilter = selectedOption ? selectedOption.textContent : '';
+        }
+
+        // 1. تحديد بارامترات الطلب
         const params = {
-            CheckIN: filters.CheckIN || today.toISOString(),
-            CheckOUT: filters.CheckOUT || tomorrow.toISOString(),
-            AccommodationType: 'StudentHouse', // فلتر من السيرفر
-            // 🟢 التعديل: إضافة فلتر Status لضمان جلب السكن الطلابي المعتمد فقط من الإدارة
+            CheckIN: CheckIN,
+            CheckOUT: CheckOUT,
+            AccommodationType: 'StudentHouse', 
+            Governorate: governorateFilter, 
             Status: 'Approved',
             ...filters
         };
+        // تنظيف البارامترات المتعارضة
+        delete params.cityFilter;
+        delete params.CityID; 
+        delete params.CityName;
+        if (filters.CheckIN) params.CheckIN = filters.CheckIN;
+        if (filters.CheckOUT) params.CheckOUT = filters.CheckOUT;
+        if (filters.Governorate) params.Governorate = filters.Governorate;
 
-        console.log("🔄 [API Request] جاري طلب السكن الطلابي المعتمد...", params);
+        console.log("🔄 [API Request] جاري طلب السكن الطلابي المعتمد والمفلتر...", params);
         
-        // false: عشان ميطلبش تسجيل دخول
+        // جلب البيانات من API
         const accommodations = await ApiService.get('/Availability/accommodations', params, false);
         
         console.log("📦 [API Response] الداتا الخام:", accommodations);
 
+        // =================================================================
+        // 🌟 دالة مساعدة لاستخراج بيانات المدينة بدقة
+        // =================================================================
+        const mapCityData = (acc) => {
+            const loc = acc.location || acc.Location || {};
+            const governorateName = acc.region || acc.Region || loc.region || loc.Region;
+            let cityName = acc.cityName || acc.CityName;
+
+            // التعامل مع حقل city الذي قد يكون مصفوفة
+            if (!cityName && loc.city) {
+                let cityData = loc.city;
+                if (Array.isArray(cityData) && cityData.length > 0) {
+                    cityData = cityData[0];
+                }
+                if (cityData) {
+                    cityName = cityData.cityName || cityData.CityName;
+                }
+            }
+            return { 
+                governorateName, 
+                cityName: cityName || governorateName 
+            };
+        };
+
+        // =================================================================
+        // 1. ملء فلتر المدن من بيانات العقارات المسترجعة
+        // =================================================================
+        if (cityFilterElement) {
+            
+            const uniqueGovernorates = new Set();
+            const citiesMap = {}; 
+
+            accommodations.forEach(acc => {
+                const data = mapCityData(acc);
+                if (data.governorateName && !uniqueGovernorates.has(data.governorateName)) { 
+                    uniqueGovernorates.add(data.governorateName);
+                    citiesMap[data.governorateName] = data.cityName;
+                }
+            });
+
+            cityFilterElement.innerHTML = '<option value="">جميع المدن المتاحة</option>';
+            
+            Object.keys(citiesMap).sort().forEach(governorate => {
+                const option = document.createElement('option');
+                option.value = governorate; 
+                option.textContent = citiesMap[governorate]; 
+                
+                if (governorate === cityFilterValue) {
+                    option.selected = true;
+                }
+                cityFilterElement.appendChild(option);
+            });
+            console.log(`✅ [City Filter] تم تحديث الفلتر ليعرض ${Object.keys(citiesMap).length} مدينة من بيانات السكن الطلابي المتاح.`);
+        }
+        
+        // =================================================================
+
         if (!accommodations || accommodations.length === 0) {
             if(spinner) spinner.style.display = 'none';
-            container.innerHTML = '<div class="col-12 text-center"><div class="alert alert-info">لا يوجد سكن طلابي متاح حالياً.</div></div>';
+            container.innerHTML = '<div class="col-12 text-center"><div class="alert alert-info">لا يوجد سكن طلابي متاح حالياً أو مطابق للفلتر.</div></div>';
             return;
         }
 
-        // فلترة إضافية للتأكيد
-        const housing = accommodations.filter(acc => {
+        // 🚨 الخطوة الثانية: تطبيق فلترة إضافية على جانب العميل بناءً على اسم المدينة الظاهر
+        let filteredAccommodations = accommodations;
+
+        if (selectedCityNameForClientFilter && selectedCityNameForClientFilter !== 'جميع المدن المتاحة') {
+            filteredAccommodations = accommodations.filter(acc => {
+                const data = mapCityData(acc);
+                return data.cityName === selectedCityNameForClientFilter;
+            });
+            console.log(`✅ [Client Filter] تم تصفية النتائج إلى ${filteredAccommodations.length} نتيجة بناءً على المدينة: ${selectedCityNameForClientFilter}`);
+        }
+
+        // تطبيق فلترة النوع على النتائج المفلترة النهائية
+        const housing = filteredAccommodations.filter(acc => {
             const type = (acc.accommodationType || acc.AccommodationType || "").toLowerCase();
             return type.includes('student');
         });
@@ -48,21 +141,16 @@ async function loadStudentHousing(filters = {}) {
         if(spinner) spinner.style.display = 'none';
 
         if (housing.length === 0) {
-            container.innerHTML = '<div class="col-12 text-center"><div class="alert alert-info">لا يوجد سكن طلابي مطابق.</div></div>';
+            container.innerHTML = '<div class="col-12 text-center"><div class="alert alert-info">لا يوجد سكن طلابي مطابق للفلتر المحدد.</div></div>';
             return;
         }
 
+        container.innerHTML = '';
         housing.forEach((house, index) => {
-            console.group(`🎓 سكن طلابي ${index + 1}: ${house.accommodationName || house.AccommodationName}`);
-
             const id = house.accommodationID || house.AccommodationID;
             const name = house.accommodationName || house.AccommodationName;
-
-            // 1. السعر
             let price = house.pricePerNight || house.PricePerNight || 0;
-            console.log(`💰 السعر المستلم: ${price}`);
-
-            // 2. حساب عدد الأسرة بدقة (للعرض فقط)
+            
             let bedCount = 0;
             const rooms = house.studentRooms || house.StudentRooms || [];
             if (rooms.length > 0) {
@@ -71,14 +159,10 @@ async function loadStudentHousing(filters = {}) {
                     else if(r.Beds) bedCount += r.Beds.length;
                 });
             } else {
-                // لو مفيش غرف راجعة، نستخدم الرقم الإجمالي المخزن
                 bedCount = house.totalGuests || house.TotalGuests || 0;
             }
-            console.log(`🛏️ عدد الأسرة المحسوب: ${bedCount}`);
 
-            // لو السعر لسه 0 (داتا قديمة)، نحاول نطلعه من الأسرة
             if (price === 0 && rooms.length > 0) {
-                console.warn("⚠️ السعر 0، محاولة استخراجه من الأسرة...");
                 rooms.forEach(r => {
                     const beds = r.beds || r.Beds || [];
                     beds.forEach(b => {
@@ -88,16 +172,11 @@ async function loadStudentHousing(filters = {}) {
                 });
             }
 
-            console.groupEnd();
-
-            // الصورة
             const imgObj = (house.images && house.images.length > 0) ? house.images[0] : null;
-            const imgUrl = ApiService.getImageUrl(imgObj ? (imgObj.imageUrl || imgObj.ImageUrl) : null);
+            const imgUrl = ApiService.getImageUrl(house.mainImageUrl || house.MainImageUrl || (imgObj ? (imgObj.imageUrl || imgObj.ImageUrl) : null));
 
-            // الموقع (المنطقة ثم المدينة)
-            const loc = house.location || house.Location || {};
-            const region = house.region || house.Region || loc.region || loc.Region || "مصر";
-            const cityName = house.cityName || house.CityName || (loc.city ? (loc.city.cityName || loc.city.CityName) : "");
+            const data = mapCityData(house); // استخدام الدالة المستحدثة
+            const finalCityName = data.cityName; // اسم المدينة النهائي للعرض
             
             const priceDisplay = price > 0 
                 ? `<span class="fw-bold fs-5">${price}</span> <small>ج.م / سرير</small>` 
@@ -117,7 +196,7 @@ async function loadStudentHousing(filters = {}) {
                             <h5 class="card-title fw-bold text-dark mb-0 text-truncate">${name}</h5>
                             
                             <p class="text-muted small mb-2">
-                                <i class="fas fa-map-marker-alt text-primary me-1"></i> ${region} - ${cityName}
+                                <i class="fas fa-map-marker-alt text-primary me-1"></i> ${finalCityName}
                             </p>
 
                             <p class="text-muted small mb-3">
@@ -139,4 +218,7 @@ async function loadStudentHousing(filters = {}) {
         if(spinner) spinner.style.display = 'none'; 
         container.innerHTML = '<div class="alert alert-danger">حدث خطأ في الاتصال.</div>';
     }
+}
+window.applyUnifiedFilter = function() {
+    loadStudentHousing({}); 
 }

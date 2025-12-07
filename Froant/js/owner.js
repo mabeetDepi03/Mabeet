@@ -9,11 +9,6 @@ if (!token || role !== 'Owner') {
 
 async function fetchMyAccommodations() {
     const listContainer = document.getElementById('accommodationsList');
-    const token = localStorage.getItem('userToken'); // 🔹 هنا ناخد التوكن
-    const headers = {
-        'Content-Type': 'application/json',
-        ...(token ? { 'Authorization': `Bearer ${token}` } : {}) // 🔹 لو فيه توكن، نضيفه
-    };
     listContainer.innerHTML = '<div class="loading-spinner">جاري تحميل عقاراتك...</div>';
 
     try {
@@ -114,11 +109,6 @@ async function fetchMyAccommodations() {
 }
 
 async function fetchDetailsAndUpdateCount(id, type) {
-   const token = localStorage.getItem('userToken'); // 🔹 هنا ناخد التوكن
-    const headers = {
-        'Content-Type': 'application/json',
-        ...(token ? { 'Authorization': `Bearer ${token}` } : {}) // 🔹 لو فيه توكن، نضيفه
-    };
     try {
         const response = await fetch(`${API_BASE_URL}/Accommodation/${id}`, {
             method: 'GET',

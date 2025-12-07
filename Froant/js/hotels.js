@@ -13,7 +13,6 @@ async function loadHotels(filters = {}) {
     if(container) container.innerHTML = '';
 
     try {
-        // ⭐️ قراءة قيم الفلاتر من واجهة المستخدم
         const checkInElement = document.getElementById('checkIn');
         const checkOutElement = document.getElementById('checkOut');
         const cityFilterElement = document.getElementById('cityFilter');
@@ -24,18 +23,15 @@ async function loadHotels(filters = {}) {
         const CheckOUT = checkOutValue ? new Date(checkOutValue).toISOString() : new Date(new Date().setDate(new Date().getDate() + 1)).toISOString();
 
         const targetGovernorates = "سوهاج,القاهرة,الجيزة,الإسكندرية,المنوفية,الإسماعيلية";
-        
         const cityFilterValue = cityFilterElement ? cityFilterElement.value : '';
         const governorateFilter = cityFilterValue || targetGovernorates;
-        
-        // 🆕 جلب اسم المدينة الذي اختاره المستخدم من الـ Dropdown لفلترة النتائج محلياً
+
         let selectedCityNameForClientFilter = '';
         if (cityFilterElement && cityFilterValue) {
             const selectedOption = cityFilterElement.options[cityFilterElement.selectedIndex];
             selectedCityNameForClientFilter = selectedOption ? selectedOption.textContent : '';
         }
 
-        // 1. تحديد بارامترات الطلب
         const params = {
             CheckIN: CheckIN,
             CheckOUT: CheckOUT,
@@ -44,7 +40,6 @@ async function loadHotels(filters = {}) {
             Status: 'Approved', 
             ...filters
         };
-        // تنظيف البارامترات المتعارضة
         delete params.cityFilter;
         delete params.CityID; 
         delete params.CityName;
@@ -54,104 +49,83 @@ async function loadHotels(filters = {}) {
 
         console.log("🔄 [API Request] جاري طلب الفنادق المعتمدة والمفلترة...", params);
 
-        // جلب البيانات من API
         const accommodations = await ApiService.get('/Availability/accommodations', params, false);
-        
-        console.log("📦 [API Response] الداتا الخام اللي وصلت:", accommodations);
 
-        // =================================================================
-        // 🌟 دالة مساعدة لاستخراج بيانات المدينة بدقة
-        // =================================================================
+        // ========================================
+        // 🌟 دالة مساعدة لاستخراج المحافظة والمدينة بدقة
+        // ========================================
         const mapCityData = (acc) => {
             const loc = acc.location || acc.Location || {};
-            const governorateName = acc.region || acc.Region || loc.region || loc.Region;
-            let cityName = acc.cityName || acc.CityName;
 
-            // التعامل مع حقل city الذي قد يكون مصفوفة
-            if (!cityName && loc.city) {
-                let cityData = loc.city;
-                if (Array.isArray(cityData) && cityData.length > 0) {
-                    cityData = cityData[0];
-                }
-                if (cityData) {
-                    cityName = cityData.cityName || cityData.CityName;
-                }
-            }
-            return { 
-                governorateName, 
-                cityName: cityName || governorateName 
-            };
+            const governorateName =
+                loc.city?.governorateName ||
+                loc.GovernorateName ||
+                loc.region || 
+                acc.region ||
+                'غير محدد';
+
+            const cityName =
+                loc.city?.cityName ||
+                loc.CityName ||
+                acc.cityName ||
+                acc.City ||
+                governorateName;
+
+            return { governorateName, cityName };
         };
 
-
-        // =================================================================
-        // 1. ملء فلتر المدن من بيانات العقارات المسترجعة
-        // =================================================================
+        // ========================================
+        // ملء فلتر المدن
+        // ========================================
         if (cityFilterElement) {
-            
-            const uniqueGovernorates = new Set();
-            const citiesMap = {}; 
-
+            const citiesMap = {};
             accommodations.forEach(acc => {
                 const data = mapCityData(acc);
-                if (data.governorateName && !uniqueGovernorates.has(data.governorateName)) { 
-                    uniqueGovernorates.add(data.governorateName);
-                    citiesMap[data.governorateName] = data.cityName;
+                if (data.cityName && !citiesMap[data.cityName]) {
+                    citiesMap[data.cityName] = data.cityName;
                 }
             });
 
             cityFilterElement.innerHTML = '<option value="">جميع المدن المتاحة</option>';
-            
-            Object.keys(citiesMap).sort().forEach(governorate => {
+            Object.keys(citiesMap).sort().forEach(city => {
                 const option = document.createElement('option');
-                option.value = governorate; 
-                option.textContent = citiesMap[governorate]; 
-                
-                if (governorate === cityFilterValue) {
-                    option.selected = true;
-                }
+                option.value = city; 
+                option.textContent = citiesMap[city]; 
+                if (city === selectedCityNameForClientFilter) option.selected = true;
                 cityFilterElement.appendChild(option);
             });
-            console.log(`✅ [City Filter] تم تحديث الفلتر ليعرض ${Object.keys(citiesMap).length} مدينة من بيانات الفنادق المتاحة.`);
         }
-        
-        // =================================================================
 
         if (!accommodations || accommodations.length === 0) {
-            console.warn("⚠️ السيرفر رجع مصفوفة فاضية!");
             if(spinner) spinner.style.display = 'none';
             container.innerHTML = '<div class="col-12 text-center"><div class="alert alert-info">لا توجد فنادق متاحة حالياً أو مطابقة للفلتر.</div></div>';
             return;
         }
 
-        // 🚨 الخطوة الثانية: تطبيق فلترة إضافية على جانب العميل بناءً على اسم المدينة الظاهر
+        // ========================================
+        // فلترة حسب المدينة على جانب العميل
+        // ========================================
         let filteredAccommodations = accommodations;
-
         if (selectedCityNameForClientFilter && selectedCityNameForClientFilter !== 'جميع المدن المتاحة') {
             filteredAccommodations = accommodations.filter(acc => {
                 const data = mapCityData(acc);
                 return data.cityName === selectedCityNameForClientFilter;
             });
-            console.log(`✅ [Client Filter] تم تصفية النتائج إلى ${filteredAccommodations.length} نتيجة بناءً على المدينة: ${selectedCityNameForClientFilter}`);
         }
 
-        // تطبيق فلترة النوع على النتائج المفلترة النهائية
         const hotels = filteredAccommodations.filter(acc => {
             const type = (acc.accommodationType || acc.AccommodationType || "").toLowerCase();
             return type.includes('hotel');
         });
 
-        console.log(`✅ [Filter] عدد الفنادق بعد الفلترة: ${hotels.length}`);
-
         if(spinner) spinner.style.display = 'none';
-        
         if (hotels.length === 0) {
             container.innerHTML = '<div class="col-12 text-center"><div class="alert alert-info">لا توجد فنادق مطابقة للفلتر المحدد.</div></div>';
             return;
         }
 
         container.innerHTML = '';
-        hotels.forEach((hotel, index) => {
+        hotels.forEach((hotel) => {
             const id = hotel.accommodationID || hotel.AccommodationID;
             const name = hotel.accommodationName || hotel.AccommodationName;
             let finalPrice = hotel.pricePerNight || hotel.PricePerNight || 0;
@@ -159,9 +133,7 @@ async function loadHotels(filters = {}) {
 
             if (finalPrice === 0 && rooms.length > 0) {
                 const prices = rooms.map(r => r.pricePerNight || r.PricePerNight).filter(p => p > 0);
-                if (prices.length > 0) {
-                    finalPrice = Math.min(...prices);
-                }
+                if (prices.length > 0) finalPrice = Math.min(...prices);
             }
 
             const imgObj = (hotel.images && hotel.images.length > 0) ? hotel.images[0] : null;
@@ -171,9 +143,7 @@ async function loadHotels(filters = {}) {
                 ? `<span class="fw-bold fs-5">${finalPrice}</span> <small>ج.م / ليلة</small>` 
                 : '<span class="text-muted small">السعر حسب الغرفة</span>';
 
-            const data = mapCityData(hotel); // استخدام الدالة المستحدثة
-            const finalCityName = data.cityName; // اسم المدينة النهائي للعرض
-            
+            const finalCityName = mapCityData(hotel).cityName;
             const detailsLink = `property-details.html?id=${id}&checkIn=${params.CheckIN}&checkOut=${params.CheckOUT}`;
 
             container.innerHTML += `
@@ -189,7 +159,6 @@ async function loadHotels(filters = {}) {
                             <p class="text-muted small mb-2">
                                 <i class="fas fa-map-marker-alt text-primary me-1"></i> ${finalCityName}
                             </p>
-                            
                             <div class="d-flex justify-content-between align-items-center pt-3 border-top">
                                 <span class="text-primary">${priceDisplay}</span>
                                 <a href="${detailsLink}" class="btn btn-outline-primary btn-sm rounded-pill px-4">التفاصيل</a>
@@ -205,6 +174,7 @@ async function loadHotels(filters = {}) {
         container.innerHTML = '<div class="alert alert-danger">حدث خطأ في الاتصال.</div>';
     }
 }
+
 window.applyUnifiedFilter = function() {
     loadHotels({}); 
 }

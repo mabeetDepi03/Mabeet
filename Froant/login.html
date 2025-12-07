@@ -111,7 +111,7 @@
             Swal.fire({ title: 'جاري التحقق...', didOpen: () => Swal.showLoading() });
 
             const result = await MabeetAuth.login(email, password);
-
+            
             if (result.success) {
                  const redirect = localStorage.getItem('redirectAfterLogin');
                 Swal.fire({ icon: 'success', title: 'تم الدخول بنجاح!', timer: 1500, showConfirmButton: false }).then(() => {

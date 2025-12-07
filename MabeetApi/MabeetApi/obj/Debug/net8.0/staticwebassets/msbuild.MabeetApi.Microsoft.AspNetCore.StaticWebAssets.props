@@ -1,5 +1,23 @@
 ﻿<Project>
   <ItemGroup>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\accommodations\17f292bf-7885-4a3a-acf8-0b647bbf6404.jpeg'))">
+      <SourceType>Package</SourceType>
+      <SourceId>MabeetApi</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/MabeetApi</BasePath>
+      <RelativePath>uploads/accommodations/17f292bf-7885-4a3a-acf8-0b647bbf6404.jpeg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>xzu3yg8huj</Fingerprint>
+      <Integrity>U942iIYvmRuT1yxPJT/NIzCHhRT26yXGAZM6C4Uudoc=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\accommodations\17f292bf-7885-4a3a-acf8-0b647bbf6404.jpeg'))</OriginalItemSpec>
+    </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\accommodations\1958f03a-989e-4649-b6eb-bd78dda7dd76.jpeg'))">
       <SourceType>Package</SourceType>
       <SourceId>MabeetApi</SourceId>
@@ -53,6 +71,24 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\accommodations\8d0d7a0e-8c0b-40d4-9d61-0c79b31677ab.png'))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\accommodations\b8629d91-c3a9-4bd2-a6e9-62c2684124ac.jpg'))">
+      <SourceType>Package</SourceType>
+      <SourceId>MabeetApi</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/MabeetApi</BasePath>
+      <RelativePath>uploads/accommodations/b8629d91-c3a9-4bd2-a6e9-62c2684124ac.jpg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>g3jvfhs12l</Fingerprint>
+      <Integrity>lDo6a79j39XQYAk8ewTMJZVcWMmDExLfo22BhY42Z8U=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\accommodations\b8629d91-c3a9-4bd2-a6e9-62c2684124ac.jpg'))</OriginalItemSpec>
     </StaticWebAsset>
   </ItemGroup>
 </Project>

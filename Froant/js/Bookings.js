@@ -17,7 +17,9 @@ async function loadUserBookings() {
     }
 
     // استخراج معرف المستخدم (UserId) من التوكن
-    let userId = null;
+    const user = JSON.parse(localStorage.getItem('userData'));
+    let userId = user.useId
+    console.log(userId)
     try {
         const base64Url = token.split('.')[1];
         const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');

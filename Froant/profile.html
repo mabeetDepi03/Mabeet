@@ -98,7 +98,7 @@
         }
 
         document.addEventListener('DOMContentLoaded', async () => {
-            await loadBookings();
+            loadBookings();
             loadUserInfo();
         });
 
@@ -123,99 +123,119 @@
         
         async function loadUserInfo() {
             // يتم تخزين الاسم والبريد الإلكتروني في localStorage عند تسجيل الدخول
-            const user = JSON.parse(localStorage.getItem('currentUser'));
+            const user = JSON.parse(localStorage.getItem('userData'));
             if (user) {
-                document.getElementById('userName').innerText = user.name || 'مستخدم غير معروف';
+                document.getElementById('userName').innerText = user.firstName || 'مستخدم غير معروف';
                 document.getElementById('userEmail').innerText = user.email || 'لا يوجد بريد إلكتروني';
             }
         }
 
-        async function loadBookings() {
-            const container = document.getElementById('bookings-container');
-            const spinner = document.getElementById('loading-spinner');
-            if(spinner) spinner.style.display = 'block';
-            container.innerHTML = ''; 
+async function loadBookings() {
+    const container = document.getElementById('bookings-container');
+    const spinner = document.getElementById('loading-spinner');
+    if(spinner) spinner.style.display = 'block';
+    container.innerHTML = ''; 
 
+    try {
+        const token = ApiService.getToken();
+        const userId = JSON.parse(localStorage.getItem('userData')).id;
+        console.log(userId);
+        
+        if (!userId || !token) {
+            throw new Error("بيانات المستخدم مفقودة");
+        }
+        
+        const response = await fetch(`${API_BASE_URL}/Bookings/user/${userId}`, {
+            headers: { 'Authorization': `Bearer ${token}` }
+        });
+        console.log(response)
+        if (!response.ok) {
+            // إنشاء نسخة من الـ Response لقراءة رسالة الخطأ
+            const responseClone = response.clone();
+            let errorMessage = "فشل جلب الحجوزات من السيرفر.";
+            
             try {
-                const token = ApiService.getToken();
-                const userId = JSON.parse(localStorage.getItem('currentUser')).id;
-                
-                if (!userId || !token) {
-                    throw new Error("بيانات المستخدم مفقودة");
-                }
-                
-                const response = await fetch(`${API_BASE_URL}/Users/${userId}/bookings`, {
-                    headers: { 'Authorization': `Bearer ${token}` }
-                });
-
-                if (!response.ok) {
-                     const errorData = await response.json().catch(() => ({}));
-                     throw new Error(errorData.message || "فشل جلب الحجوزات من السيرفر.");
-                }
-
-                const bookings = await response.json();
-
-                // ⭐️ التعديل: تخزين البيانات الكاملة في المتغير العالمي لاستخدامها لاحقاً
-                allBookingsData = bookings; 
-
-                if(spinner) spinner.style.display = 'none';
-
-                if (bookings.length === 0) {
-                    container.innerHTML = '<div class="col-12 alert alert-info text-center">لا توجد حجوزات حتى الآن.</div>';
-                    return;
-                }
-                
-                bookings.forEach(b => {
-                    const statusClass = `status-${b.status}`;
-                    const statusText = b.status === 'Pending' ? 'معلق' : b.status === 'Confirmed' ? 'مؤكد' : 'ملغى';
-                    const paymentStatusText = b.paymentStatus === 'Pending' ? 'الدفع معلق' : 'تم الدفع';
-                    
-                    const card = `
-                        <div class="col-md-6">
-                            <div class="booking-card bg-white p-3">
-                                <img src="${ApiService.getImageUrl(b.imagePath)}" class="booking-image" 
-                                     alt="${b.accommodationName || 'حجز'}" 
-                                     onerror="this.src='https://placehold.co/600x150?text=Mabeet'">
-                                <div class="card-body p-0 pt-3">
-                                    <h5 class="fw-bold">${b.accommodationName || 'وحدة سكنية'}</h5>
-                                    <p class="text-muted small mb-1">
-                                        <i class="fas fa-calendar-alt text-primary me-1"></i> ${new Date(b.checkIN).toLocaleDateString()} إلى ${new Date(b.checkOUT).toLocaleDateString()}
-                                    </p>
-                                    <p class="text-muted small mb-3">
-                                        <i class="fas fa-map-marker-alt text-secondary me-1"></i> ${b.locationName}
-                                    </p>
-                                </div>
-                                
-                                <div class="d-flex justify-content-between align-items-center pt-3 border-top">
-                                    <div>
-                                        <span class="status-badge ${statusClass} me-2">${statusText}</span>
-                                        <span class="status-badge ${b.paymentStatus === 'Pending' ? 'status-Pending' : 'status-Confirmed'}">${paymentStatusText}</span>
-                                    </div>
-                                    <div class="d-flex align-items-center">
-                                        <span class="fw-bold me-3">${b.totalPrice} ج.م</span>
-                                        
-                                        ${b.paymentStatus === 'Pending' ? 
-                                            `<button onclick="storeAndRedirectForPayment(${b.bookingID})" class="btn btn-sm btn-primary me-2">ادفع الآن</button>` 
-                                            : ''}
-
-                                        ${b.status === 'Pending' ? 
-                                            `<button onclick="cancelBooking(${b.bookingID})" class="btn btn-sm btn-outline-danger">إلغاء</button>` 
-                                            : ''}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                    container.innerHTML += card;
-                });
-
+                const errorData = await responseClone.json();
+                errorMessage = errorData.message || errorMessage;
             } catch (e) {
-                console.error(e);
-                if(spinner) spinner.style.display = 'none';
-                container.innerHTML = '<div class="alert alert-danger">حدث خطأ أثناء تحميل الحجوزات: ' + e.message + '</div>';
+                // إذا لم تكن البيانات JSON، استخدام نص الـ Response
+                const textError = await responseClone.text();
+                if (textError) errorMessage = textError;
             }
+            
+            throw new Error(errorMessage);
         }
 
+        const bookings = await response.json();
+
+        // ⭐️ تخزين البيانات الكاملة في المتغير العالمي
+        allBookingsData = bookings; 
+
+        if(spinner) spinner.style.display = 'none';
+
+        if (bookings.length === 0) {
+            container.innerHTML = '<div class="col-12 alert alert-info text-center">لا توجد حجوزات حتى الآن.</div>';
+            return;
+        }
+        
+        // إنشاء عناصر الحجوزات
+        bookings.forEach(b => {
+            const statusClass = `status-${b.status}`;
+            const statusText = b.status === 'Pending' ? 'معلق' : 
+                              b.status === 'Confirmed' ? 'مؤكد' : 
+                              'ملغى';
+            const paymentStatusText = b.paymentStatus === 'Pending' ? 'الدفع معلق' : 'تم الدفع';
+            
+            const card = `
+                <div class="col-md-6">
+                    <div class="booking-card bg-white p-3">
+                        <img src="${ApiService.getImageUrl(b.imagePath)}" class="booking-image" 
+                             alt="${b.accommodationName || 'حجز'}" 
+                             onerror="this.src='https://placehold.co/600x150?text=Mabeet'">
+                        <div class="card-body p-0 pt-3">
+                            <h5 class="fw-bold">${b.accommodationName || 'وحدة سكنية'}</h5>
+                            <p class="text-muted small mb-1">
+                                <i class="fas fa-calendar-alt text-primary me-1"></i> ${new Date(b.checkIN).toLocaleDateString()} إلى ${new Date(b.checkOUT).toLocaleDateString()}
+                            </p>
+                            <p class="text-muted small mb-3">
+                                <i class="fas fa-map-marker-alt text-secondary me-1"></i> ${b.locationName}
+                            </p>
+                        </div>
+                        
+                        <div class="d-flex justify-content-between align-items-center pt-3 border-top">
+                            <div>
+                                <span class="status-badge ${statusClass} me-2">${statusText}</span>
+                                <span class="status-badge ${b.paymentStatus === 'Pending' ? 'status-Pending' : 'status-Confirmed'}">${paymentStatusText}</span>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <span class="fw-bold me-3">${b.totalPrice} ج.م</span>
+                                
+                                ${b.paymentStatus === 'Pending' ? 
+                                    `<button onclick="storeAndRedirectForPayment(${b.bookingID})" class="btn btn-sm btn-primary me-2">ادفع الآن</button>` 
+                                    : ''}
+
+                                ${b.status === 'Pending' ? 
+                                    `<button onclick="cancelBooking(${b.bookingID})" class="btn btn-sm btn-outline-danger">إلغاء</button>` 
+                                    : ''}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            container.innerHTML += card;
+        });
+
+    } catch (e) {
+        console.log("خطأ في تحميل الحجوزات:", e);
+        if(spinner) spinner.style.display = 'none';
+        container.innerHTML = `
+            <div class="col-12 alert alert-danger text-center">
+                <i class="fas fa-exclamation-triangle me-2"></i>
+                حدث خطأ أثناء تحميل الحجوزات: ${e.message}
+            </div>
+        `;
+    }
+}
         async function cancelBooking(id) {
             if(await Swal.fire({title:'هل أنت متأكد؟', text:'سيتم إلغاء الحجز.', icon:'warning', showCancelButton:true}).then(r => r.isConfirmed)){
                 try {

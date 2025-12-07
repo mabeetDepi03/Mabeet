@@ -1,5 +1,17 @@
 ﻿<Project>
   <ItemGroup>
+    <StaticWebAssetEndpoint Include="_content/MabeetApi/uploads/accommodations/17f292bf-7885-4a3a-acf8-0b647bbf6404.jpeg">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\accommodations\17f292bf-7885-4a3a-acf8-0b647bbf6404.jpeg'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-U942iIYvmRuT1yxPJT/NIzCHhRT26yXGAZM6C4Uudoc="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=3600, must-revalidate"},{"Name":"Content-Length","Value":"9578"},{"Name":"Content-Type","Value":"image/jpeg"},{"Name":"ETag","Value":"\u0022U942iIYvmRuT1yxPJT/NIzCHhRT26yXGAZM6C4Uudoc=\u0022"},{"Name":"Last-Modified","Value":"Sun, 07 Dec 2025 14:03:57 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/MabeetApi/uploads/accommodations/17f292bf-7885-4a3a-acf8-0b647bbf6404.xzu3yg8huj.jpeg">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\accommodations\17f292bf-7885-4a3a-acf8-0b647bbf6404.jpeg'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"xzu3yg8huj"},{"Name":"integrity","Value":"sha256-U942iIYvmRuT1yxPJT/NIzCHhRT26yXGAZM6C4Uudoc="},{"Name":"label","Value":"_content/MabeetApi/uploads/accommodations/17f292bf-7885-4a3a-acf8-0b647bbf6404.jpeg"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"9578"},{"Name":"Content-Type","Value":"image/jpeg"},{"Name":"ETag","Value":"\u0022U942iIYvmRuT1yxPJT/NIzCHhRT26yXGAZM6C4Uudoc=\u0022"},{"Name":"Last-Modified","Value":"Sun, 07 Dec 2025 14:03:57 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/MabeetApi/uploads/accommodations/1958f03a-989e-4649-b6eb-bd78dda7dd76.jpeg">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\accommodations\1958f03a-989e-4649-b6eb-bd78dda7dd76.jpeg'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
@@ -35,6 +47,18 @@
       <Selectors><![CDATA[[]]]></Selectors>
       <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-Dqy2Y7/q8t4\u002B1SSGs0S7Ty\u002BNSGJ//VKeuEmZjMlk7FM="}]]]></EndpointProperties>
       <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=3600, must-revalidate"},{"Name":"Content-Length","Value":"454339"},{"Name":"Content-Type","Value":"image/png"},{"Name":"ETag","Value":"\u0022Dqy2Y7/q8t4\u002B1SSGs0S7Ty\u002BNSGJ//VKeuEmZjMlk7FM=\u0022"},{"Name":"Last-Modified","Value":"Sat, 06 Dec 2025 21:21:33 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/MabeetApi/uploads/accommodations/b8629d91-c3a9-4bd2-a6e9-62c2684124ac.g3jvfhs12l.jpg">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\accommodations\b8629d91-c3a9-4bd2-a6e9-62c2684124ac.jpg'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"g3jvfhs12l"},{"Name":"integrity","Value":"sha256-lDo6a79j39XQYAk8ewTMJZVcWMmDExLfo22BhY42Z8U="},{"Name":"label","Value":"_content/MabeetApi/uploads/accommodations/b8629d91-c3a9-4bd2-a6e9-62c2684124ac.jpg"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"96905"},{"Name":"Content-Type","Value":"image/jpeg"},{"Name":"ETag","Value":"\u0022lDo6a79j39XQYAk8ewTMJZVcWMmDExLfo22BhY42Z8U=\u0022"},{"Name":"Last-Modified","Value":"Sun, 07 Dec 2025 14:31:22 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/MabeetApi/uploads/accommodations/b8629d91-c3a9-4bd2-a6e9-62c2684124ac.jpg">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\accommodations\b8629d91-c3a9-4bd2-a6e9-62c2684124ac.jpg'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-lDo6a79j39XQYAk8ewTMJZVcWMmDExLfo22BhY42Z8U="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=3600, must-revalidate"},{"Name":"Content-Length","Value":"96905"},{"Name":"Content-Type","Value":"image/jpeg"},{"Name":"ETag","Value":"\u0022lDo6a79j39XQYAk8ewTMJZVcWMmDExLfo22BhY42Z8U=\u0022"},{"Name":"Last-Modified","Value":"Sun, 07 Dec 2025 14:31:22 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
   </ItemGroup>
 </Project>
